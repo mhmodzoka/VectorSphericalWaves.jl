@@ -1,0 +1,10 @@
+name = "VectorSphericalWaves"
+uuid = "bf4a7d2c-6958-4c00-8946-baf74e22a0dc"
+authors = ["melzouka "]
+version = "0.1.0"
+
+[deps]
+DataStructures = "864edb3b-99cc-5e75-8d2d-829cb0a9cfe8"
+SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
+StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
+WignerD = "87c4ff3e-34df-11e9-37a7-516cea4e0402"
