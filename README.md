@@ -6,5 +6,3 @@ Mishchenko, M.I., Travis, L.D., and Lacis, A.A. (2002). Scattering, absorption, 
 
 # installation
 open an interactive julia session
-
-git config --global user.email "mhmodzoka@gmail.com"
