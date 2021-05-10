@@ -91,22 +91,21 @@ function wignerdjmn_ELZOUKA(s, m, n, θ)
     
     return d
 end
+wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff
+# wignerdjmn = WignerD.wignerdjmn
 
-# wignerdjmn = wignerdjmn_ELZOUKA
-
-# derivarive of wigner-D
-
+# derivative of wigner-D
 function ∂wignerdjmn_by_∂θ(s, m, n, θ; numerical_derivative=false, verysmallnumber=1e-30)
     """
     derivative of wigner-d with resepect to θ. Adopted from eq. B.25 from Mishchenko, M.I., Travis, L.D., and Lacis, A.A. (2002). Scattering, absorption, and emission of light by small particles (Cambridge University Press).
     """    
     if numerical_derivative
-        return (WignerD.wignerdjmn(s, m, n, θ + verysmallnumber) - WignerD.wignerdjmn(s, m, n, θ - verysmallnumber)) / (verysmallnumber * 2)
+        return (wignerdjmn(s, m, n, θ + verysmallnumber) - wignerdjmn(s, m, n, θ - verysmallnumber)) / (verysmallnumber * 2)
     else
         # try
-        return    (m - n * cos(θ)) / sin(θ) * WignerD.wignerdjmn(s, m, n, θ) + sqrt((s + n) * (s - n + 1)) * WignerD.wignerdjmn(s, m, n - 1, θ)
+        return    (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) + sqrt((s + n) * (s - n + 1)) * wignerdjmn(s, m, n - 1, θ)
         # catch
-        #    return -1 * (m - n * cos(θ)) / sin(θ) * WignerD.wignerdjmn(s, m, n, θ) - sqrt((s - n) * (s + n + 1)) * WignerD.wignerdjmn(s, m, n + 1, θ)
+        #    return -1 * (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) - sqrt((s - n) * (s + n + 1)) * wignerdjmn(s, m, n + 1, θ)
         # end
     end
 end
@@ -116,7 +115,7 @@ end
 #############################################################################################
 # calculate π(θ) and τ(θ)
 function πₘₙ(m, n, θ)
-    return m / sin(θ) * WignerD.wignerdjmn(n, 0, m, θ)
+    return m / sin(θ) * wignerdjmn(n, 0, m, θ)
 end
 
 function τₘₙ(m, n, θ)
@@ -152,7 +151,7 @@ end
 # TODO use partial application for M,N, fold them into the type sig of struct P
 function P_mn_of_θ(m, n, θ)
     return vcat(
-        WignerD.wignerdjmn(n, 0, m, θ), # r-component
+        wignerdjmn(n, 0, m, θ), # r-component
         0,                      # θ-component
         0,                      # ϕ-component      
     ) # equation C.21
