@@ -4,7 +4,7 @@ Julia code to calculate vector spherical waves (M and N), which are solutions fo
 Equations and convention for vector spherical waves is following:
 Mishchenko, M.I., Travis, L.D., and Lacis, A.A. (2002). Scattering, absorption, and emission of light by small particles (Cambridge University Press).
 
-# installation
+# Installation
 This is not a registered package yet.
 For now, you can install it by opening an interactive julia session, and type the following command:
 
