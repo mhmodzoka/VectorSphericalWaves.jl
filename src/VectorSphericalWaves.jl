@@ -19,8 +19,8 @@ module VectorSphericalWaves
 #############################################################################################
 # import "WignerD.jl" code to calculate wigner-d (https://github.com/jishnub/WignerD.jl)
 # [TODO] I have already installed "WignerD" package using the following commands: # include("WignerD.jl/src/WignerD.jl") ;  import Pkg; Pkg.add("WignerD")
-#include("WignerD.jl/src/WignerD.jl")
-#using .WignerD
+# include("WignerD.jl/src/WignerD.jl")
+# using .WignerD
 
 
 using SpecialFunctions
@@ -52,21 +52,21 @@ export B_C_P_mn_of_θ_ϕ_for_all_m_n
 
 export wignerdjmn_ELZOUKA
 
-#export wignerdjmn
+# export wignerdjmn
 export ∂wignerdjmn_by_∂θ
 export single_index_from_m_n
 export get_max_single_index_from_n_max
 export πₘₙ_τₘₙ_all_all_m_n
 
 #############################################################################################
-δ(x,y) = ==(x,y)
+δ(x,y) = ==(x, y)
 
-function single_index_from_m_n(m,n)
-    return n*(n + 1) + m
+function single_index_from_m_n(m, n)
+    return n * (n + 1) + m
 end
 
 function get_max_single_index_from_n_max(n_max)
-    return single_index_from_m_n(n_max,n_max)
+    return single_index_from_m_n(n_max, n_max)
 end
 
 # Wigner-d
@@ -74,41 +74,40 @@ end
 Wigner-d function calculated from eq. B.1
 """
 function wignerdjmn_ELZOUKA(s, m, n, θ)
-    #println("s=$s, m=$m, n=$n, θ=$θ")
+    # println("s=$s, m=$m, n=$n, θ=$θ")
     if θ == 0
-        d = δ(m,n)
+        d = δ(m, n)
     elseif θ == π
-        d = (-1)^(s-n) * δ(-n,m)
+        d = (-1)^(s - n) * δ(-n, m)
     else
         d = 0
-        for k in max(0, m-n):min(s+m, s-n)
+        for k in max(0, m - n):min(s + m, s - n)
             d += (-1)^k * 
-                    (cos(θ/2)^(2s-2k+m-n) * sin(θ/2)^(2k-m+n)) / 
-                    (factorial(k) * factorial(s+m-k) * factorial(s-n-k) * factorial(n-m+k))
+                    (cos(θ / 2)^(2s - 2k + m - n) * sin(θ / 2)^(2k - m + n)) / 
+                    (factorial(k) * factorial(s + m - k) * factorial(s - n - k) * factorial(n - m + k))
         end
-        d *= sqrt(factorial(s+m) * factorial(s-m) * factorial(s+n) * factorial(s-n))
+        d *= sqrt(factorial(s + m) * factorial(s - m) * factorial(s + n) * factorial(s - n))
     end
     
     return d
 end
 
-#wignerdjmn = wignerdjmn_ELZOUKA
+# wignerdjmn = wignerdjmn_ELZOUKA
 
 # derivarive of wigner-D
 
-function ∂wignerdjmn_by_∂θ(s, m, n, θ; numerical_derivative = false)
+function ∂wignerdjmn_by_∂θ(s, m, n, θ; numerical_derivative=false, verysmallnumber=1e-30)
     """
     derivative of wigner-d with resepect to θ. Adopted from eq. B.25 from Mishchenko, M.I., Travis, L.D., and Lacis, A.A. (2002). Scattering, absorption, and emission of light by small particles (Cambridge University Press).
-    """
-    eee = 1e-30
+    """    
     if numerical_derivative
-        return (WignerD.wignerdjmn(s,m,n,θ+eee) - WignerD.wignerdjmn(s,m,n,θ-eee))/(eee*2)
+        return (WignerD.wignerdjmn(s, m, n, θ + verysmallnumber) - WignerD.wignerdjmn(s, m, n, θ - verysmallnumber)) / (verysmallnumber * 2)
     else
-        try
-            return    (m - n * cos(θ)) / sin(θ) * WignerD.wignerdjmn(s, m, n, θ) + sqrt((s + n) * (s - n + 1)) * WignerD.wignerdjmn(s, m, n - 1, θ)
-        catch
-            return -1*(m - n * cos(θ)) / sin(θ) * WignerD.wignerdjmn(s, m, n, θ) - sqrt((s - n) * (s + n + 1)) * WignerD.wignerdjmn(s, m, n + 1, θ)
-        end
+        # try
+        return    (m - n * cos(θ)) / sin(θ) * WignerD.wignerdjmn(s, m, n, θ) + sqrt((s + n) * (s - n + 1)) * WignerD.wignerdjmn(s, m, n - 1, θ)
+        # catch
+        #    return -1 * (m - n * cos(θ)) / sin(θ) * WignerD.wignerdjmn(s, m, n, θ) - sqrt((s - n) * (s + n + 1)) * WignerD.wignerdjmn(s, m, n + 1, θ)
+        # end
     end
 end
 
@@ -146,7 +145,7 @@ function C_mn_of_θ(m, n, θ)
     return vcat(
         0,                  # r-component
         im * πₘₙ(m, n, θ), # θ-component
-        -1* τₘₙ(m, n, θ),    # ϕ-component      
+        -1 * τₘₙ(m, n, θ),    # ϕ-component      
     ) # equation C.20
 end
 
@@ -290,39 +289,39 @@ end
 
 #############################################################################################
 # calculate π(θ) and τ(θ) using recurrence relations
-function πₘₙ_τₘₙ_all_all_m_n(n_max, θ; verbose = false)
+function πₘₙ_τₘₙ_all_all_m_n(n_max, θ; verbose=false)
     # calculate A with recurrence relation
-    A = SortedDict(0=>1.0)
-    for m = 0 : n_max-1
-        A[m+1] = A[m] * sqrt((2m+1)/(2*(m+1)))
+    A = SortedDict(0 => 1.0)
+    for m = 0:n_max - 1
+        A[m + 1] = A[m] * sqrt((2m + 1) / (2 * (m + 1)))
     end
 
     # calculate πₘₙ with recurrence relation
     πₘₙ_all = zeros(get_max_single_index_from_n_max(n_max))
-    for m = 1 : n_max   # TODO: I think I need to start m from 0, not 1.     
+    for m = 1:n_max   # TODO: I think I need to start m from 0, not 1.     
         n = m        
-        πₘₙ_all[single_index_from_m_n(m,n)] = m * A[m] * sin(θ)^(m-1)
-        if verbose; println("m=$m, n=$n, πₘₙ_all=$(πₘₙ_all[single_index_from_m_n(m,n)])"); end
+        πₘₙ_all[single_index_from_m_n(m, n)] = m * A[m] * sin(θ)^(m - 1)
+        if verbose; println("m=$m, n=$n, πₘₙ_all=$(πₘₙ_all[single_index_from_m_n(m, n)])"); end
 
         # calculate π₋ₘₙ from πₘₙ
         if m != 0
-            πₘₙ_all[single_index_from_m_n(-m,n)] = (-1)^(m+1) * πₘₙ_all[single_index_from_m_n(m,n)]
-            if verbose; println("m=$(-m), n=$n, πₘₙ_all=$(πₘₙ_all[single_index_from_m_n(-m,n)])"); end
+            πₘₙ_all[single_index_from_m_n(-m, n)] = (-1)^(m + 1) * πₘₙ_all[single_index_from_m_n(m, n)]
+            if verbose; println("m=$(-m), n=$n, πₘₙ_all=$(πₘₙ_all[single_index_from_m_n(-m, n)])"); end
         end
 
-        for n = (m+1) : n_max
-            if n == m+1
-                πₘₙ_all[single_index_from_m_n(m,n)] = 1/sqrt(n^2-m^2) * ((2n-1)*cos(θ)*πₘₙ_all[single_index_from_m_n(m,n-1)])
-                if verbose; println("m=$m, n=$n, πₘₙ_all=$(πₘₙ_all[single_index_from_m_n(m,n)])"); end
+        for n = (m + 1):n_max
+            if n == m + 1
+                πₘₙ_all[single_index_from_m_n(m, n)] = 1 / sqrt(n^2 - m^2) * ((2n - 1) * cos(θ) * πₘₙ_all[single_index_from_m_n(m, n - 1)])
+                if verbose; println("m=$m, n=$n, πₘₙ_all=$(πₘₙ_all[single_index_from_m_n(m, n)])"); end
             else
-                πₘₙ_all[single_index_from_m_n(m,n)] = 1/sqrt(n^2-m^2) * ((2n-1)*cos(θ)*πₘₙ_all[single_index_from_m_n(m,n-1)]) - sqrt((n-1)^2 - m^2) * πₘₙ_all[single_index_from_m_n(m,n-2)]
-                if verbose; println("m=$m, n=$n, πₘₙ_all=$(πₘₙ_all[single_index_from_m_n(m,n)])"); end
+                πₘₙ_all[single_index_from_m_n(m, n)] = 1 / sqrt(n^2 - m^2) * ((2n - 1) * cos(θ) * πₘₙ_all[single_index_from_m_n(m, n - 1)]) - sqrt((n - 1)^2 - m^2) * πₘₙ_all[single_index_from_m_n(m, n - 2)]
+                if verbose; println("m=$m, n=$n, πₘₙ_all=$(πₘₙ_all[single_index_from_m_n(m, n)])"); end
             end
 
             # calculate π₋ₘₙ from πₘₙ
             if m != 0
-                πₘₙ_all[single_index_from_m_n(-m,n)] = (-1)^(m+1) * πₘₙ_all[single_index_from_m_n(m,n)]
-                if verbose; println("m=$(-m), n=$n, πₘₙ_all=$(πₘₙ_all[single_index_from_m_n(-m,n)])"); end
+                πₘₙ_all[single_index_from_m_n(-m, n)] = (-1)^(m + 1) * πₘₙ_all[single_index_from_m_n(m, n)]
+                if verbose; println("m=$(-m), n=$n, πₘₙ_all=$(πₘₙ_all[single_index_from_m_n(-m, n)])"); end
             end
         end
     end
@@ -349,8 +348,8 @@ function Legendre_polynomials_Pn_array(n_max, x)
         1 => x,
     )
 
-    for n = 1:(n_max-1)
-        P[n+1] = ((2n+1)*x*P[n] - n*P[n-1]) / (n+1)
+    for n = 1:(n_max - 1)
+        P[n + 1] = ((2n + 1) * x * P[n] - n * P[n - 1]) / (n + 1)
     end
 
     return P
@@ -374,12 +373,12 @@ function Associated_Legendre_polynomials_Pmn_array(m, n_max, x)
     """
     n = m
     P = SortedDict(
-        n => (-1)^n * factorial(factorial(2n-1)) * (1-x^2)^(n/2),
+        n => (-1)^n * factorial(factorial(2n - 1)) * (1 - x^2)^(n / 2),
     )
-    P[n+1] = x * (2n+1) * P[n]
+    P[n + 1] = x * (2n + 1) * P[n]
 
-    for n = (m+1):(n_max-1)
-        P[n+1] = ( (2n+1)*x*P[n] - (n+m)*P[n-1] ) / (n-m+1)
+    for n = (m + 1):(n_max - 1)
+        P[n + 1] = ( (2n + 1) * x * P[n] - (n + m) * P[n - 1] ) / (n - m + 1)
     end
 
     return P
@@ -394,7 +393,7 @@ end
 
 #############################################################################################
 # Wigner-d, using recurrence
-function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives = true, verbose=false)
+function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives=true, verbose=false)
     """
     Calculate dˢₘₙ(θ) and ∂(dˢₘₙ(θ))/∂θ for all values of s, where s starts from s_min up to s_max. s_min is the maximum of |m| and |n|
 
@@ -406,7 +405,7 @@ function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives = tru
     if n >= m
         ξ_mn = 1
     else
-        ξ_mn = (-1)^(m-n)
+        ξ_mn = (-1)^(m - n)
     end
     
     x = cos(θ)
@@ -414,13 +413,13 @@ function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives = tru
     # calculate d^s_min__m_n(θ) from eq. B.124
     d_smin_m_n = 
         ξ_mn * 2.0^(-s_min) * sqrt(
-            factorial(BigInt(2s_min)) / (factorial(BigInt(abs(m-n)))*factorial(BigInt(abs(m+n))))
+            factorial(BigInt(2s_min)) / (factorial(BigInt(abs(m - n))) * factorial(BigInt(abs(m + n))))
         ) *
-        (1-x)^(abs(m-n)/2) *
-        (1+x)^(abs(m+n)/2)
+        (1 - x)^(abs(m - n) / 2) *
+        (1 + x)^(abs(m + n) / 2)
 
     d = SortedDict(
-        s_min-1 => 0.0,
+        s_min - 1 => 0.0,
         s_min   => d_smin_m_n
     )    
 
@@ -428,23 +427,23 @@ function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives = tru
     if n == 0
         if m == 0
             if verbose; println("m=$m, n=$n, I will use Legendre_polynomials_Pn_array"); end
-            P_s = Legendre_polynomials_Pn_array(s_max+1, x)
-            for s = s_min : s_max+1
+            P_s = Legendre_polynomials_Pn_array(s_max + 1, x)
+            for s = s_min:s_max + 1
                 d[s] = P_s[s]
             end
         else
             if verbose; println("m=$m, n=$n, I will use Associated_Legendre_polynomials_Pmn_array"); end
-            P_m_s = Associated_Legendre_polynomials_Pmn_array(m, s_max+1, x)
-            for s = s_min : s_max+1
-                d[s] = sqrt(factorial(s-m) / factorial(s+m)) * P_m_s[s]
+            P_m_s = Associated_Legendre_polynomials_Pmn_array(m, s_max + 1, x)
+            for s = s_min:s_max + 1
+                d[s] = sqrt(factorial(s - m) / factorial(s + m)) * P_m_s[s]
             end            
         end
     else
-        for s = s_min : s_max+1 
+        for s = s_min:s_max + 1 
             if verbose; println("m=$m, n=$n, I will use the general recurrence"); end
-            d[s+1] = 1 / (s*sqrt((s+1)^2 - m^2)*sqrt((s+1)^2 - n^2)) * (
-                (2s+1) * (s*(s+1)*x - m*n) * d[s]
-                -1*(s+1) * sqrt(s^2-m^2) * sqrt(s^2-n^2) * d[s-1]
+            d[s + 1] = 1 / (s * sqrt((s + 1)^2 - m^2) * sqrt((s + 1)^2 - n^2)) * (
+                (2s + 1) * (s * (s + 1) * x - m * n) * d[s]
+                - 1 * (s + 1) * sqrt(s^2 - m^2) * sqrt(s^2 - n^2) * d[s - 1]
             ) # eq. B.22
         end
     end
@@ -452,23 +451,23 @@ function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives = tru
     # calculate the derivative ∂(dˢₘₙ(θ))/∂θ
     if get_derivatives        
         ∂d_∂θ = SortedDict(
-            s_min-1 => 0.0,
+            s_min - 1 => 0.0,
             s_min   => 0.0
         )
 
         sin_theta = sin(θ)
 
-        for s = s_min : s_max
+        for s = s_min:s_max
             if verbose; println("s=$s"); end
-            ∂d_∂θ[s] = 1/sin_theta * (
-                -1* ((s+1)*sqrt((s^2-m^2)*(s^2-n^2))) / (s*(2s+1)) * d[s-1]
-                -1* (m*n) / (s*(s+1)) * d[s]
-                +1* (
+            ∂d_∂θ[s] = 1 / sin_theta * (
+                -1 * ((s + 1) * sqrt((s^2 - m^2) * (s^2 - n^2))) / (s * (2s + 1)) * d[s - 1]
+                - 1 * (m * n) / (s * (s + 1)) * d[s]
+                + 1 * (
                         s *
-                        sqrt((s+1)^2 - m^2) *
-                        sqrt((s+1)^2 - n^2)
+                        sqrt((s + 1)^2 - m^2) *
+                        sqrt((s + 1)^2 - n^2)
                     ) / 
-                    ((s+1) * (2s+1)) * d[s+1]
+                    ((s + 1) * (2s + 1)) * d[s + 1]
             )
         end
         return d, ∂d_∂θ
@@ -488,17 +487,17 @@ function πₘₙ_τₘₙ_all_all_m_n_using_wigner(n_max, θ; verbose=false)
     πₘₙ_all = zeros(get_max_single_index_from_n_max(n_max))
     τₘₙ_all = zeros(get_max_single_index_from_n_max(n_max))
 
-    for m = 0 : n_max  # TODO: special case of m=0      
+    for m = 0:n_max  # TODO: special case of m=0      
         d_rec_all_n, ∂d_∂θ_rec_all_n  = wignerd_and_∂wignerd_for_all_s(n_max, 0, m, θ)
-        for n = m : n_max
+        for n = m:n_max
             if n != 0
                 if verbose; println("m=$m, n=$n, calculate πₘₙ_all, τₘₙ_all"); end
-                πₘₙ_all[single_index_from_m_n(m,n)] = m/sin(θ) * d_rec_all_n[n]
-                τₘₙ_all[single_index_from_m_n(m,n)] = ∂d_∂θ_rec_all_n[n]
+                πₘₙ_all[single_index_from_m_n(m, n)] = m / sin(θ) * d_rec_all_n[n]
+                τₘₙ_all[single_index_from_m_n(m, n)] = ∂d_∂θ_rec_all_n[n]
                 
                 if m != 0
-                    πₘₙ_all[single_index_from_m_n(-m,n)] = (-1)^(m+1) * πₘₙ_all[single_index_from_m_n(m,n)]
-                    τₘₙ_all[single_index_from_m_n(-m,n)] = (-1)^(m)   * τₘₙ_all[single_index_from_m_n(m,n)]
+                    πₘₙ_all[single_index_from_m_n(-m, n)] = (-1)^(m + 1) * πₘₙ_all[single_index_from_m_n(m, n)]
+                    τₘₙ_all[single_index_from_m_n(-m, n)] = (-1)^(m)   * τₘₙ_all[single_index_from_m_n(m, n)]
                 end
             end
         end
@@ -512,8 +511,8 @@ function B_C_mn_of_θ_for_all_m_n(n_max, θ)
     The order of m,n is according to the function "single_index_from_m_n"
     """
     πₘₙ_all, τₘₙ_all = πₘₙ_τₘₙ_all_all_m_n_using_wigner(n_max, θ)
-    B = (_-> zero(SVector{3,Complex})).(πₘₙ_all)
-    C = (_-> zero(SVector{3,Complex})).(πₘₙ_all)    
+    B = (_ -> zero(SVector{3,Complex})).(πₘₙ_all)
+    C = (_ -> zero(SVector{3,Complex})).(πₘₙ_all)    
     for idx in eachindex(πₘₙ_all)
         B[idx] = [0,      τₘₙ_all[idx], im * πₘₙ_all[idx] ]
         C[idx] = [0, im * πₘₙ_all[idx], -1 * τₘₙ_all[idx] ]    
@@ -528,12 +527,12 @@ function P_mn_of_θ_for_all_m_n(n_max, θ)
     The order of m,n is according to the function "single_index_from_m_n"
     """
     P = fill(zero(SVector{3,Complex}), get_max_single_index_from_n_max(n_max))
-    for m = 0 : n_max
+    for m = 0:n_max
         d_rec_all_n  = wignerd_and_∂wignerd_for_all_s(n_max, 0, m, θ; get_derivatives=false)
-        for n = m : n_max
+        for n = m:n_max
             if n != 0                
-                P[single_index_from_m_n(m,n)] = [d_rec_all_n[n], 0, 0]                
-                P[single_index_from_m_n(-m,n)] = [(-1)^m*d_rec_all_n[n], 0, 0]  # using symmetry relation B.5, we can get d_(0,-m) from d_(0,m)
+                P[single_index_from_m_n(m, n)] = [d_rec_all_n[n], 0, 0]                
+                P[single_index_from_m_n(-m, n)] = [(-1)^m * d_rec_all_n[n], 0, 0]  # using symmetry relation B.5, we can get d_(0,-m) from d_(0,m)
             end
         end
     end
@@ -548,11 +547,11 @@ function B_C_P_mn_of_θ_ϕ_for_all_m_n(n_max, θ, ϕ)
     P_of_θ = P_mn_of_θ_for_all_m_n(n_max, θ)
 
     for n = 1:n_max
-        for m=-n:n
+        for m = -n:n
             factor = (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * exp(im * m * ϕ)
-            B_of_θ[single_index_from_m_n(m,n)] *= factor
-            C_of_θ[single_index_from_m_n(m,n)] *= factor
-            P_of_θ[single_index_from_m_n(m,n)] *= factor
+            B_of_θ[single_index_from_m_n(m, n)] *= factor
+            C_of_θ[single_index_from_m_n(m, n)] *= factor
+            P_of_θ[single_index_from_m_n(m, n)] *= factor
         end
     end
 
@@ -573,11 +572,11 @@ function M_N_wave_all_m_n(n_max, kr, θ, ϕ; kind="regular")
     N = 0 .* B_of_θ_ϕ
 
     for n = 1:n_max
-        for m=-n:n
-            M[single_index_from_m_n(m,n)] = γ_mn(m, n) * radial_function(n, kr) * C_of_θ_ϕ[single_index_from_m_n(m,n)]    
-            N[single_index_from_m_n(m,n)] = γ_mn(m, n) * (
-                n * (n + 1) / kr * radial_function(n, kr)    * P_of_θ_ϕ[single_index_from_m_n(m,n)]
-                + (radial_function_special_derivative(n, kr) * B_of_θ_ϕ[single_index_from_m_n(m,n)])
+        for m = -n:n
+            M[single_index_from_m_n(m, n)] = γ_mn(m, n) * radial_function(n, kr) * C_of_θ_ϕ[single_index_from_m_n(m, n)]    
+            N[single_index_from_m_n(m, n)] = γ_mn(m, n) * (
+                n * (n + 1) / kr * radial_function(n, kr)    * P_of_θ_ϕ[single_index_from_m_n(m, n)]
+                + (radial_function_special_derivative(n, kr) * B_of_θ_ϕ[single_index_from_m_n(m, n)])
             )
         end
     end
