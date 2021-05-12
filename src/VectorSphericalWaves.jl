@@ -69,6 +69,36 @@ function get_max_single_index_from_n_max(n_max)
     return single_index_from_m_n(n_max, n_max)
 end
 
+
+#############################################################
+"""
+    defining derivative for Bessel functions.
+Inside `SpecialFunctions.jl` package, the definition of derivative of Bessel functions exists. However, it returns an error when called by Zygote.
+The error because the derivative of Bessel function with respect to the integer rank is not defined, and the code return error `ChainRulesCore.@thunk(error("not implemented"))`
+Since adjoint calculation will never require calculation gradient with respect to the integer rank, I am defining this integer as zero or `ChainRulesCore.Zero()`
+"""
+ChainRulesCore.@scalar_rule(
+    besselj(ν, x),
+    (
+        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
+        (besselj(ν - 1, x) - besselj(ν + 1, x)) / 2
+    ),
+)
+ChainRulesCore.@scalar_rule(
+    besseli(ν, x),
+    (
+        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
+        (besseli(ν - 1, x) + besseli(ν + 1, x)) / 2,
+    ),
+)
+ChainRulesCore.@scalar_rule(
+    bessely(ν, x),
+    (
+        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
+        (bessely(ν - 1, x) - bessely(ν + 1, x)) / 2,
+    ),
+)
+
 # Wigner-d
 """
 Wigner-d function calculated from eq. B.1
