@@ -28,6 +28,7 @@ using DataStructures
 using StaticArrays
 
 import WignerD
+import ChainRulesCore
 
 # exporting main functions
 export M_mn_wave
@@ -73,10 +74,12 @@ end
 #############################################################
 """
     defining derivative for Bessel functions.
-Inside `SpecialFunctions.jl` package, the definition of derivative of Bessel functions exists. However, it returns an error when called by Zygote.
-The error because the derivative of Bessel function with respect to the integer rank is not defined, and the code return error `ChainRulesCore.@thunk(error("not implemented"))`
+Inside "SpecialFunctions.jl" package, the definition of derivative of Bessel functions exists. However, it returns an error when called by Zygote.
+The error because the derivative of Bessel function with respect to the integer rank is not defined, and the code return error "ChainRulesCore.@thunk(error("not implemented"))"
 Since adjoint calculation will never require calculation gradient with respect to the integer rank, I am defining this integer as zero or `ChainRulesCore.Zero()`
 """
+
+#
 ChainRulesCore.@scalar_rule(
     besselj(ν, x),
     (
@@ -121,7 +124,8 @@ function wignerdjmn_ELZOUKA(s, m, n, θ)
     
     return d
 end
-wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff
+wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, although "wignerdjmn_ELZOUKA" is not efficient.
+# I may need to define "ChainRulesCore.@scalar_rule" for "WignerD.wignerdjmn"
 # wignerdjmn = WignerD.wignerdjmn
 
 # derivative of wigner-D
