@@ -15,13 +15,28 @@ function BB_mn_of_θ(m, n, θ)
     return vcat(
         0,                  # r-component
         VectorSphericalWaves.τₘₙ(m, n, θ),      # θ-component
-        im * VectorSphericalWaves.πₘₙ(m, n, θ)  # ϕ-component      
+        im .* VectorSphericalWaves.πₘₙ(m, n, θ)  # ϕ-component      
     ) # equation C.19
 end
+# jacobian(BB_mn_of_θ, 1, 1, 1.2)
+
+function BB_cross_BB_mn_of_θ(m, n, θ)   
+    # TODO you can use literal syntax for this
+    z = cross(BB_mn_of_θ(m, n, θ), 2 .* im .* BB_mn_of_θ(m, n, θ))
+    return vcat(real(z), imag(z))
+end
+# jacobian(BB_cross_BB_mn_of_θ, 1, 1, 1.2)
+
+function B_mn_of_θ_real(m, n, θ)
+    x = real(VectorSphericalWaves.B_mn_of_θ(m, n, θ)) .+ imag(VectorSphericalWaves.B_mn_of_θ(m, n, θ))
+    return x
+end
+jacobian(B_mn_of_θ_real, 1, 1, 1.2)
+
 
 
 function frule(
-    (sss, Δm, Δn, Δθ),
+    (NO_FIELDS, Δm, Δn, Δθ),
     BB_mn_of_θ,
     m, n, θ
 )

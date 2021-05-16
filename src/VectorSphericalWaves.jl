@@ -203,7 +203,7 @@ function C_mn_of_θ_ϕ(m, n, θ, ϕ)
 end
 
 function P_mn_of_θ_ϕ(m, n, θ, ϕ)
-    return (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * P_mn_of_θ(m, n, θ) * exp(im * m * ϕ) # equation C.17
+    return (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * P_mn_of_θ(m, n, θ) * exp(im * m * ϕ) # equation C.18
 end
 
 
@@ -286,7 +286,6 @@ function get_radial_function_and_special_derivative_given_kind(kind)
     end
 
     return radial_function, radial_function_special_derivative
-
 end
 
 function M_mn_wave(m, n, kr, θ, ϕ; kind="regular")
