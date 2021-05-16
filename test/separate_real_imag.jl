@@ -184,6 +184,9 @@ function M_mn_wave_SeparateRealImag(m, n, kr_r, kr_i, θ, ϕ; kind="regular")
 end
 jacobian(M_mn_wave_SeparateRealImag,m, n, kr_r, kr_i, θ, ϕ) # I can't add kwarg "kind". How can I add it?
 
+# quick test
+M_wave_calc_using_complex_numbers = M_mn_wave(m, n, complex(kr_r, kr_i), θ, ϕ; kind="regular")
+M_mn_wave_SeparateRealImag(m, n, kr_r, kr_i, θ, ϕ; kind="regular") == hcat(real(M_wave_calc_using_complex_numbers), imag(M_wave_calc_using_complex_numbers))
 
 
 """
