@@ -6,6 +6,7 @@ Mishchenko, M.I., Travis, L.D., and Lacis, A.A. (2002). Scattering, absorption, 
 
 # Installation
 This is not a registered package yet.
-For now, you can install it by opening an interactive julia session, and type the following command:
+For now, you can install it by opening an interactive julia session, and type the following commands:
 
+`using Pkg; Pkg.add(url="https://github.com/mhmodzoka/ComplexOperations.jl")`
 `using Pkg; Pkg.add(url="https://github.com/mhmodzoka/VectorSphericalWaves.jl")`
