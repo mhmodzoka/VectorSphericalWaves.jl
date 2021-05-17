@@ -130,12 +130,18 @@ function wignerdjmn_ELZOUKA(s, m, n, θ)
         d = (-1)^(s - n) * δ(-n, m)
     else
         d = 0
-        for k in max(0, m - n):min(s + m, s - n)
-            d += (-1)^k * 
-                    (cos(θ / 2)^(2s - 2k + m - n) * sin(θ / 2)^(2k - m + n)) / 
-                    (factorial(k) * factorial(s + m - k) * factorial(s - n - k) * factorial(n - m + k))
+        k_min = max(0, m - n)
+        k_max = min(s + m, s - n)
+        if k_max >= k_min
+            for k in k_min:k_max
+                d += (-1)^k * 
+                        (cos(θ / 2)^(2s - 2k + m - n) * sin(θ / 2)^(2k - m + n)) / 
+                        (factorial(k) * factorial(s + m - k) * factorial(s - n - k) * factorial(n - m + k))
+            end
+            d *= sqrt(factorial(s + m) * factorial(s - m) * factorial(s + n) * factorial(s - n))
+        else # wigner-d is zero if there is any negative factorial
+            return 0
         end
-        d *= sqrt(factorial(s + m) * factorial(s - m) * factorial(s + n) * factorial(s - n))
     end
     
     return d
