@@ -37,6 +37,13 @@ version = "3.28.0"
 deps = ["Artifacts", "Libdl"]
 uuid = "e66e0078-7015-5450-92f7-15fbd957f2ae"
 
+[[ComplexOperations]]
+git-tree-sha1 = "d317932193b2c880082b445c76e433cbef9541d7"
+repo-rev = "main"
+repo-url = "https://github.com/mhmodzoka/ComplexOperations.jl"
+uuid = "45c10c9a-3fea-40aa-8a0f-0e2f7025918e"
+version = "0.1.0"
+
 [[DataStructures]]
 deps = ["Compat", "InteractiveUtils", "OrderedCollections"]
 git-tree-sha1 = "4437b64df1e0adccc3e5d1adbc3ac741095e4677"
