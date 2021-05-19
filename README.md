@@ -13,4 +13,4 @@ For now, you can install it by opening an interactive julia session, and type th
 `using Pkg; Pkg.add(url="https://github.com/mhmodzoka/VectorSphericalWaves.jl")`
 
 # How does it work?
-Refer to the writeup in `doc`
+Refer to the writeup in `docs`
