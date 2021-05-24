@@ -12,3 +12,6 @@ ForwardDiff = "f6369f11-7733-5829-9624-2563aa707210"
 SpecialFunctions = "276daf66-3868-5448-9aa4-cd146d93841b"
 StaticArrays = "90137ffa-7385-5640-81b9-e52037218182"
 WignerD = "87c4ff3e-34df-11e9-37a7-516cea4e0402"
+
+[compat]
+julia = "1.6.1"

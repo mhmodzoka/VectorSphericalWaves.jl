@@ -1,16 +1,17 @@
 # VectorSphericalWaves.jl
+
 Julia code to calculate vector spherical waves (M and N), which are solutions for vector wave equation.
 
 Equations and convention for vector spherical waves is following:
 Mishchenko, M.I., Travis, L.D., and Lacis, A.A. (2002). Scattering, absorption, and emission of light by small particles (Cambridge University Press).
 
+# How does it work?
+
+Refer to the writeup in `docs`
+
 # Installation
+
 This is not a registered package yet.
 For now, you can install it by opening an interactive julia session, and type the following commands:
 
-`using Pkg; Pkg.add(url="https://github.com/mhmodzoka/ComplexOperations.jl")`
-
 `using Pkg; Pkg.add(url="https://github.com/mhmodzoka/VectorSphericalWaves.jl")`
-
-# How does it work?
-Refer to the writeup in `docs`
