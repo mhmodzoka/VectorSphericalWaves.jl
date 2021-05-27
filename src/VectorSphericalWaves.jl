@@ -11,7 +11,7 @@ module VectorSphericalWaves
 # inputs
 # -- r,θ,ϕ : each is a 1D array, representing spactial spehrical coordinates of points in space, where VSWF will be evaluated
 # -- n_max : integer, maximum rank of VSWF
-# -- 
+# --
 
 
 
@@ -115,6 +115,19 @@ ChainRulesCore.@scalar_rule(
     ),
 )
 
+# TODO: I need to define scalar_rule for `wignerdjmn`, like following. The problem is that `wignerdjmn` is not recogized by `ChainRulesCore`
+"""
+ChainRulesCore.@scalar_rule(
+    wignerdjmn(s, m, n, θ),
+    (
+        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
+        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
+        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
+        ∂wignerdjmn_by_∂θ(s, m, n, θ),
+    ),
+)
+"""
+
 # Wigner-d
 """
     Wigner-d function calculated from eq. B.1
@@ -124,26 +137,26 @@ Use this function only as a validation for the recurrence relation, or when auto
 """
 function wignerdjmn_ELZOUKA(s::Int, m::Int, n::Int, θ::R) where R <: Real
     # println("s=$s, m=$m, n=$n, θ=$θ")
-    if θ == 0 # TODO: make the zero the same type of θ. e.g., zero(θ)
+    if θ == zero(θ) # TODO: make the zero the same type of θ. e.g., zero(θ)
         d = δ(m, n)
     elseif θ == π
         d = (-1)^(s - n) * δ(-n, m)
     else
-        d = 0
+        d = zero(θ)
         k_min = max(0, m - n)
         k_max = min(s + m, s - n)
         if k_max >= k_min
             for k in k_min:k_max
-                d += (-1)^k * 
-                        (cos(θ / 2)^(2s - 2k + m - n) * sin(θ / 2)^(2k - m + n)) / 
+                d += (-1)^k *
+                        (cos(θ / 2)^(2s - 2k + m - n) * sin(θ / 2)^(2k - m + n)) /
                         (factorial(k) * factorial(s + m - k) * factorial(s - n - k) * factorial(n - m + k))
             end
             d *= sqrt(factorial(s + m) * factorial(s - m) * factorial(s + n) * factorial(s - n))
         else # wigner-d is zero if there is any negative factorial
-            return 0
+            return zero(θ)
         end
     end
-    
+
     return d
 end
 wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, although "wignerdjmn_ELZOUKA" is not efficient.
@@ -151,10 +164,10 @@ wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, altho
 # wignerdjmn = WignerD.wignerdjmn
 
 # derivative of wigner-D
-function ∂wignerdjmn_by_∂θ(s, m, n, θ; numerical_derivative=false, verysmallnumber=1e-30)
+function ∂wignerdjmn_by_∂θ(s::Int, m::Int, n::Int, θ::R; numerical_derivative=false, verysmallnumber=1e-30) where R <: Real
     """
     derivative of wigner-d with resepect to θ. Adopted from eq. B.25 from Mishchenko, M.I., Travis, L.D., and Lacis, A.A. (2002). Scattering, absorption, and emission of light by small particles (Cambridge University Press).
-    """    
+    """
     if numerical_derivative
         return (wignerdjmn(s, m, n, θ + verysmallnumber) - wignerdjmn(s, m, n, θ - verysmallnumber)) / (verysmallnumber * 2)
     else
@@ -170,18 +183,18 @@ end
 
 #############################################################################################
 # calculate π(θ) and τ(θ)
-function πₘₙ(m, n, θ)
+function πₘₙ(m::Int, n::Int, θ::R) where R <: Real
     return m / sin(θ) * wignerdjmn(n, 0, m, θ)
 end
 
-function τₘₙ(m, n, θ)
+function τₘₙ(m::Int, n::Int, θ::R) where R <: Real
     return ∂wignerdjmn_by_∂θ(n, 0, m, θ)
 end
 
 
 #############################################################################################
 # calculate B(θ), C(θ), P(θ)
-function B_mn_of_θ(m, n, θ)
+function B_mn_of_θ(m::Int, n::Int, θ::R) where R <: Real
     """
     I assume each of m, n, θ is a single number
     """
@@ -189,49 +202,49 @@ function B_mn_of_θ(m, n, θ)
     return vcat(
         0,                  # r-component
         τₘₙ(m, n, θ),      # θ-component
-        im * πₘₙ(m, n, θ)  # ϕ-component      
+        im * πₘₙ(m, n, θ)  # ϕ-component
     ) # equation C.19
 end
 
-function C_mn_of_θ(m, n, θ)
+function C_mn_of_θ(m::Int, n::Int, θ::R) where R <: Real
     """
     I assume each of m, n, θ is a single number
     """
     return vcat(
         0,                  # r-component
         im * πₘₙ(m, n, θ), # θ-component
-        -1 * τₘₙ(m, n, θ),    # ϕ-component      
+        -1 * τₘₙ(m, n, θ),    # ϕ-component
     ) # equation C.20
 end
 
 # TODO use partial application for M,N, fold them into the type sig of struct P
-function P_mn_of_θ(m, n, θ)
+function P_mn_of_θ(m::Int, n::Int, θ::R) where R <: Real
     return vcat(
         wignerdjmn(n, 0, m, θ), # r-component
         0,                      # θ-component
-        0,                      # ϕ-component      
+        0,                      # ϕ-component
     ) # equation C.21
 end
 
 
 #############################################################################################
 # calculate B(θ,ϕ), C(θ,ϕ), P(θ,ϕ)
-function B_mn_of_θ_ϕ(m, n, θ, ϕ)
+function B_mn_of_θ_ϕ(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
     return (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * B_mn_of_θ(m, n, θ) * exp(im * m * ϕ) # equation C.16
 end
 
-function C_mn_of_θ_ϕ(m, n, θ, ϕ)
+function C_mn_of_θ_ϕ(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
     return (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * C_mn_of_θ(m, n, θ) * exp(im * m * ϕ) # equation C.17
 end
 
-function P_mn_of_θ_ϕ(m, n, θ, ϕ)
+function P_mn_of_θ_ϕ(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
     return (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * P_mn_of_θ(m, n, θ) * exp(im * m * ϕ) # equation C.18
 end
 
 
 #############################################################################################
 # calculate spherical Bessel and Hankel functions and their derivarive
-function spherical_Bessel_j_n(n, x)
+function spherical_Bessel_j_n(n::Int, x::N) where N <: Number
     """
     Spherical Bessel function of the first kind.
     It can be calculated from ordinary Bessel function of the first kind "besselj" as in the code.
@@ -240,7 +253,7 @@ function spherical_Bessel_j_n(n, x)
     return √(π / 2x) * besselj(n + 1 / 2, x)
 end
 
-function spherical_Bessel_y_n(n, x)
+function spherical_Bessel_y_n(n::Int, x::N) where N <: Number
     """
     Spherical Bessel function of the second kind.
     It can be calculated from ordinary Bessel function of the second kind "bessely" as in the code.
@@ -249,28 +262,28 @@ function spherical_Bessel_y_n(n, x)
     return √(π / 2x) * bessely(n + 1 / 2, x)
 end
 
-function spherical_Hankel_h1_n(n, x)
+function spherical_Hankel_h1_n(n::Int, x::N) where N <: Number
     """
     Spherical Hankel function of the first kind. It can be calculated from spherical Bessel functions of the first and second kinds as in the code:
     """
     return spherical_Bessel_j_n(n, x) + im * spherical_Bessel_y_n(n, x)
 end
 
-function one_over_x_by_∂_x_j_n_by_∂x(n, x)
+function one_over_x_by_∂_x_j_n_by_∂x(n::Int, x::N) where N <: Number
     """
     Derivative of (spherical Bessel of first kind * x) divided by x
     """
     return (spherical_Bessel_j_n(n - 1, x) - n / x * spherical_Bessel_j_n(n, x))
 end
 
-function one_over_x_by_∂_x_y_n_by_∂x(n, x)
+function one_over_x_by_∂_x_y_n_by_∂x(n::Int, x::N) where N <: Number
     """
     Derivative of (spherical Bessel of second kind * x) divided by x
     """
     return (spherical_Bessel_y_n(n - 1, x) - n / x * spherical_Bessel_y_n(n, x))
 end
 
-function one_over_x_by_∂_x_h_n_by_∂x(n, x)
+function one_over_x_by_∂_x_h_n_by_∂x(n::Int, x::N) where N <: Number
     """
     Derivative of (spherical Hankel of first kind * x) divided by x
     """
@@ -280,13 +293,13 @@ end
 
 #############################################################################################
 # calculate (Rg)M(kr,θ,ϕ), (Rg)N(kr,θ,ϕ)
-function γ_mn(m, n)
+function γ_mn(m::Int, n::Int)
     return sqrt(
         ((2n + 1) * factorial(n - m)) / (4π * n * (n + 1) * factorial(n + m))
     ) # equation C.22
 end
 
-function γ_mn_dash(m, n)
+function γ_mn_dash(m::Int, n::Int)
     return sqrt(
         ((2n + 1) * factorial(n - m)) / (4π * factorial(n + m))
     ) # equation C.25
@@ -310,24 +323,22 @@ function get_radial_function_and_special_derivative_given_kind(kind)
     return radial_function, radial_function_special_derivative
 end
 
-function M_mn_wave(m, n, kr, θ, ϕ; kind="regular")
+function M_mn_wave(m::Int, n::Int, kr::N, θ::R, ϕ::R; kind="regular") where {R <: Real,N <: Number}
     """
     Parameters
     ==========
     kind: string, either ["regular" or "incoming"] or ["irregular" or "outgoing"]
     """
-
     radial_function, _ = get_radial_function_and_special_derivative_given_kind(kind)
-    return γ_mn(m, n) * radial_function(n, kr) * C_mn_of_θ_ϕ(m, n, θ, ϕ)    
+    return γ_mn(m, n) * radial_function(n, kr) * C_mn_of_θ_ϕ(m, n, θ, ϕ)
 end
 
-function N_mn_wave(m, n, kr, θ, ϕ; kind="regular")
+function N_mn_wave(m::Int, n::Int, kr::N, θ::R, ϕ::R; kind="regular") where {R <: Real,N <: Number}
     """
     Parameters
     ==========
     kind: string, either ["regular" or "incoming"] or ["irregular" or "outgoing"]
     """
-
     radial_function, radial_function_special_derivative  = get_radial_function_and_special_derivative_given_kind(kind)
     return γ_mn(m, n) * (
         n * (n + 1) / kr * radial_function(n, kr) * P_mn_of_θ_ϕ(m, n, θ, ϕ)
@@ -343,7 +354,7 @@ end
 
 #############################################################################################
 # calculate π(θ) and τ(θ) using recurrence relations
-function πₘₙ_τₘₙ_all_all_m_n(n_max, θ; verbose=false)
+function πₘₙ_τₘₙ_all_all_m_n(n_max::Int, θ::R; verbose=false) where R <: Real
     # calculate A with recurrence relation
     A = SortedDict(0 => 1.0)
     for m = 0:n_max - 1
@@ -352,8 +363,8 @@ function πₘₙ_τₘₙ_all_all_m_n(n_max, θ; verbose=false)
 
     # calculate πₘₙ with recurrence relation
     πₘₙ_all = zeros(get_max_single_index_from_n_max(n_max))
-    for m = 1:n_max   # TODO: I think I need to start m from 0, not 1.     
-        n = m        
+    for m = 1:n_max   # TODO: I think I need to start m from 0, not 1.
+        n = m
         πₘₙ_all[single_index_from_m_n(m, n)] = m * A[m] * sin(θ)^(m - 1)
         if verbose; println("m=$m, n=$n, πₘₙ_all=$(πₘₙ_all[single_index_from_m_n(m, n)])"); end
 
@@ -380,7 +391,7 @@ function πₘₙ_τₘₙ_all_all_m_n(n_max, θ; verbose=false)
         end
     end
     τₘₙ_all = 0 # TODO: add the code for it
-    return πₘₙ_all, τₘₙ_all 
+    return πₘₙ_all, τₘₙ_all
 end
 
 
@@ -389,7 +400,7 @@ end
 
 #############################################################################################
 # Legendre and Associated Legendre
-function Legendre_polynomials_Pn_array(n_max, x)
+function Legendre_polynomials_Pn_array(n_max::Int, x::N) where N <: Number
     """
     Calculate all Legendre polynomials Pₙ(x) from n = 1 up to n=n_max using recurrence relation
     https://en.wikipedia.org/wiki/Legendre_polynomials
@@ -409,15 +420,15 @@ function Legendre_polynomials_Pn_array(n_max, x)
     return P
 end
 
-function Legendre_polynomials_Pn(n, x)
+function Legendre_polynomials_Pn(n::Int, x::N) where N <: Number
     """
     Calculate Legendre polynomials Pₙ(x) at a given n
-    """    
+    """
     return Legendre_polynomials_Pn_array(n, x)[n]
 end
 
 
-function Associated_Legendre_polynomials_Pmn_array(m, n_max, x)
+function Associated_Legendre_polynomials_Pmn_array(m::Int, n_max::Int, x)
     """
     Associated Legendre polynomials Pᵐₙ(x) from n = m up to n=n_max using recurrence relation
     https://en.wikipedia.org/wiki/Associated_Legendre_polynomials#Recurrence_formula
@@ -438,7 +449,7 @@ function Associated_Legendre_polynomials_Pmn_array(m, n_max, x)
     return P
 end
 
-function Associated_Legendre_polynomials_Pmn_array(m, n, x)
+function Associated_Legendre_polynomials_Pmn_array(m::Int, n::Int, x)
     """
     Associated Legendre polynomials Pᵐₙ(x) at a given n
     """
@@ -447,7 +458,7 @@ end
 
 #############################################################################################
 # Wigner-d, using recurrence
-function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives=true, verbose=false)
+function wignerd_and_∂wignerd_for_all_s(s_max::Int, m::Int, n::Int, θ::R; get_derivatives=true, verbose=false) where R <: Real
     """
     Calculate dˢₘₙ(θ) and ∂(dˢₘₙ(θ))/∂θ for all values of s, where s starts from s_min up to s_max. s_min is the maximum of |m| and |n|
 
@@ -461,11 +472,11 @@ function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives=true,
     else
         ξ_mn = (-1)^(m - n)
     end
-    
+
     x = cos(θ)
 
     # calculate d^s_min__m_n(θ) from eq. B.124
-    d_smin_m_n = 
+    d_smin_m_n =
         ξ_mn * 2.0^(-s_min) * sqrt(
             factorial(BigInt(2s_min)) / (factorial(BigInt(abs(m - n))) * factorial(BigInt(abs(m + n))))
         ) *
@@ -475,7 +486,7 @@ function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives=true,
     d = SortedDict(
         s_min - 1 => 0.0,
         s_min   => d_smin_m_n
-    )    
+    )
 
     # applying the recurrence relation
     if n == 0
@@ -490,10 +501,10 @@ function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives=true,
             P_m_s = Associated_Legendre_polynomials_Pmn_array(m, s_max + 1, x)
             for s = s_min:s_max + 1
                 d[s] = sqrt(factorial(s - m) / factorial(s + m)) * P_m_s[s]
-            end            
+            end
         end
     else
-        for s = s_min:s_max + 1 
+        for s = s_min:s_max + 1
             if verbose; println("m=$m, n=$n, I will use the general recurrence"); end
             d[s + 1] = 1 / (s * sqrt((s + 1)^2 - m^2) * sqrt((s + 1)^2 - n^2)) * (
                 (2s + 1) * (s * (s + 1) * x - m * n) * d[s]
@@ -503,7 +514,7 @@ function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives=true,
     end
 
     # calculate the derivative ∂(dˢₘₙ(θ))/∂θ
-    if get_derivatives        
+    if get_derivatives
         ∂d_∂θ = SortedDict(
             s_min - 1 => 0.0,
             s_min   => 0.0
@@ -520,7 +531,7 @@ function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives=true,
                         s *
                         sqrt((s + 1)^2 - m^2) *
                         sqrt((s + 1)^2 - n^2)
-                    ) / 
+                    ) /
                     ((s + 1) * (2s + 1)) * d[s + 1]
             )
         end
@@ -529,7 +540,7 @@ function wignerd_and_∂wignerd_for_all_s(s_max, m, n, θ; get_derivatives=true,
         return d
     end
 
-    
+
 end
 
 
@@ -537,18 +548,18 @@ end
 
 #############################################################################################
 # calculate π(θ) and τ(θ) using Wigner-d that was calculated using recurrence relations
-function πₘₙ_τₘₙ_all_all_m_n_using_wigner(n_max, θ; verbose=false)
+function πₘₙ_τₘₙ_all_all_m_n_using_wigner(n_max::Int, θ::R; verbose=false) where R <: Real
     πₘₙ_all = zeros(get_max_single_index_from_n_max(n_max))
     τₘₙ_all = zeros(get_max_single_index_from_n_max(n_max))
 
-    for m = 0:n_max  # TODO: special case of m=0      
+    for m = 0:n_max  # TODO: special case of m=0
         d_rec_all_n, ∂d_∂θ_rec_all_n  = wignerd_and_∂wignerd_for_all_s(n_max, 0, m, θ)
         for n = m:n_max
             if n != 0
                 if verbose; println("m=$m, n=$n, calculate πₘₙ_all, τₘₙ_all"); end
                 πₘₙ_all[single_index_from_m_n(m, n)] = m / sin(θ) * d_rec_all_n[n]
                 τₘₙ_all[single_index_from_m_n(m, n)] = ∂d_∂θ_rec_all_n[n]
-                
+
                 if m != 0
                     πₘₙ_all[single_index_from_m_n(-m, n)] = (-1)^(m + 1) * πₘₙ_all[single_index_from_m_n(m, n)]
                     τₘₙ_all[single_index_from_m_n(-m, n)] = (-1)^(m)   * τₘₙ_all[single_index_from_m_n(m, n)]
@@ -559,23 +570,23 @@ function πₘₙ_τₘₙ_all_all_m_n_using_wigner(n_max, θ; verbose=false)
     return πₘₙ_all, τₘₙ_all
 end
 
-function B_C_mn_of_θ_for_all_m_n(n_max, θ)
+function B_C_mn_of_θ_for_all_m_n(n_max::Int, θ::R) where R <: Real
     """
     Calculate Bₙₘ(θ), Cₙₘ(θ), Pₙₘ(θ) equations C.19, C.20, C.21
     The order of m,n is according to the function "single_index_from_m_n"
     """
     πₘₙ_all, τₘₙ_all = πₘₙ_τₘₙ_all_all_m_n_using_wigner(n_max, θ)
     B = (_ -> zero(SVector{3,Complex})).(πₘₙ_all)
-    C = (_ -> zero(SVector{3,Complex})).(πₘₙ_all)    
+    C = (_ -> zero(SVector{3,Complex})).(πₘₙ_all)
     for idx in eachindex(πₘₙ_all)
         B[idx] = [0,      τₘₙ_all[idx], im * πₘₙ_all[idx] ]
-        C[idx] = [0, im * πₘₙ_all[idx], -1 * τₘₙ_all[idx] ]    
+        C[idx] = [0, im * πₘₙ_all[idx], -1 * τₘₙ_all[idx] ]
     end
 
     return B, C
 end
 
-function P_mn_of_θ_for_all_m_n(n_max, θ)
+function P_mn_of_θ_for_all_m_n(n_max::Int, θ::R) where R <: Real
     """
     Calculate Pₙₘ(θ) using equations C.19, C.20
     The order of m,n is according to the function "single_index_from_m_n"
@@ -584,8 +595,8 @@ function P_mn_of_θ_for_all_m_n(n_max, θ)
     for m = 0:n_max
         d_rec_all_n  = wignerd_and_∂wignerd_for_all_s(n_max, 0, m, θ; get_derivatives=false)
         for n = m:n_max
-            if n != 0                
-                P[single_index_from_m_n(m, n)] = [d_rec_all_n[n], 0, 0]                
+            if n != 0
+                P[single_index_from_m_n(m, n)] = [d_rec_all_n[n], 0, 0]
                 P[single_index_from_m_n(-m, n)] = [(-1)^m * d_rec_all_n[n], 0, 0]  # using symmetry relation B.5, we can get d_(0,-m) from d_(0,m)
             end
         end
@@ -593,7 +604,7 @@ function P_mn_of_θ_for_all_m_n(n_max, θ)
     return P
 end
 
-function B_C_P_mn_of_θ_ϕ_for_all_m_n(n_max, θ, ϕ)
+function B_C_P_mn_of_θ_ϕ_for_all_m_n(n_max::Int, θ::R, ϕ::R) where R <: Real
     """
     Calculate Bₙₘ(θ,ϕ), Cₙₘ(θ,ϕ), Pₙₘ(θ,ϕ) for all m and n
     """
@@ -609,10 +620,10 @@ function B_C_P_mn_of_θ_ϕ_for_all_m_n(n_max, θ, ϕ)
         end
     end
 
-    return B_of_θ, C_of_θ, P_of_θ    
+    return B_of_θ, C_of_θ, P_of_θ
 end
 
-function M_N_wave_all_m_n(n_max, kr, θ, ϕ; kind="regular")
+function M_N_wave_all_m_n(n_max::Int, kr::N, θ::R, ϕ::R; kind="regular") where {R <: Real,N <: Number}
     """
     Parameters
     ==========
@@ -627,7 +638,7 @@ function M_N_wave_all_m_n(n_max, kr, θ, ϕ; kind="regular")
 
     for n = 1:n_max
         for m = -n:n
-            M[single_index_from_m_n(m, n)] = γ_mn(m, n) * radial_function(n, kr) * C_of_θ_ϕ[single_index_from_m_n(m, n)]    
+            M[single_index_from_m_n(m, n)] = γ_mn(m, n) * radial_function(n, kr) * C_of_θ_ϕ[single_index_from_m_n(m, n)]
             N[single_index_from_m_n(m, n)] = γ_mn(m, n) * (
                 n * (n + 1) / kr * radial_function(n, kr)    * P_of_θ_ϕ[single_index_from_m_n(m, n)]
                 + (radial_function_special_derivative(n, kr) * B_of_θ_ϕ[single_index_from_m_n(m, n)])
@@ -644,26 +655,26 @@ end
 #############################################################################################
 #############################################################################################
 # calculate B(θ), C(θ), P(θ)
-function B_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::Real)
+function B_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
     # equation C.19
     B_real = vcat(0, τₘₙ(m, n, θ), 0)
     B_imag = vcat(0, 0, πₘₙ(m, n, θ))
     return hcat(B_real, B_imag)
 end
 
-function C_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::Real)
-    # equation C.20  
+function C_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
+    # equation C.20
     C_real = vcat(0, 0, -1 * τₘₙ(m, n, θ))
     C_imag = vcat(0, πₘₙ(m, n, θ), 0)
     return hcat(C_real, C_imag)
 end
 
-function P_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::Real)
+function P_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
     # equation C.21
     return hcat(P_mn_of_θ(m, n, θ), vcat(0, 0, 0))
 end
 
-function convert_from_fun_of_θ_to_fun_of_θ_ϕ(fun_tobe_converted::Function, m::Int, n::Int, θ::Real, ϕ::Real)
+function convert_from_fun_of_θ_to_fun_of_θ_ϕ(fun_tobe_converted::Function, m::Int, n::Int, θ::R, ϕ::R) where R <: Real
     # equation C.16, C.17, and C.18
     coeff = (-1)^m * sqrt(factorial(n + m) / factorial(n - m))
     B_of_θ_coef = coeff .* fun_tobe_converted(m, n, θ)
@@ -684,53 +695,53 @@ end
 
 #############################################################################################
 # calculate B(θ,ϕ), C(θ,ϕ), P(θ,ϕ)
-function B_mn_of_θ_ϕ_SeparateRealImag(m::Int, n::Int, θ::Real, ϕ::Real)
+function B_mn_of_θ_ϕ_SeparateRealImag(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
     # equation C.16
     return convert_from_fun_of_θ_to_fun_of_θ_ϕ(B_mn_of_θ_SeparateRealImag, m, n, θ, ϕ)
 end
 
-function C_mn_of_θ_ϕ_SeparateRealImag(m::Int, n::Int, θ::Real, ϕ::Real)
+function C_mn_of_θ_ϕ_SeparateRealImag(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
     # equation C.17
     return convert_from_fun_of_θ_to_fun_of_θ_ϕ(C_mn_of_θ_SeparateRealImag, m, n, θ, ϕ)
 end
 
-function P_mn_of_θ_ϕ_SeparateRealImag(m::Int, n::Int, θ::Real, ϕ::Real)
+function P_mn_of_θ_ϕ_SeparateRealImag(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
     # equation C.18
     return convert_from_fun_of_θ_to_fun_of_θ_ϕ(P_mn_of_θ_SeparateRealImag, m, n, θ, ϕ)
 end
 
 #############################################################################################
 # calculate spherical Bessel and Hankel functions and their derivarive
-function SeparateRealImag_for_Bessel_Hankel_and_derivatives(fun_tobe_converted::Function, n::Int, x_r::Real, x_i::Real)
+function SeparateRealImag_for_Bessel_Hankel_and_derivatives(fun_tobe_converted::Function, n::Int, x_r::R, x_i::R) where R <: Real
     bessel_complex = fun_tobe_converted(n, complex(x_r, x_i))
     return hcat(real(bessel_complex), imag(bessel_complex))
 end
 
-function spherical_Bessel_j_n_SeparateRealImag(n::Int, x_r::Real, x_i::Real)    
+function spherical_Bessel_j_n_SeparateRealImag(n::Int, x_r::R, x_i::R) where R <: Real
     return SeparateRealImag_for_Bessel_Hankel_and_derivatives(spherical_Bessel_j_n, n, x_r, x_i)
 end
 
-function spherical_Bessel_y_n_SeparateRealImag(n::Int, x_r::Real, x_i::Real)    
+function spherical_Bessel_y_n_SeparateRealImag(n::Int, x_r::R, x_i::R) where R <: Real
     return SeparateRealImag_for_Bessel_Hankel_and_derivatives(spherical_Bessel_y_n, n, x_r, x_i)
 end
 
-function spherical_Hankel_h1_n_SeparateRealImag(n::Int, x_r::Real, x_i::Real)
+function spherical_Hankel_h1_n_SeparateRealImag(n::Int, x_r::R, x_i::R) where R <: Real
     return SeparateRealImag_for_Bessel_Hankel_and_derivatives(spherical_Hankel_h1_n, n, x_r, x_i)
 end
 
-function one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag(n::Int, x_r::Real, x_i::Real)
+function one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag(n::Int, x_r::R, x_i::R) where R <: Real
     # n_over_x = complex_divide(n * ones(size(x_r)), zeros(size(x_r)), x_r, x_i) # TODO: find a way to make sure all inputs have the same size
     n_over_x = complex_divide(n, 0, x_r, x_i)
     return (spherical_Bessel_j_n_SeparateRealImag(n - 1, x_r, x_i) - complex_multiply(n_over_x, spherical_Bessel_j_n_SeparateRealImag(n, x_r, x_i)))
 end
 
-function one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag(n::Int, x_r::Real, x_i::Real)
+function one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag(n::Int, x_r::R, x_i::R) where R <: Real
     # n_over_x = complex_divide(n * ones(size(x_r)), zeros(size(x_r)), x_r, x_i) # TODO: find a way to make sure all inputs have the same size
     n_over_x = complex_divide(n, 0, x_r, x_i)
     return (spherical_Bessel_y_n_SeparateRealImag(n - 1, x_r, x_i) - complex_multiply(n_over_x, spherical_Bessel_y_n_SeparateRealImag(n, x_r, x_i)))
 end
 
-function one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag(n::Int, x_r::Real, x_i::Real)
+function one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag(n::Int, x_r::R, x_i::R) where R <: Real
     der_j = one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag(n, x_r, x_i)
     der_y = one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag(n, x_r, x_i)
     return der_j + complex_multiply(0, 1, der_y[1], der_y[2])
@@ -755,14 +766,14 @@ function get_radial_function_and_special_derivative_given_kind_SeparateRealImag(
     return radial_function, radial_function_special_derivative
 end
 
-function M_mn_wave_SeparateRealImag(m::Int, n::Int, kr_r::Real, kr_i::Real, θ::Real, ϕ::Real, kind="regular")    
+function M_mn_wave_SeparateRealImag(m::Int, n::Int, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where R <: Real
     radial_function, _ = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
     gamma_by_radial = γ_mn(m, n) .* radial_function(n, kr_r, kr_i)
     return complex_multiply(vcat(gamma_by_radial, gamma_by_radial, gamma_by_radial), C_mn_of_θ_ϕ_SeparateRealImag(m, n, θ, ϕ))
     # TODO: write this in a more elegant way: vcat(gamma_by_radial, gamma_by_radial, gamma_by_radial)
 end
 
-function N_mn_wave_SeparateRealImag(m::Int, n::Int, kr_r::Real, kr_i::Real, θ::Real, ϕ::Real, kind="regular")
+function N_mn_wave_SeparateRealImag(m::Int, n::Int, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where R <: Real
     radial_function, radial_function_special_derivative  = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
     ceoff = complex_multiply(complex_divide(n * (n + 1), 0, kr_r, kr_i), radial_function(n, kr_r, kr_i))
     rad_fun_der = radial_function_special_derivative(n, kr_r, kr_i)
