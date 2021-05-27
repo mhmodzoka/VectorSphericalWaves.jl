@@ -10,6 +10,7 @@ using SpecialFunctions
 using VectorSphericalWaves
 using ChainRulesCore
 using ComplexOperations
+using Traceur
 
 import FiniteDifferences
 import Zygote
@@ -50,3 +51,5 @@ Zygote.jacobian(VectorSphericalWaves.M_mn_wave_SeparateRealImag,m, n, kr_r, kr_i
 N_wave_calc_using_complex_numbers = N_mn_wave(m, n, complex(kr_r, kr_i), θ, ϕ; kind="regular")
 VectorSphericalWaves.N_mn_wave_SeparateRealImag(m, n, kr_r, kr_i, θ, ϕ, "regular") == hcat(real(N_wave_calc_using_complex_numbers), imag(N_wave_calc_using_complex_numbers))
 Zygote.jacobian(VectorSphericalWaves.N_mn_wave_SeparateRealImag,m, n, kr_r, kr_i, θ, ϕ, "regular") # I can't add kwarg "kind". How can I add it?
+
+@trace N_mn_wave(m, n, complex(kr_r, kr_i), θ, ϕ; kind="regular")

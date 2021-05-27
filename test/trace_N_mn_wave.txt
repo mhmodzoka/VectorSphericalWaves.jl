@@ -1,0 +1,490 @@
+@trace N_mn_wave(m, n, complex(kr_r, kr_i), θ, ϕ; kind="regular")
+┌ Warning: aprimary is assigned as Any
+└ @ promotion.jl:96
+┌ Warning: aprimary is assigned as Type
+└ @ promotion.jl:106
+┌ Warning: aprimary is assigned as Any
+└ @ promotion.jl:111
+┌ Warning: aprimary is assigned as Any
+└ @ promotion.jl:115
+┌ Warning: a is assigned as Type{String}
+└ @ promotion.jl:17
+┌ Warning: a is assigned as Type{String}
+└ @ promotion.jl:81
+┌ Warning: a is assigned as DataType
+└ @ promotion.jl:85
+┌ Warning:  is assigned as Union{Nothing, Tuple{Any, Int64}}
+└ @ promotion.jl:114
+┌ Warning:  is assigned as Union{Nothing, Tuple{Any, Int64}}
+└ @ promotion.jl:115
+┌ Warning: b is assigned as Type{Int64}
+└ @ promotion.jl:17
+┌ Warning: b is assigned as Type{Int64}
+└ @ promotion.jl:81
+┌ Warning: b is assigned as DataType
+└ @ promotion.jl:119
+┌ Warning: dynamic dispatch to Base.getproperty(Base.getfield(φ (%21 => _3, %212 => %211), name), wrapper)
+└ @ promotion.jl:83
+┌ Warning: dynamic dispatch to Base.supertype(φ (%29 => _2, %39 => %38))
+└ @ promotion.jl:85
+┌ Warning: dynamic dispatch to Base.getindex(Base.getfield(φ (%29 => _2, %39 => %38), parameters), 1)
+└ @ promotion.jl:88
+┌ Warning: dynamic dispatch to Base.getindex(Base.getfield(φ (%21 => _3, %212 => %211), parameters), 1)
+└ @ promotion.jl:89
+┌ Warning: dynamic dispatch to Base.getproperty(Base.getfield(φ (%29 => _2, %39 => %38), name), wrapper)
+└ @ promotion.jl:96
+┌ Warning: dynamic dispatch to Base.length(Base.getfield(φ (%29 => _2, %39 => %38), parameters))
+└ @ promotion.jl:98
+┌ Warning: dynamic dispatch to Base.length(Base.getfield(φ (%29 => _2, %39 => %38), parameters)) == 0
+└ @ promotion.jl:99
+┌ Warning: dynamic dispatch to 1:Base.length(Base.getfield(φ (%29 => _2, %39 => %38), parameters))
+└ @ promotion.jl:103
+┌ Warning: dynamic dispatch to Base.iterate(φ (%98 => %97, %100 => %99))
+└ @ promotion.jl:103
+┌ Warning: dynamic dispatch to Base.getindex(Base.getfield(φ (%29 => _2, %39 => %38), parameters), Core.getfield(φ (%105 => %102, %163 => %159), 1))
+└ @ promotion.jl:104
+┌ Warning: dynamic dispatch to Base.getindex(Base.getfield(φ (%21 => _3, %212 => %211), parameters), Core.getfield(φ (%105 => %102, %163 => %159), 1))
+└ @ promotion.jl:104
+┌ Warning: dynamic dispatch to Base.getproperty(φ (%105 => %84, %163 => %158), var)
+└ @ promotion.jl:110
+┌ Warning: dynamic dispatch to Base.getproperty(φ (%105 => %84, %163 => %158), body)
+└ @ promotion.jl:111
+┌ Warning: dynamic dispatch to Base.iterate(φ (%98 => %97, %100 => %99), Core.getfield(φ (%105 => %102, %163 => %159), 2))
+└ @ promotion.jl:111
+┌ Warning: dynamic dispatch to Base.UnionAll(φ (%183 => %179, %206 => %201), φ (%183 => %164, %206 => %187))
+└ @ promotion.jl:115
+┌ Warning: dynamic dispatch to Base.supertype(φ (%21 => _3, %212 => %211))
+└ @ promotion.jl:119
+┌ Warning: typejoin returns Any
+└ @ promotion.jl:15
+┌ Warning: getindex returns Union{Int64, String}
+└ @ tuple.jl:29
+┌ Warning:  is assigned as Tuple{String, Int64}
+└ @ abstractarray.jl:843
+┌ Warning:  is assigned as Union{Nothing, Tuple{Union{Int64, String}, Int64}}
+└ @ abstractarray.jl:847
+┌ Warning: x is assigned as Union{Int64, String}
+└ @ abstractarray.jl:843
+┌ Warning: y is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ abstractarray.jl:842
+┌ Warning: y is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ abstractarray.jl:847
+┌ Warning: dynamic dispatch to Base.ArgumentError("destination has fewer elements than required")
+└ @ abstractarray.jl:844
+┌ Warning: getindex returns Any
+└ @ array.jl:801
+┌ Warning:  is assigned as Union{Nothing, Tuple{Any, Int64}}
+└ @ operators.jl:1131
+┌ Warning:  is assigned as Union{Nothing, Tuple{Any, Int64}}
+└ @ operators.jl:1136
+┌ Warning: dynamic dispatch to φ (%19 => %15, %53 => %48) == _2
+└ @ operators.jl:1132
+┌ Warning: dynamic dispatch to Base.ismissing(φ (%19 => %15, %53 => %48) == _2)
+└ @ operators.jl:1133
+┌ Warning: radial_function_special_derivative is assigned as typeof(VectorSphericalWaves.one_over_x_by_∂_x_j_n_by_∂x)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:302
+┌ Warning: radial_function_special_derivative is assigned as typeof(VectorSphericalWaves.one_over_x_by_∂_x_h_n_by_∂x)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:305
+┌ Warning: radial_function is assigned as typeof(VectorSphericalWaves.spherical_Bessel_j_n)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:301
+┌ Warning: radial_function is assigned as typeof(VectorSphericalWaves.spherical_Hankel_h1_n)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:304
+┌ Warning: dynamic dispatch to VectorSphericalWaves.DomainError(" 'kind' has to be one of the following: [\"regular\", \"incoming\", \"irregular\", \"outgoing\"] ")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:307
+┌ Warning: dynamic dispatch to Base.DomainError(_2, "`n` must not be negative.")
+└ @ combinatorics.jl:18
+┌ Warning: dynamic dispatch to Base.string(_2, " is too large to look up in the table; consider using `factorial(big(", _2, "))` instead")
+└ @ combinatorics.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(_2, " is too large to look up in the table; consider using `factorial(big(", _2, "))` instead"))
+└ @ combinatorics.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(_2, "`n` must not be negative.")
+└ @ combinatorics.jl:18
+┌ Warning: dynamic dispatch to Base.string(_2, " is too large to look up in the table; consider using `factorial(big(", _2, "))` instead")
+└ @ combinatorics.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(_2, " is too large to look up in the table; consider using `factorial(big(", _2, "))` instead"))
+└ @ combinatorics.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(Base.sub_int(_3, _2), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.sub_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(_3, _2), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.sub_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(_3, _2), "))` instead"))        
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(Base.add_int(_3, _2), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.add_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(_3, _2), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.add_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(_3, _2), "))` instead"))        
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning:  is assigned as Float64
+└ @ complex.jl:474
+┌ Warning:  is assigned as Int64
+└ @ complex.jl:474
+┌ Warning: dynamic dispatch to Base.InexactError(Int64, Int64, π (%159, Float64))
+└ @ complex.jl:723
+┌ Warning: dynamic dispatch to Base.getindex(%new(Base.RefValue{Int32}))
+└ @ C:\Users\mahmo\.julia\packages\SpecialFunctions\mFAQ4\src\bessel.jl:257
+┌ Warning: dynamic dispatch to SpecialFunctions.AmosException(Base.getindex(%new(Base.RefValue{Int32})))
+└ @ C:\Users\mahmo\.julia\packages\SpecialFunctions\mFAQ4\src\bessel.jl:257
+┌ Warning: dynamic dispatch to Base.ArgumentError("step cannot be zero")
+└ @ range.jl:221
+┌ Warning:  is assigned as Tuple{Int64, Int64}
+└ @ math.jl:149
+┌ Warning:  is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ math.jl:150
+┌ Warning:  is assigned as Tuple{Int64, Int64}
+└ @ math.jl:149
+┌ Warning:  is assigned as Nothing
+└ @ math.jl:150
+┌ Warning: d is assigned as Bool
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:128
+┌ Warning: d is assigned as Int64
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:132
+┌ Warning: d is assigned as Float64
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:137
+┌ Warning: d is assigned as Float64
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:141
+┌ Warning:  is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:136
+┌ Warning:  is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:137
+┌ Warning: dynamic dispatch to Base.DomainError(φ (%33 => %30, %210 => %205), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(φ (%33 => %30, %210 => %205), " is too large to look up in the table; consider using `factorial(big(", φ (%33 => %30, %210 => %205), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(φ (%33 => %30, %210 => %205), " is too large to look up in the table; consider using `factorial(big(", φ (%33 => %30, %210 => %205), "))` instead"))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(Base.sub_int(Base.add_int(_2, _3), φ (%33 => %30, %210 => %205)), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.sub_int(Base.add_int(_2, _3), φ (%33 => %30, %210 => %205)), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(Base.add_int(_2, _3), φ (%33 => %30, %210 => %205)), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.sub_int(Base.add_int(_2, _3), φ (%33 => %30, %210 => %205)), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(Base.add_int(_2, _3), φ (%33 => %30, %210 => %205)), "))` instead"))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(Base.sub_int(Base.sub_int(_2, _4), φ (%33 => %30, %210 => %205)), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.sub_int(Base.sub_int(_2, _4), φ (%33 => %30, %210 => %205)), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(Base.sub_int(_2, _4), φ (%33 => %30, %210 => %205)), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.sub_int(Base.sub_int(_2, _4), φ (%33 => %30, %210 => %205)), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(Base.sub_int(_2, _4), φ (%33 => %30, %210 => %205)), "))` instead"))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(Base.add_int(Base.sub_int(_4, _3), φ (%33 => %30, %210 => %205)), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.add_int(Base.sub_int(_4, _3), φ (%33 => %30, %210 => %205)), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(Base.sub_int(_4, _3), φ (%33 => %30, %210 => %205)), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.add_int(Base.sub_int(_4, _3), φ (%33 => %30, %210 => %205)), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(Base.sub_int(_4, _3), φ (%33 => %30, %210 => %205)), "))` instead"))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(Base.add_int(_2, _3), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.add_int(_2, _3), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(_2, _3), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.add_int(_2, _3), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(_2, _3), "))` instead"))        
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(Base.sub_int(_2, _3), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.sub_int(_2, _3), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(_2, _3), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.sub_int(_2, _3), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(_2, _3), "))` instead"))        
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(Base.add_int(_2, _4), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.add_int(_2, _4), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(_2, _4), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.add_int(_2, _4), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(_2, _4), "))` instead"))        
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(Base.sub_int(_2, _4), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.sub_int(_2, _4), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(_2, _4), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.sub_int(_2, _4), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(_2, _4), "))` instead"))        
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: wignerdjmn_ELZOUKA returns Union{Bool, Float64, Int64}
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:125
+┌ Warning: getindex returns Union{Float64, Int64}
+└ @ tuple.jl:29
+┌ Warning:  is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ abstractarray.jl:1922
+┌ Warning:  is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ abstractarray.jl:1925
+┌ Warning:  is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ abstractarray.jl:1923
+┌ Warning:  is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ abstractarray.jl:1925
+┌ Warning: uses global variable VectorSphericalWaves.wignerdjmn
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:209
+┌ Warning: dynamic dispatch to VectorSphericalWaves.wignerdjmn(_3, 0, _2, _4)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:209
+┌ Warning: dynamic dispatch to VectorSphericalWaves.vcat(VectorSphericalWaves.wignerdjmn(_3, 0, _2, _4), 0, 0)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:209
+┌ Warning: P_mn_of_θ returns Any
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:208
+┌ Warning: twopk is assigned as UInt64
+└ @ special/exp.jl:221
+┌ Warning: twopk is assigned as Int64
+└ @ special/exp.jl:225
+┌ Warning: getindex returns Union{Float64, Vector{Float64}}
+└ @ tuple.jl:29
+┌ Warning: getindex returns Union{Float64, Base.Broadcast.Extruded{Vector{Float64}, Tuple{Bool}, Tuple{Int64}}}
+└ @ tuple.jl:29
+┌ Warning:  is assigned as Tuple{Int64, Int64}
+└ @ broadcast.jl:70
+┌ Warning:  is assigned as Nothing
+└ @ broadcast.jl:79
+┌ Warning: getindex returns Union{ComplexF64, Vector{Float64}}
+└ @ tuple.jl:29
+┌ Warning: getindex returns Union{Base.Broadcast.Extruded{Vector{Float64}, Tuple{Bool}, Tuple{Int64}}, ComplexF64}
+└ @ tuple.jl:29
+┌ Warning:  is assigned as Tuple{Int64, Int64}
+└ @ broadcast.jl:70
+┌ Warning:  is assigned as Nothing
+└ @ broadcast.jl:79
+┌ Warning: y is assigned as Vector{Float64}
+└ @ operators.jl:531
+┌ Warning: y is assigned as Vector{ComplexF64}
+└ @ operators.jl:533
+┌ Warning: dynamic dispatch to Base.DomainError(Base.add_int(_3, _2), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.add_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(_3, _2), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.add_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(_3, _2), "))` instead"))        
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(Base.sub_int(_3, _2), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.sub_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(_3, _2), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.sub_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(_3, _2), "))` instead"))        
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.mul_float(Base.sitofp(Float64, $(Expr(:invoke, MethodInstance for power_by_squaring(::Int64, ::Int64), :(Base.power_by_squaring), -1, Core.Argument(2)))), Base.Math.sqrt_llvm(Base.div_float(Base.sitofp(Float64, φ (%17 => 1, %19 => %18)), Base.sitofp(Float64, φ (%37 => 1, %39 => %38))))) * $(Expr(:invoke, MethodInstance for P_mn_of_θ(::Int64, ::Int64, ::Float64), :(VectorSphericalWaves.P_mn_of_θ), Core.Argument(2), Core.Argument(3), Core.Argument(4)))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:560
+┌ Warning: dynamic dispatch to Base.afoldl(*, Base.mul_float(Base.sitofp(Float64, $(Expr(:invoke, MethodInstance for power_by_squaring(::Int64, ::Int64), :(Base.power_by_squaring), -1, Core.Argument(2)))), Base.Math.sqrt_llvm(Base.div_float(Base.sitofp(Float64, φ (%17 => 1, %19 => %18)), Base.sitofp(Float64, φ (%37 => 1, %39 => %38))))) * $(Expr(:invoke, MethodInstance for P_mn_of_θ(::Int64, ::Int64, 
+::Float64), :(VectorSphericalWaves.P_mn_of_θ), Core.Argument(2), Core.Argument(3), Core.Argument(4))), φ (%76 => %75, %92 => %91, %97 => %96, %98 => NaN + NaN*im, %103 => %102, %110 => %109))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:560
+┌ Warning: P_mn_of_θ_ϕ returns Any
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:227
+┌ Warning: getindex returns Union{ComplexF64, Vector{ComplexF64}}
+└ @ tuple.jl:29
+┌ Warning: getindex returns Union{Base.Broadcast.Extruded{Vector{ComplexF64}, Tuple{Bool}, Tuple{Int64}}, ComplexF64}
+└ @ tuple.jl:29
+┌ Warning:  is assigned as Tuple{Int64, Int64}
+└ @ broadcast.jl:70
+┌ Warning:  is assigned as Nothing
+└ @ broadcast.jl:79
+┌ Warning: uses global variable VectorSphericalWaves.wignerdjmn
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:159
+┌ Warning: uses global variable VectorSphericalWaves.wignerdjmn
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:159
+┌ Warning: uses global variable VectorSphericalWaves.wignerdjmn
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:164
+┌ Warning: uses global variable VectorSphericalWaves.wignerdjmn
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:164
+┌ Warning: dynamic dispatch to VectorSphericalWaves.wignerdjmn(_5, _6, _7, Base.add_float(_8, _3))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:159
+┌ Warning: dynamic dispatch to VectorSphericalWaves.wignerdjmn(_5, _6, _7, Base.sub_float(_8, _3))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:159
+┌ Warning: dynamic dispatch to VectorSphericalWaves.wignerdjmn(_5, _6, _7, Base.add_float(_8, _3)) - VectorSphericalWaves.wignerdjmn(_5, _6, _7, Base.sub_float(_8, _3))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:159
+┌ Warning: dynamic dispatch to (VectorSphericalWaves.wignerdjmn(_5, _6, _7, Base.add_float(_8, _3)) - VectorSphericalWaves.wignerdjmn(_5, _6, _7, Base.sub_float(_8, _3))) / Base.mul_float(_3, Base.sitofp(Float64, 2))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:159
+┌ Warning: dynamic dispatch to VectorSphericalWaves.wignerdjmn(_5, _6, _7, _8)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:164
+┌ Warning: dynamic dispatch to Base.div_float(Base.mul_float(Base.sitofp(Float64, -1), Base.sub_float(Base.sitofp(Float64, _6), Base.mul_float(Base.sitofp(Float64, _7), $(Expr(:invoke, MethodInstance for cos(::Float64), :(VectorSphericalWaves.cos), Core.Argument(8)))))), $(Expr(:invoke, MethodInstance for sin(::Float64), :(VectorSphericalWaves.sin), Core.Argument(8)))) * VectorSphericalWaves.wignerdjmn(_5, _6, _7, _8)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:164
+┌ Warning: dynamic dispatch to VectorSphericalWaves.wignerdjmn(_5, _6, Base.add_int(_7, 1), _8)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:164
+┌ Warning: dynamic dispatch to Base.Math.sqrt_llvm(Base.sitofp(Float64, Base.mul_int(Base.sub_int(_5, _7), Base.add_int(Base.add_int(_5, _7), 1)))) * VectorSphericalWaves.wignerdjmn(_5, _6, Base.add_int(_7, 1), _8)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:164
+┌ Warning: dynamic dispatch to Base.div_float(Base.mul_float(Base.sitofp(Float64, -1), Base.sub_float(Base.sitofp(Float64, _6), Base.mul_float(Base.sitofp(Float64, _7), $(Expr(:invoke, MethodInstance for cos(::Float64), :(VectorSphericalWaves.cos), Core.Argument(8)))))), $(Expr(:invoke, MethodInstance for sin(::Float64), :(VectorSphericalWaves.sin), Core.Argument(8)))) * VectorSphericalWaves.wignerdjmn(_5, _6, _7, _8) - Base.Math.sqrt_llvm(Base.sitofp(Float64, Base.mul_int(Base.sub_int(_5, _7), Base.add_int(Base.add_int(_5, _7), 1)))) * VectorSphericalWaves.wignerdjmn(_5, _6, Base.add_int(_7, 1), _8)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:164
+┌ Warning: #∂wignerdjmn_by_∂θ#4 returns Any
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:154
+┌ Warning: ∂wignerdjmn_by_∂θ returns Any
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:154
+┌ Warning: τₘₙ returns Any
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:177
+┌ Warning: uses global variable VectorSphericalWaves.wignerdjmn
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:174
+┌ Warning: dynamic dispatch to VectorSphericalWaves.wignerdjmn(_3, 0, _2, _4)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:174
+┌ Warning: dynamic dispatch to Base.div_float(Base.sitofp(Float64, _2), $(Expr(:invoke, MethodInstance for sin(::Float64), :(VectorSphericalWaves.sin), Core.Argument(4)))) * VectorSphericalWaves.wignerdjmn(_3, 0, _2, _4)
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:174
+┌ Warning: πₘₙ returns Any
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:173
+┌ Warning: getindex returns Union{Float64, Int64, ComplexF64}
+└ @ tuple.jl:29
+┌ Warning:  is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ abstractarray.jl:1922
+┌ Warning:  is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ abstractarray.jl:1925
+┌ Warning:  is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ abstractarray.jl:1923
+┌ Warning:  is assigned as Union{Nothing, Tuple{Int64, Int64}}
+└ @ abstractarray.jl:1925
+┌ Warning: dynamic dispatch to VectorSphericalWaves.im * $(Expr(:invoke, MethodInstance for πₘₙ(::Int64, ::Int64, ::Float64), :(VectorSphericalWaves.πₘₙ), Core.Argument(2), Core.Argument(3), Core.Argument(4)))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:189
+┌ Warning: dynamic dispatch to VectorSphericalWaves.vcat(0, $(Expr(:invoke, MethodInstance for var"#∂wignerdjmn_by_∂θ#4"(::Bool, ::Float64, ::typeof(∂wignerdjmn_by_∂θ), ::Int64, ::Int64, ::Int64, ::Float64), :(VectorSphericalWaves.:(var"#∂wignerdjmn_by_∂θ#4")), false, 1.0e-30, :(VectorSphericalWaves.∂wignerdjmn_by_∂θ), Core.Argument(3), 0, Core.Argument(2), Core.Argument(4))), VectorSphericalWaves.im 
+* $(Expr(:invoke, MethodInstance for πₘₙ(::Int64, ::Int64, ::Float64), :(VectorSphericalWaves.πₘₙ), Core.Argument(2), Core.Argument(3), Core.Argument(4))))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:189
+┌ Warning: B_mn_of_θ returns Any
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:184
+┌ Warning: getindex returns Union{Float64, Vector{ComplexF64}}
+└ @ tuple.jl:29
+┌ Warning: getindex returns Union{Float64, Base.Broadcast.Extruded{Vector{ComplexF64}, Tuple{Bool}, Tuple{Int64}}}
+└ @ tuple.jl:29
+┌ Warning:  is assigned as Tuple{Int64, Int64}
+└ @ broadcast.jl:70
+┌ Warning:  is assigned as Nothing
+└ @ broadcast.jl:79
+┌ Warning: getindex returns Union{ComplexF64, Vector{ComplexF64}}
+└ @ tuple.jl:29
+┌ Warning: getindex returns Union{Base.Broadcast.Extruded{Vector{ComplexF64}, Tuple{Bool}, Tuple{Int64}}, ComplexF64}
+└ @ tuple.jl:29
+┌ Warning:  is assigned as Tuple{Int64, Int64}
+└ @ broadcast.jl:70
+┌ Warning:  is assigned as Nothing
+└ @ broadcast.jl:79
+┌ Warning: dynamic dispatch to Base.DomainError(Base.add_int(_3, _2), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.add_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(_3, _2), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.add_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.add_int(_3, _2), "))` instead"))        
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.DomainError(Base.sub_int(_3, _2), "`n` must not be negative.")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:18
+┌ Warning: dynamic dispatch to Base.string(Base.sub_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(_3, _2), "))` instead")
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.OverflowError(Base.string(Base.sub_int(_3, _2), " is too large to look up in the table; consider using `factorial(big(", Base.sub_int(_3, _2), "))` instead"))        
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:19
+┌ Warning: dynamic dispatch to Base.mul_float(Base.sitofp(Float64, $(Expr(:invoke, MethodInstance for power_by_squaring(::Int64, ::Int64), :(Base.power_by_squaring), -1, Core.Argument(2)))), Base.Math.sqrt_llvm(Base.div_float(Base.sitofp(Float64, φ (%17 => 1, %19 => %18)), Base.sitofp(Float64, φ (%37 => 1, %39 => %38))))) * $(Expr(:invoke, MethodInstance for B_mn_of_θ(::Int64, ::Int64, ::Float64), :(VectorSphericalWaves.B_mn_of_θ), Core.Argument(2), Core.Argument(3), Core.Argument(4)))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:560
+┌ Warning: dynamic dispatch to Base.afoldl(*, Base.mul_float(Base.sitofp(Float64, $(Expr(:invoke, MethodInstance for power_by_squaring(::Int64, ::Int64), :(Base.power_by_squaring), -1, Core.Argument(2)))), Base.Math.sqrt_llvm(Base.div_float(Base.sitofp(Float64, φ (%17 => 1, %19 => %18)), Base.sitofp(Float64, φ (%37 => 1, %39 => %38))))) * $(Expr(:invoke, MethodInstance for B_mn_of_θ(::Int64, ::Int64, 
+::Float64), :(VectorSphericalWaves.B_mn_of_θ), Core.Argument(2), Core.Argument(3), Core.Argument(4))), φ (%76 => %75, %92 => %91, %97 => %96, %98 => NaN + NaN*im, %103 => %102, %110 => %109))
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:560
+┌ Warning: B_mn_of_θ_ϕ returns Any
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:219
+┌ Warning:  is assigned as Tuple{Int64, Int64}
+└ @ indices.jl:176
+┌ Warning:  is assigned as Nothing
+└ @ indices.jl:178
+┌ Warning: dynamic dispatch to Base.string("dimensions must match: a has dims ", _2, ", b has dims ", _3, ", mismatch at ", 1)
+└ @ indices.jl:178
+┌ Warning: dynamic dispatch to Base.DimensionMismatch(Base.string("dimensions must match: a has dims ", _2, ", b has dims ", _3, ", mismatch at ", 1))
+└ @ indices.jl:178
+┌ Warning: dynamic dispatch to Base.string("dimensions must match: a has dims ", Core.tuple(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1)))), ", b 
+has dims ", Core.tuple(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_3, 1), 0), 0, Base.arraysize(_3, 1)))), ", mismatch at ", 1)
+└ @ indices.jl:178
+┌ Warning: dynamic dispatch to Base.DimensionMismatch(Base.string("dimensions must match: a has dims ", Core.tuple(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1)))), ", b has dims ", Core.tuple(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_3, 1), 0), 0, Base.arraysize(_3, 1)))), ", mismatch at ", 1))
+└ @ indices.jl:178
+┌ Warning: dynamic dispatch to Base.Broadcast.length(_2)
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(_3)
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(_2), " and ", Base.Broadcast.length(_3))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(_2), " and ", Base.Broadcast.length(_3)))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(Base.getfield(_2, 1, true))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(Base.getfield(_3, 1, true))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(Base.getfield(_2, 1, true)), " and ", Base.Broadcast.length(Base.getfield(_3, 1, true)))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(Base.getfield(_2, 1, true)), " and ", Base.Broadcast.length(Base.getfield(_3, 1, true))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(Base.getfield(_2, 1, true))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(Base.getfield(_3, 1, true))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(Base.getfield(_2, 1, true)), " and ", Base.Broadcast.length(Base.getfield(_3, 1, true)))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(Base.getfield(_2, 1, true)), " and ", Base.Broadcast.length(Base.getfield(_3, 1, true))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_3, 1), 0), 0, Base.arraysize(_3, 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_3, 1), 0), 0, Base.arraysize(_3, 1)))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_3, 1), 0), 0, Base.arraysize(_3, 1))))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1)))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1))))))
+└ @ broadcast.jl:501
+┌ Warning:  is assigned as Tuple{Int64, Int64}
+└ @ broadcast.jl:70
+┌ Warning:  is assigned as Nothing
+└ @ broadcast.jl:79
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1)))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1))))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1)))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1))))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1)))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1), 0), 0, Base.arraysize(Core.getfield(Base.getfield(_2, args), 2), 1))))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 2), 1), 0), 0, Base.arraysize(Core.getfield(_3, 2), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 2), 
+1), 0), 0, Base.arraysize(Core.getfield(_3, 2), 1)))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 2), 1), 0), 0, Base.arraysize(Core.getfield(_3, 2), 1))))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 2), 1), 0), 0, Base.arraysize(Core.getfield(_3, 2), 1))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 2), 
+1), 0), 0, Base.arraysize(Core.getfield(_3, 2), 1)))))
+└ @ broadcast.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 2), 1), 0), 0, Base.arraysize(Core.getfield(_3, 2), 1))))))
+└ @ broadcast.jl:501
+┌ Warning:  is assigned as Tuple{Vector{ComplexF64}, Int64}
+└ @ arraymath.jl:44
+┌ Warning:  is assigned as Nothing
+└ @ arraymath.jl:45
+┌ Warning: dynamic dispatch to Base.string("dimensions must match: a has dims ", Core.tuple(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1)))), ", b 
+has dims ", Core.tuple(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Base.getfield(_3, 1, false), 1), 0), 0, Base.arraysize(Base.getfield(_3, 1, false), 1)))), ", mismatch at ", 1)    
+└ @ arraymath.jl:178
+┌ Warning: dynamic dispatch to Base.DimensionMismatch(Base.string("dimensions must match: a has dims ", Core.tuple(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1)))), ", b has dims ", Core.tuple(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Base.getfield(_3, 1, false), 1), 0), 0, Base.arraysize(Base.getfield(_3, 1, false), 1)))), ", mismatch at ", 1))
+└ @ arraymath.jl:178
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1))))
+└ @ arraymath.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1))))
+└ @ arraymath.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1)))))
+└ @ arraymath.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1))))))
+└ @ arraymath.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1))))
+└ @ arraymath.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1))))
+└ @ arraymath.jl:501
+┌ Warning: dynamic dispatch to Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1)))))
+└ @ arraymath.jl:501
+┌ Warning: dynamic dispatch to Base.Broadcast.DimensionMismatch(Base.string("arrays could not be broadcast to a common size; got a dimension with lengths ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(_2, 1), 0), 0, Base.arraysize(_2, 1)))), " and ", Base.Broadcast.length(%new(Base.OneTo{Int64}, Base.ifelse(Base.slt_int(Base.arraysize(Core.getfield(_3, 1), 1), 0), 0, Base.arraysize(Core.getfield(_3, 1), 1))))))
+└ @ arraymath.jl:501
+┌ Warning: N_mn_wave##kw returns Any
+└ @ C:\Users\mahmo\Google Drive\elzouka_codes_library\julia\VectorSphericalWaves.jl\src\VectorSphericalWaves.jl:324
+3-element Vector{ComplexF64}:
+ -9.267558988012958e-12 - 2.8667919403878835e-12im
+  -8.174809932449145e-8 - 2.5287650457753217e-8im
+  2.5801972059340537e-8 - 8.341076124088951e-8im

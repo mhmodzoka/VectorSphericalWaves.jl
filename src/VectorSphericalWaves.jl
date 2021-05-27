@@ -92,7 +92,7 @@ The error because the derivative of Bessel function with respect to the integer 
 Since adjoint calculation will never require calculation gradient with respect to the integer rank, I am defining this integer as zero or `ChainRulesCore.Zero()`
 """
 
-#
+# 
 ChainRulesCore.@scalar_rule(
     besselj(ν, x),
     (
@@ -122,9 +122,9 @@ This is calculated directly, not with recurrence relation.
 The Wigner-d calculated by recurrence is more numerically stable.
 Use this function only as a validation for the recurrence relation, or when automatic differentiation is needed.
 """
-function wignerdjmn_ELZOUKA(s, m, n, θ)
+function wignerdjmn_ELZOUKA(s::Int, m::Int, n::Int, θ::R) where R <: Real
     # println("s=$s, m=$m, n=$n, θ=$θ")
-    if θ == 0
+    if θ == 0 # TODO: make the zero the same type of θ. e.g., zero(θ)
         d = δ(m, n)
     elseif θ == π
         d = (-1)^(s - n) * δ(-n, m)
