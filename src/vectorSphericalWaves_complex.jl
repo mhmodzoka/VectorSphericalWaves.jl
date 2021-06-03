@@ -18,8 +18,9 @@ function B_mn_of_θ(m::Int, n::Int, θ::R) where R <: Real
     I assume each of m, n, θ is a single number
     """
     # TODO you can use literal syntax for this
+    # TODO @Alok, should I replace arrays with SMatrix? what are the drawbacks?
     return vcat(
-        0,                  # r-component
+        zero(θ),                  # r-component
         τₘₙ(m, n, θ),      # θ-component
         im * πₘₙ(m, n, θ)  # ϕ-component
     ) # equation C.19
@@ -29,19 +30,38 @@ function C_mn_of_θ(m::Int, n::Int, θ::R) where R <: Real
     """
     I assume each of m, n, θ is a single number
     """
+    # TODO @Alok, should I replace arrays with SMatrix? what are the drawbacks?
     return vcat(
-        0,                  # r-component
+        zero(θ),                  # r-component
         im * πₘₙ(m, n, θ), # θ-component
         -1 * τₘₙ(m, n, θ),    # ϕ-component
     ) # equation C.20
 end
 
 # TODO use partial application for M,N, fold them into the type sig of struct P
+"""
+    equation C.21, returns array
+"""
 function P_mn_of_θ(m::Int, n::Int, θ::R) where R <: Real
+    # TODO @Alok, should I replace arrays with SMatrix? what are the drawbacks?
+    # TODO: replace "0" with zero(type)
     return vcat(
         wignerdjmn(n, 0, m, θ), # r-component
-        0,                      # θ-component
-        0,                      # ϕ-component
+        zero(θ),                # θ-component
+        zero(θ),                # ϕ-component
+    ) # equation C.21
+end
+
+"""
+    equation C.21, returns SVector
+"""
+function P_mn_of_θ_SVector(m::Int, n::Int, θ::R) where R <: Real
+    # TODO @Alok, should I replace arrays with SMatrix? what are the drawbacks?
+    # TODO: replace "0" with zero(type)
+    return SVector(
+        wignerdjmn(n, 0, m, θ), # r-component
+        zero(θ),                # θ-component
+        zero(θ),                # ϕ-component
     ) # equation C.21
 end
 

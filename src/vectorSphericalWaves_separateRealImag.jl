@@ -1,8 +1,13 @@
 # TODO: I cound that "utils.jl" has been `include`ed in the main `VectorSphericalWaves` module. Is there a more neat way? when I `include("utils.jl")` here, I get lots of warnings.
 
+using StaticArrays
+
 # exporting main functions, separating real and imaginary parts
 export M_mn_wave_SeparateRealImag
 export N_mn_wave_SeparateRealImag
+
+export M_mn_wave_SeparateRealImag_SMatrix
+export N_mn_wave_SeparateRealImag_SMatrix
 
 #############################################################################################
 # The following functions are the same as before, but are desinged to be automatically differentiable (e.g., with Zygote).
@@ -10,6 +15,9 @@ export N_mn_wave_SeparateRealImag
 #############################################################################################
 #############################################################################################
 # calculate B(θ), C(θ), P(θ)
+"""
+    equation C.19, returns an array
+"""
 function B_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
     # equation C.19
     B_real = vcat(0, τₘₙ(m, n, θ), 0)
@@ -17,6 +25,19 @@ function B_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
     return hcat(B_real, B_imag)
 end
 
+"""
+    Same as B_mn_of_θ_SeparateRealImag, but return SMatrix
+"""
+function B_mn_of_θ_SeparateRealImag_SMatrix(m::Int, n::Int, θ::R) where R <: Real
+    # equation C.19
+    B_real = SVector(0, τₘₙ(m, n, θ), 0)
+    B_imag = SVector(0, 0, πₘₙ(m, n, θ))
+    return hcat(B_real, B_imag)
+end
+
+"""
+    equation C.20, returns an array
+"""
 function C_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
     # equation C.20
     C_real = vcat(0, 0, -1 * τₘₙ(m, n, θ))
@@ -24,9 +45,30 @@ function C_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
     return hcat(C_real, C_imag)
 end
 
+"""
+    Same as C_mn_of_θ_SeparateRealImag, but return SMatrix
+"""
+function C_mn_of_θ_SeparateRealImag_SMatrix(m::Int, n::Int, θ::R) where R <: Real
+    # equation C.20
+    C_real = SVector(0, 0, -1 * τₘₙ(m, n, θ))
+    C_imag = SVector(0, πₘₙ(m, n, θ), 0)
+    return hcat(C_real, C_imag)
+end
+
+"""
+    equation C.21, returns an array
+"""
 function P_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
     # equation C.21
     return hcat(P_mn_of_θ(m, n, θ), vcat(0, 0, 0))
+end
+
+"""
+    Same as P_mn_of_θ_SeparateRealImag, returns SMatrix
+"""
+function P_mn_of_θ_SeparateRealImag_SMatrix(m::Int, n::Int, θ::R) where R <: Real
+    # equation C.21
+    return hcat(P_mn_of_θ_SVector(m, n, θ), SVector(zero(θ), zero(θ), zero(θ)))
 end
 
 function convert_from_fun_of_θ_to_fun_of_θ_ϕ(fun_tobe_converted::Function, m::Int, n::Int, θ::R, ϕ::R) where R <: Real
@@ -63,6 +105,22 @@ end
 function P_mn_of_θ_ϕ_SeparateRealImag(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
     # equation C.18
     return convert_from_fun_of_θ_to_fun_of_θ_ϕ(P_mn_of_θ_SeparateRealImag, m, n, θ, ϕ)
+end
+
+# same as above, but returns *_SMatrix
+function B_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
+    # equation C.16
+    return convert_from_fun_of_θ_to_fun_of_θ_ϕ(B_mn_of_θ_SeparateRealImag_SMatrix, m, n, θ, ϕ)
+end
+
+function C_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
+    # equation C.17
+    return convert_from_fun_of_θ_to_fun_of_θ_ϕ(C_mn_of_θ_SeparateRealImag_SMatrix, m, n, θ, ϕ)
+end
+
+function P_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
+    # equation C.18
+    return convert_from_fun_of_θ_to_fun_of_θ_ϕ(P_mn_of_θ_SeparateRealImag_SMatrix, m, n, θ, ϕ)
 end
 
 #############################################################################################
@@ -128,6 +186,16 @@ function M_mn_wave_SeparateRealImag(m::Int, n::Int, kr_r::R, kr_i::R, θ::R, ϕ:
     # TODO: write this in a more elegant way: vcat(gamma_by_radial, gamma_by_radial, gamma_by_radial)
 end
 
+"""
+    Same as `M_mn_wave_SeparateRealImag`, but returns SMatrix
+"""
+function M_mn_wave_SeparateRealImag_SMatrix(m::Int, n::Int, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where R <: Real
+    radial_function, _ = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
+    gamma_by_radial = γ_mn(m, n) .* radial_function(n, kr_r, kr_i)
+    return complex_multiply(gamma_by_radial*SMatrix{3,2}(ones(3,2)), C_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
+    # TODO: write this in a more elegant way: vcat(gamma_by_radial, gamma_by_radial, gamma_by_radial)
+end
+
 function N_mn_wave_SeparateRealImag(m::Int, n::Int, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where R <: Real
     radial_function, radial_function_special_derivative  = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
     ceoff = complex_multiply(complex_divide(n * (n + 1), 0, kr_r, kr_i), radial_function(n, kr_r, kr_i))
@@ -135,6 +203,20 @@ function N_mn_wave_SeparateRealImag(m::Int, n::Int, kr_r::R, kr_i::R, θ::R, ϕ:
     return γ_mn(m, n) .* (
         complex_multiply([ceoff; ceoff; ceoff], P_mn_of_θ_ϕ_SeparateRealImag(m, n, θ, ϕ))
         + complex_multiply([rad_fun_der; rad_fun_der; rad_fun_der], B_mn_of_θ_ϕ_SeparateRealImag(m, n, θ, ϕ))
+    )
+    # TODO: write this in a more elegant way: [ceoff; ceoff; ceoff]
+end
+
+"""
+    Same as `N_mn_wave_SeparateRealImag`, but returns SMatrix
+"""
+function N_mn_wave_SeparateRealImag_SMatrix(m::Int, n::Int, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where R <: Real
+    radial_function, radial_function_special_derivative  = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
+    ceoff = complex_multiply(complex_divide(n * (n + 1), 0, kr_r, kr_i), radial_function(n, kr_r, kr_i))
+    rad_fun_der = radial_function_special_derivative(n, kr_r, kr_i)
+    return γ_mn(m, n) .* (
+        complex_multiply(ceoff*SMatrix{3,2}(ones(3,2)), P_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
+        + complex_multiply(rad_fun_der*SMatrix{3,2}(ones(3,2)), B_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
     )
     # TODO: write this in a more elegant way: [ceoff; ceoff; ceoff]
 end
