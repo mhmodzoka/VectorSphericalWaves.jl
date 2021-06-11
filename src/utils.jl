@@ -90,6 +90,8 @@ ChainRulesCore.@scalar_rule(
 This is calculated directly, not with recurrence relation.
 The Wigner-d calculated by recurrence is more numerically stable.
 Use this function only as a validation for the recurrence relation, or when automatic differentiation is needed.
+
+TODO: for large s,m,n, this is not stable. Use the one with recurrence instead
 """
 function wignerdjmn_ELZOUKA(s::Int, m::Int, n::Int, θ::R) where R <: Real
     # println("s=$s, m=$m, n=$n, θ=$θ")
