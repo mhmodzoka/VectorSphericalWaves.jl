@@ -2,6 +2,8 @@ using SpecialFunctions
 using DataStructures
 using StaticArrays
 using ComplexOperations
+using Memoize
+
 
 import WignerD
 import ChainRulesCore
@@ -117,7 +119,63 @@ function wignerdjmn_ELZOUKA(s::Int, m::Int, n::Int, θ::R) where R <: Real
 
     return d
 end
-wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, although "wignerdjmn_ELZOUKA" is not efficient.
+
+
+
+"""
+    Calculate Wigner-d function, using recurrence and memoize
+"""
+@memoize function wignerdjmn_recurrence_memoize(s::Int, m::Int, n::Int, θ::R) where R <: Real
+    s_min = max(abs(m), abs(n))
+
+    x = cos(θ)
+
+    if m > n # I need to memoize only m < n, because it is relevant to calculating angular functions
+        return (-1)^(m-n) * wignerdjmn_recurrence_memoize(s, n, m, θ) # eq. B.5
+        
+    elseif θ < 0 # I need to memoize only θ > 0
+        return (-1)^(m-n) * wignerdjmn_recurrence_memoize(s, m, n, -θ)
+    
+    elseif n < 0 # I need to memoize only n > 0
+        return (-1)^(m-n) * wignerdjmn_recurrence_memoize(s, -m, -n, θ)    
+
+    elseif s < s_min
+        return zero(θ)
+
+    elseif s == s_min
+        # calculate ξ from eq. B.16
+        if n >= m
+            ξ_mn = 1
+        else
+            ξ_mn = (-1)^(m - n)
+        end       
+
+        # calculate d^s_min__m_n(θ) from eq. B.24
+        return (
+            ξ_mn * 2.0^(-s_min) * sqrt(
+                factorial((2s_min)) / (factorial((abs(m - n))) * factorial((abs(m + n))))
+            ) *
+            (1 - x)^(abs(m - n) / 2) *
+            (1 + x)^(abs(m + n) / 2)
+        )
+    
+    else
+        d_s_here_plus_1 = zero(θ)
+        for s_here = s_min:s - 1
+            d_s_here_plus_1 = 1 / (s_here * sqrt((s_here + 1)^2 - m^2) * sqrt((s_here + 1)^2 - n^2)) * (
+                (2s_here + 1) * (s_here * (s_here + 1) * x - m * n) * wignerdjmn_recurrence_memoize(s_here,m,n,θ)
+                - 1 * (s_here + 1) * sqrt(s_here^2 - m^2) * sqrt(s_here^2 - n^2) * wignerdjmn_recurrence_memoize(s_here-1,m,n,θ)
+            ) # eq. B.22
+        end
+        return d_s_here_plus_1
+
+    end
+end
+
+
+
+# wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, although "wignerdjmn_ELZOUKA" is not efficient.
+wignerdjmn = wignerdjmn_recurrence_memoize
 # I may need to define "ChainRulesCore.@scalar_rule" for "WignerD.wignerdjmn"
 # wignerdjmn = WignerD.wignerdjmn
 
@@ -136,8 +194,6 @@ function ∂wignerdjmn_by_∂θ(s::Int, m::Int, n::Int, θ::R; numerical_derivat
         # end
     end
 end
-
-
 
 #############################################################################################
 # calculate π(θ) and τ(θ)

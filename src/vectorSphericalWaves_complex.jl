@@ -13,12 +13,11 @@ export P_mn_of_θ_ϕ
 
 #############################################################################################
 # calculate B(θ), C(θ), P(θ)
+"""
+    Calculation of B(θ), equation C.19, returns array
+I assume each of m, n, θ is a single number
+"""
 function B_mn_of_θ(m::Int, n::Int, θ::R) where R <: Real
-    """
-    I assume each of m, n, θ is a single number
-    """
-    # TODO you can use literal syntax for this
-    # TODO @Alok, should I replace arrays with SMatrix? what are the drawbacks?
     return vcat(
         zero(θ),                  # r-component
         τₘₙ(m, n, θ),      # θ-component
@@ -26,12 +25,39 @@ function B_mn_of_θ(m::Int, n::Int, θ::R) where R <: Real
     ) # equation C.19
 end
 
-function C_mn_of_θ(m::Int, n::Int, θ::R) where R <: Real
+"""
+    Calculation of B(θ), equation C.19, returns SVector
+I assume each of m, n, θ is a single number
+"""
+function B_mn_of_θ_SVector(m::Int, n::Int, θ::R) where R <: Real
     """
     I assume each of m, n, θ is a single number
     """
-    # TODO @Alok, should I replace arrays with SMatrix? what are the drawbacks?
+    return SVector(
+        zero(θ),                  # r-component
+        τₘₙ(m, n, θ),      # θ-component
+        im * πₘₙ(m, n, θ)  # ϕ-component
+    ) # equation C.19
+end
+
+"""
+    Calculation of C(θ), equation C.20, returns array
+I assume each of m, n, θ is a single number
+"""
+function C_mn_of_θ(m::Int, n::Int, θ::R) where R <: Real    
     return vcat(
+        zero(θ),                  # r-component
+        im * πₘₙ(m, n, θ), # θ-component
+        -1 * τₘₙ(m, n, θ),    # ϕ-component
+    ) # equation C.20
+end
+
+"""
+    Calculation of C(θ), equation C.20, returns SVector
+I assume each of m, n, θ is a single number
+"""
+function C_mn_of_θ_SVector(m::Int, n::Int, θ::R) where R <: Real   
+    return SVector(
         zero(θ),                  # r-component
         im * πₘₙ(m, n, θ), # θ-component
         -1 * τₘₙ(m, n, θ),    # ϕ-component
@@ -67,7 +93,7 @@ end
 
 
 #############################################################################################
-# calculate B(θ,ϕ), C(θ,ϕ), P(θ,ϕ)
+# calculate B(θ,ϕ), C(θ,ϕ), P(θ,ϕ), returns Array
 function B_mn_of_θ_ϕ(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
     return (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * B_mn_of_θ(m, n, θ) * exp(im * m * ϕ) # equation C.16
 end
@@ -78,6 +104,19 @@ end
 
 function P_mn_of_θ_ϕ(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
     return (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * P_mn_of_θ(m, n, θ) * exp(im * m * ϕ) # equation C.18
+end
+
+# calculate B(θ,ϕ), C(θ,ϕ), P(θ,ϕ), returns SVector
+function B_mn_of_θ_ϕ_SVector(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
+    return (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * B_mn_of_θ_SVector(m, n, θ) * exp(im * m * ϕ) # equation C.16
+end
+
+function C_mn_of_θ_ϕ_SVector(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
+    return (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * C_mn_of_θ_SVector(m, n, θ) * exp(im * m * ϕ) # equation C.17
+end
+
+function P_mn_of_θ_ϕ_SVector(m::Int, n::Int, θ::R, ϕ::R) where R <: Real
+    return (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * P_mn_of_θ_SVector(m, n, θ) * exp(im * m * ϕ) # equation C.18
 end
 
 
@@ -136,26 +175,52 @@ end
 
 
 #############################################################################################
-# calculate (Rg)M(kr,θ,ϕ), (Rg)N(kr,θ,ϕ)
-function M_mn_wave(m::Int, n::Int, kr::NN, θ::R, ϕ::R; kind="regular") where {R <: Real,NN <: Number}
-    """
+# calculate (Rg)M(kr,θ,ϕ), (Rg)N(kr,θ,ϕ), returns Array
+"""
     Parameters
     ==========
     kind: string, either ["regular" or "incoming"] or ["irregular" or "outgoing"]
-    """
+"""
+function M_mn_wave(m::Int, n::Int, kr::NN, θ::R, ϕ::R; kind="regular") where {R <: Real,NN <: Number}    
     radial_function, _ = get_radial_function_and_special_derivative_given_kind(kind)
     return γ_mn(m, n) * radial_function(n, kr) * C_mn_of_θ_ϕ(m, n, θ, ϕ)
 end
 
-function N_mn_wave(m::Int, n::Int, kr::NN, θ::R, ϕ::R; kind="regular") where {R <: Real,NN <: Number}
-    """
+
+"""
     Parameters
     ==========
     kind: string, either ["regular" or "incoming"] or ["irregular" or "outgoing"]
-    """
+"""
+function N_mn_wave(m::Int, n::Int, kr::NN, θ::R, ϕ::R; kind="regular") where {R <: Real,NN <: Number}    
     radial_function, radial_function_special_derivative  = get_radial_function_and_special_derivative_given_kind(kind)
     return γ_mn(m, n) * (
         n * (n + 1) / kr * radial_function(n, kr) * P_mn_of_θ_ϕ(m, n, θ, ϕ)
         + (radial_function_special_derivative(n, kr) * B_mn_of_θ_ϕ(m, n, θ, ϕ))
+    )
+end
+
+# calculate (Rg)M(kr,θ,ϕ), (Rg)N(kr,θ,ϕ), returns SVector
+"""
+    Parameters
+    ==========
+    kind: string, either ["regular" or "incoming"] or ["irregular" or "outgoing"]
+"""
+function M_mn_wave_SVector(m::Int, n::Int, kr::NN, θ::R, ϕ::R; kind="regular") where {R <: Real,NN <: Number}    
+    radial_function, _ = get_radial_function_and_special_derivative_given_kind(kind)
+    return γ_mn(m, n) * radial_function(n, kr) * C_mn_of_θ_ϕ_SVector(m, n, θ, ϕ)
+end
+
+
+"""
+    Parameters
+    ==========
+    kind: string, either ["regular" or "incoming"] or ["irregular" or "outgoing"]
+"""
+function N_mn_wave_SVector(m::Int, n::Int, kr::NN, θ::R, ϕ::R; kind="regular") where {R <: Real,NN <: Number}    
+    radial_function, radial_function_special_derivative  = get_radial_function_and_special_derivative_given_kind(kind)
+    return γ_mn(m, n) * (
+        n * (n + 1) / kr * radial_function(n, kr) * P_mn_of_θ_ϕ_SVector(m, n, θ, ϕ)
+        + (radial_function_special_derivative(n, kr) * B_mn_of_θ_ϕ_SVector(m, n, θ, ϕ))
     )
 end

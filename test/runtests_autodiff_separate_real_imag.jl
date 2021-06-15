@@ -52,3 +52,30 @@ Zygote.jacobian(VectorSphericalWaves.M_mn_wave_SeparateRealImag,m, n, kr_r, kr_i
 N_wave_calc_using_complex_numbers = N_mn_wave(m, n, complex(kr_r, kr_i), θ, ϕ; kind="regular")
 VectorSphericalWaves.N_mn_wave_SeparateRealImag(m, n, kr_r, kr_i, θ, ϕ, "regular") == hcat(real(N_wave_calc_using_complex_numbers), imag(N_wave_calc_using_complex_numbers))
 Zygote.jacobian(VectorSphericalWaves.N_mn_wave_SeparateRealImag,m, n, kr_r, kr_i, θ, ϕ, "regular") # I can't add kwarg "kind". How can I add it?
+
+
+
+function B_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
+    # equation C.19
+    B_real = vcat(0, VectorSphericalWaves.τₘₙ(m, n, θ), 0)
+    B_imag = vcat(0, 0, VectorSphericalWaves.πₘₙ(m, n, θ))
+    return hcat(B_real, B_imag)
+end
+
+m,n,t_ = 5, 7, LinRange(0, π, 10000);
+@time B_mn_of_θ_SeparateRealImag(m,n,t_[1]);
+@time B_mn_of_θ_SeparateRealImag.(m,n,t_);
+@time B_mn_of_θ_SeparateRealImag.(m,n,t_);
+
+
+function B_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
+    # equation C.19    
+    return hcat(vcat(0, VectorSphericalWaves.τₘₙ(m, n, θ), 0), vcat(0, 0, VectorSphericalWaves.πₘₙ(m, n, θ)))
+end
+
+m,n,t_ = 5, 7, LinRange(0, π, 10000);
+@time B_mn_of_θ_SeparateRealImag(m,n,t_[1]);
+@time B_mn_of_θ_SeparateRealImag.(m,n,t_);
+@time B_mn_of_θ_SeparateRealImag.(m,n,t_);
+
+

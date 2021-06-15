@@ -17,58 +17,74 @@ export N_mn_wave_SeparateRealImag_SMatrix
 # calculate B(θ), C(θ), P(θ)
 """
     equation C.19, returns an array
+It returns a 3x2 Matrix, the first and second columns are the real and imaginary parts, respectively. 
 """
 function B_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
-    # equation C.19
-    B_real = vcat(0, τₘₙ(m, n, θ), 0)
-    B_imag = vcat(0, 0, πₘₙ(m, n, θ))
-    return hcat(B_real, B_imag)
+    # equation C.19    
+    return hcat(
+        vcat(0, τₘₙ(m, n, θ), 0),
+        vcat(0, 0, πₘₙ(m, n, θ))
+    )
 end
 
 """
     Same as B_mn_of_θ_SeparateRealImag, but return SMatrix
+It returns a 3x2 SMatrix, the first and second columns are the real and imaginary parts, respectively.
 """
 function B_mn_of_θ_SeparateRealImag_SMatrix(m::Int, n::Int, θ::R) where R <: Real
-    # equation C.19
-    B_real = SVector(0, τₘₙ(m, n, θ), 0)
-    B_imag = SVector(0, 0, πₘₙ(m, n, θ))
-    return hcat(B_real, B_imag)
+    # equation C.19    
+    return hcat(
+        SVector(0, τₘₙ(m, n, θ), 0),
+        SVector(0, 0, πₘₙ(m, n, θ))
+    )
 end
 
 """
     equation C.20, returns an array
+It returns a 3x2 Matrix, the first and second columns are the real and imaginary parts, respectively.
 """
 function C_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
-    # equation C.20
-    C_real = vcat(0, 0, -1 * τₘₙ(m, n, θ))
-    C_imag = vcat(0, πₘₙ(m, n, θ), 0)
-    return hcat(C_real, C_imag)
+    # equation C.20    
+    return hcat(
+        vcat(0, 0, -1 * τₘₙ(m, n, θ)),
+        vcat(0, πₘₙ(m, n, θ), 0)
+    )
 end
 
 """
     Same as C_mn_of_θ_SeparateRealImag, but return SMatrix
+It returns a 3x2 SMatrix, the first and second columns are the real and imaginary parts, respectively.
 """
 function C_mn_of_θ_SeparateRealImag_SMatrix(m::Int, n::Int, θ::R) where R <: Real
-    # equation C.20
-    C_real = SVector(0, 0, -1 * τₘₙ(m, n, θ))
-    C_imag = SVector(0, πₘₙ(m, n, θ), 0)
-    return hcat(C_real, C_imag)
+    # equation C.20    
+    return hcat(
+        SVector(0, 0, -1 * τₘₙ(m, n, θ)),
+        SVector(0, πₘₙ(m, n, θ), 0)
+    )
 end
 
 """
     equation C.21, returns an array
+It returns a 3x2 Matrix, the first and second columns are the real and imaginary parts, respectively.
 """
 function P_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
     # equation C.21
-    return hcat(P_mn_of_θ(m, n, θ), vcat(0, 0, 0))
+    return hcat(
+        P_mn_of_θ(m, n, θ),
+        vcat(0, 0, 0)
+    )
 end
 
 """
     Same as P_mn_of_θ_SeparateRealImag, returns SMatrix
+It returns a 3x2 SMatrix, the first and second columns are the real and imaginary parts, respectively.
 """
 function P_mn_of_θ_SeparateRealImag_SMatrix(m::Int, n::Int, θ::R) where R <: Real
     # equation C.21
-    return hcat(P_mn_of_θ_SVector(m, n, θ), SVector(zero(θ), zero(θ), zero(θ)))
+    return hcat(
+        P_mn_of_θ_SVector(m, n, θ),
+        SVector(zero(θ), zero(θ), zero(θ))
+    )
 end
 
 function convert_from_fun_of_θ_to_fun_of_θ_ϕ(fun_tobe_converted::Function, m::Int, n::Int, θ::R, ϕ::R) where R <: Real
@@ -79,15 +95,11 @@ function convert_from_fun_of_θ_to_fun_of_θ_ϕ(fun_tobe_converted::Function, m:
     B_of_θ_coef_imag = B_of_θ_coef[:,2]
     exp_imϕ_real = cos(m * ϕ)
     exp_imϕ_imag = sin(m * ϕ)
-    """
-    # did't work
-    B_real = B_of_θ_coef_real .* real(exp(im * m * ϕ)) - B_of_θ_coef_imag .* real(exp(im * m * ϕ))
-    B_imag = B_of_θ_coef_real .* imag(exp(im * m * ϕ)) + B_of_θ_coef_imag .* real(exp(im * m * ϕ))
-    """
-    B_real = B_of_θ_coef_real .* exp_imϕ_real - B_of_θ_coef_imag .* exp_imϕ_imag
-    B_imag = B_of_θ_coef_real .* exp_imϕ_imag + B_of_θ_coef_imag .* exp_imϕ_real
-
-    return hcat(B_real, B_imag)
+    
+    return hcat(
+        B_of_θ_coef_real .* exp_imϕ_real - B_of_θ_coef_imag .* exp_imϕ_imag,
+        B_of_θ_coef_real .* exp_imϕ_imag + B_of_θ_coef_imag .* exp_imϕ_real
+    )
 end
 
 #############################################################################################
@@ -192,7 +204,7 @@ end
 function M_mn_wave_SeparateRealImag_SMatrix(m::Int, n::Int, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where R <: Real
     radial_function, _ = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
     gamma_by_radial = γ_mn(m, n) .* radial_function(n, kr_r, kr_i)
-    return complex_multiply(gamma_by_radial*SMatrix{3,2}(ones(3,2)), C_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
+    return complex_multiply(gamma_by_radial * SMatrix{3,2}(ones(3, 2)), C_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
     # TODO: write this in a more elegant way: vcat(gamma_by_radial, gamma_by_radial, gamma_by_radial)
 end
 
@@ -215,8 +227,8 @@ function N_mn_wave_SeparateRealImag_SMatrix(m::Int, n::Int, kr_r::R, kr_i::R, θ
     ceoff = complex_multiply(complex_divide(n * (n + 1), 0, kr_r, kr_i), radial_function(n, kr_r, kr_i))
     rad_fun_der = radial_function_special_derivative(n, kr_r, kr_i)
     return γ_mn(m, n) .* (
-        complex_multiply(ceoff*SMatrix{3,2}(ones(3,2)), P_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
-        + complex_multiply(rad_fun_der*SMatrix{3,2}(ones(3,2)), B_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
+        complex_multiply(ceoff * SMatrix{3,2}(ones(3, 2)), P_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
+        + complex_multiply(rad_fun_der * SMatrix{3,2}(ones(3, 2)), B_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
     )
     # TODO: write this in a more elegant way: [ceoff; ceoff; ceoff]
 end

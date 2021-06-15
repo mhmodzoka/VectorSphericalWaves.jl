@@ -85,7 +85,6 @@ function Legendre_polynomials_Pn(n::Int, x::NN) where NN <: Number
     return Legendre_polynomials_Pn_array(n, x)[n]
 end
 
-
 function Associated_Legendre_polynomials_Pmn_array(m::Int, n_max::Int, x)
     """
     Associated Legendre polynomials Pᵐₙ(x) from n = m up to n=n_max using recurrence relation
@@ -133,7 +132,7 @@ function wignerd_and_∂wignerd_for_all_s(s_max::Int, m::Int, n::Int, θ::R; get
 
     x = cos(θ)
 
-    # calculate d^s_min__m_n(θ) from eq. B.124
+    # calculate d^s_min__m_n(θ) from eq. B.24
     d_smin_m_n =
         ξ_mn * 2.0^(-s_min) * sqrt(
             factorial(BigInt(2s_min)) / (factorial(BigInt(abs(m - n))) * factorial(BigInt(abs(m + n))))
@@ -200,9 +199,6 @@ function wignerd_and_∂wignerd_for_all_s(s_max::Int, m::Int, n::Int, θ::R; get
 
 
 end
-
-
-
 
 #############################################################################################
 # calculate π(θ) and τ(θ) using Wigner-d that was calculated using recurrence relations
