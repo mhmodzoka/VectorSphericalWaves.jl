@@ -2,6 +2,9 @@
 
 export M_mn_wave
 export N_mn_wave
+export M_mn_wave_SVector
+export N_mn_wave_SVector
+
 
 export B_mn_of_θ
 export C_mn_of_θ
