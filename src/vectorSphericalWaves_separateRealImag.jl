@@ -60,7 +60,7 @@ function C_mn_of_θ_SeparateRealImag_SMatrix(m::Int, n::Int, θ::R) where R <: R
     return hcat(
         SVector(0, 0, -1 * τₘₙ(m, n, θ)),
         SVector(0, πₘₙ(m, n, θ), 0)
-    )
+)
 end
 
 """
@@ -72,7 +72,7 @@ function P_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
     return hcat(
         P_mn_of_θ(m, n, θ),
         vcat(0, 0, 0)
-    )
+)
 end
 
 """
@@ -156,13 +156,13 @@ end
 
 function one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag(n::Int, x_r::R, x_i::R) where R <: Real
     # n_over_x = complex_divide(n * ones(size(x_r)), zeros(size(x_r)), x_r, x_i) # TODO: find a way to make sure all inputs have the same size
-    n_over_x = complex_divide(n, 0, x_r, x_i)
+    n_over_x = complex_divide(n, zero(x_r), x_r, x_i)
     return (spherical_Bessel_j_n_SeparateRealImag(n - 1, x_r, x_i) - complex_multiply(n_over_x, spherical_Bessel_j_n_SeparateRealImag(n, x_r, x_i)))
 end
 
 function one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag(n::Int, x_r::R, x_i::R) where R <: Real
     # n_over_x = complex_divide(n * ones(size(x_r)), zeros(size(x_r)), x_r, x_i) # TODO: find a way to make sure all inputs have the same size
-    n_over_x = complex_divide(n, 0, x_r, x_i)
+    n_over_x = complex_divide(n, zero(x_r), x_r, x_i)
     return (spherical_Bessel_y_n_SeparateRealImag(n - 1, x_r, x_i) - complex_multiply(n_over_x, spherical_Bessel_y_n_SeparateRealImag(n, x_r, x_i)))
 end
 
@@ -204,13 +204,13 @@ end
 function M_mn_wave_SeparateRealImag_SMatrix(m::Int, n::Int, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where R <: Real
     radial_function, _ = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
     gamma_by_radial = γ_mn(m, n) .* radial_function(n, kr_r, kr_i)
-    return complex_multiply(gamma_by_radial * SMatrix{3,2}(ones(3, 2)), C_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
+    return complex_multiply_SMatrix(gamma_by_radial .* SMatrix{3,2}(ones(3, 2)), C_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
     # TODO: write this in a more elegant way: vcat(gamma_by_radial, gamma_by_radial, gamma_by_radial)
 end
 
 function N_mn_wave_SeparateRealImag(m::Int, n::Int, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where R <: Real
     radial_function, radial_function_special_derivative  = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
-    ceoff = complex_multiply(complex_divide(n * (n + 1), 0, kr_r, kr_i), radial_function(n, kr_r, kr_i))
+    ceoff = complex_multiply(complex_divide(n * (n + 1), zero(kr_r), kr_r, kr_i), radial_function(n, kr_r, kr_i))
     rad_fun_der = radial_function_special_derivative(n, kr_r, kr_i)
     return γ_mn(m, n) .* (
         complex_multiply([ceoff; ceoff; ceoff], P_mn_of_θ_ϕ_SeparateRealImag(m, n, θ, ϕ))
@@ -224,11 +224,11 @@ end
 """
 function N_mn_wave_SeparateRealImag_SMatrix(m::Int, n::Int, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where R <: Real
     radial_function, radial_function_special_derivative  = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
-    ceoff = complex_multiply(complex_divide(n * (n + 1), 0, kr_r, kr_i), radial_function(n, kr_r, kr_i))
+    ceoff = complex_multiply(complex_divide(n * (n + 1), zero(kr_r), kr_r, kr_i), radial_function(n, kr_r, kr_i))
     rad_fun_der = radial_function_special_derivative(n, kr_r, kr_i)
     return γ_mn(m, n) .* (
-        complex_multiply(ceoff * SMatrix{3,2}(ones(3, 2)), P_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
-        + complex_multiply(rad_fun_der * SMatrix{3,2}(ones(3, 2)), B_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
+        complex_multiply_SMatrix(ceoff .* SMatrix{3,2}(ones(3, 2)), P_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
+        + complex_multiply_SMatrix(rad_fun_der .* SMatrix{3,2}(ones(3, 2)), B_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
     )
     # TODO: write this in a more elegant way: [ceoff; ceoff; ceoff]
 end

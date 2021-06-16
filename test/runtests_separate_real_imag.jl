@@ -1,10 +1,16 @@
 using VectorSphericalWaves
+using StaticArrays
+using ComplexOperations
 
+import VectorSphericalWaves.M_mn_wave_SeparateRealImag_SMatrix
 m, n, kr_r, kr_i, θ, ϕ = 1, 1, 1e5, 1e2, 0.2, 0.3
 kr = complex(kr_r, kr_i)
 
+M_mn_wave_SeparateRealImag(m, n, kr_r, kr_i, θ, ϕ, "regular");
+N_mn_wave_SeparateRealImag(m, n, kr_r, kr_i, θ, ϕ, "regular");
+
 M_mn_wave_SeparateRealImag_SMatrix(m, n, kr_r, kr_i, θ, ϕ, "regular");
-N_mn_wave_SeparateRealImag_SMatrix(m, n, kr_r, kr_i, θ, ϕ; "regular");
+N_mn_wave_SeparateRealImag_SMatrix(m, n, kr_r, kr_i, θ, ϕ, "regular");
 
 # BigFloat
 m, n, kr_r, kr_i, θ, ϕ = 1, 1, BigFloat(1e6), BigFloat(1e2), BigFloat(0.2), BigFloat(0.3);
