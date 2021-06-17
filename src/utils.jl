@@ -174,8 +174,8 @@ end
 
 
 
-# wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, although "wignerdjmn_ELZOUKA" is not efficient.
-wignerdjmn = wignerdjmn_recurrence_memoize
+wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, although "wignerdjmn_ELZOUKA" is not efficient.
+# wignerdjmn = wignerdjmn_recurrence_memoize
 # I may need to define "ChainRulesCore.@scalar_rule" for "WignerD.wignerdjmn"
 # wignerdjmn = WignerD.wignerdjmn
 
