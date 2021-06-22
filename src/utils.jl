@@ -3,7 +3,7 @@ using DataStructures
 using StaticArrays
 using ComplexOperations
 using Memoize
-
+using LoopVectorization
 
 import WignerD
 import ChainRulesCore
@@ -95,23 +95,30 @@ Use this function only as a validation for the recurrence relation, or when auto
 
 TODO: for large s,m,n, this is not stable. Use the one with recurrence instead
 """
-function wignerdjmn_ELZOUKA(s::Int, m::Int, n::Int, θ::R) where R <: Real
+function wignerdjmn_ELZOUKA(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Integer}
     # println("s=$s, m=$m, n=$n, θ=$θ")
     if θ == zero(θ) # TODO: make the zero the same type of θ. e.g., zero(θ)
-        d = δ(m, n)
+        d = δ(m, n);
     elseif θ == π
-        d = (-1)^(s - n) * δ(-n, m)
+        d = (-1)^(s - n) * δ(-n, m);
     else
         d = zero(θ)
         k_min = max(0, m - n)
         k_max = min(s + m, s - n)
+
+        if max(k_max, s + m - k_max, s - n - k_max, n - m + k_max, s + abs(m), s + abs(n)) >= 20
+            s = big(s); m = big(m); n = big(n)
+        end
+        print()
+
         if k_max >= k_min
-            for k in k_min:k_max
+            @turbo for k in k_min:k_max
                 d += (-1)^k *
                         (cos(θ / 2)^(2s - 2k + m - n) * sin(θ / 2)^(2k - m + n)) /
                         (factorial(k) * factorial(s + m - k) * factorial(s - n - k) * factorial(n - m + k))
             end
             d *= sqrt(factorial(s + m) * factorial(s - m) * factorial(s + n) * factorial(s - n))
+            return d
         else # wigner-d is zero if there is any negative factorial
             return zero(θ)
         end
@@ -125,19 +132,24 @@ end
 """
     Calculate Wigner-d function, using recurrence and memoize
 """
-@memoize function wignerdjmn_recurrence_memoize(s::Int, m::Int, n::Int, θ::R) where R <: Real
+function wignerdjmn_recurrence(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Integer}
+
     s_min = max(abs(m), abs(n))
+
+    if 2s_min >= 21
+        return wignerdjmn_recurrence(big(s), big(m), big(n), θ)
+    end
 
     x = cos(θ)
 
     if m > n # I need to memoize only m < n, because it is relevant to calculating angular functions
-        return (-1)^(m-n) * wignerdjmn_recurrence_memoize(s, n, m, θ) # eq. B.5
-        
+        return (-1)^(m-n) * wignerdjmn_recurrence(s, n, m, θ) # eq. B.5
+
     elseif θ < 0 # I need to memoize only θ > 0
-        return (-1)^(m-n) * wignerdjmn_recurrence_memoize(s, m, n, -θ)
-    
+        return (-1)^(m-n) * wignerdjmn_recurrence(s, m, n, -θ)
+
     elseif n < 0 # I need to memoize only n > 0
-        return (-1)^(m-n) * wignerdjmn_recurrence_memoize(s, -m, -n, θ)    
+        return (-1)^(m-n) * wignerdjmn_recurrence(s, -m, -n, θ)
 
     elseif s < s_min
         return zero(θ)
@@ -148,7 +160,7 @@ end
             ξ_mn = 1
         else
             ξ_mn = (-1)^(m - n)
-        end       
+        end
 
         # calculate d^s_min__m_n(θ) from eq. B.24
         return (
@@ -158,13 +170,13 @@ end
             (1 - x)^(abs(m - n) / 2) *
             (1 + x)^(abs(m + n) / 2)
         )
-    
+
     else
         d_s_here_plus_1 = zero(θ)
         for s_here = s_min:s - 1
             d_s_here_plus_1 = 1 / (s_here * sqrt((s_here + 1)^2 - m^2) * sqrt((s_here + 1)^2 - n^2)) * (
-                (2s_here + 1) * (s_here * (s_here + 1) * x - m * n) * wignerdjmn_recurrence_memoize(s_here,m,n,θ)
-                - 1 * (s_here + 1) * sqrt(s_here^2 - m^2) * sqrt(s_here^2 - n^2) * wignerdjmn_recurrence_memoize(s_here-1,m,n,θ)
+                (2s_here + 1) * (s_here * (s_here + 1) * x - m * n) * wignerdjmn_recurrence(s_here,m,n,θ)
+                - 1 * (s_here + 1) * sqrt(s_here^2 - m^2) * sqrt(s_here^2 - n^2) * wignerdjmn_recurrence(s_here-1,m,n,θ)
             ) # eq. B.22
         end
         return d_s_here_plus_1
@@ -172,9 +184,14 @@ end
     end
 end
 
+@memoize function wignerdjmn_recurrence_memoize(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Integer}
+    return wignerdjmn_recurrence(s,m,n,θ)
+end
 
 
-wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, although "wignerdjmn_ELZOUKA" is not efficient.
+
+# wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, although "wignerdjmn_ELZOUKA" is not efficient.
+wignerdjmn = wignerdjmn_recurrence
 # wignerdjmn = wignerdjmn_recurrence_memoize
 # I may need to define "ChainRulesCore.@scalar_rule" for "WignerD.wignerdjmn"
 # wignerdjmn = WignerD.wignerdjmn
