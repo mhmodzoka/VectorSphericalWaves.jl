@@ -109,10 +109,9 @@ function wignerdjmn_ELZOUKA(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Inte
         if max(k_max, s + m - k_max, s - n - k_max, n - m + k_max, s + abs(m), s + abs(n)) >= 20
             s = big(s); m = big(m); n = big(n)
         end
-        print()
 
         if k_max >= k_min
-            @turbo for k in k_min:k_max
+            for k in k_min:k_max
                 d += (-1)^k *
                         (cos(θ / 2)^(2s - 2k + m - n) * sin(θ / 2)^(2k - m + n)) /
                         (factorial(k) * factorial(s + m - k) * factorial(s - n - k) * factorial(n - m + k))
