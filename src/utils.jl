@@ -276,11 +276,11 @@ function ∂wignerdjmn_by_∂θ(s::Int, m::Int, n::Int, θ::R; numerical_derivat
     if numerical_derivative
         return (wignerdjmn(s, m, n, θ + verysmallnumber) - wignerdjmn(s, m, n, θ - verysmallnumber)) / (verysmallnumber * 2)
     else
-        # try
-        # return    (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) + sqrt((s + n) * (s - n + 1)) * wignerdjmn(s, m, n - 1, θ)
-        # catch
-        return -1 * (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) - sqrt((s - n) * (s + n + 1)) * wignerdjmn(s, m, n + 1, θ)
-        # end
+        try
+            return    (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) + sqrt((s + n) * (s - n + 1)) * wignerdjmn(s, m, n - 1, θ)
+        catch
+            return -1 * (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) - sqrt((s - n) * (s + n + 1)) * wignerdjmn(s, m, n + 1, θ)
+        end
     end
 end
 
