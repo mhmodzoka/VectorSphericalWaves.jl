@@ -93,9 +93,10 @@ This is calculated directly, not with recurrence relation.
 The Wigner-d calculated by recurrence is more numerically stable.
 Use this function only as a validation for the recurrence relation, or when automatic differentiation is needed.
 
-TODO: for large s,m,n, this is not stable. Use the one with recurrence instead
+TODO: for large s,m,n, this function is not stable due to large integers resulted from factorial calclulation and their multiplication. Here, I am using big() to avoid the overflow error. I need to implement when I should apply big(), while not affecting performance and autodifferentiation
+
 """
-function wignerdjmn_ELZOUKA(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Integer}
+function wignerdjmn_ELZOUKA(s::I, m::I, n::I, θ::R) where {R <: Real,I <: Integer}
     # println("s=$s, m=$m, n=$n, θ=$θ")
     if θ == zero(θ) # TODO: make the zero the same type of θ. e.g., zero(θ)
         d = δ(m, n);
@@ -103,12 +104,19 @@ function wignerdjmn_ELZOUKA(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Inte
         d = (-1)^(s - n) * δ(-n, m);
     else
         d = zero(θ)
-        k_min = max(0, m - n)
+        
+        
         k_max = min(s + m, s - n)
-
-        if max(k_max, s + m - k_max, s - n - k_max, n - m + k_max, s + abs(m), s + abs(n)) >= 20
-            s = big(s); m = big(m); n = big(n)
+        # TODO: find a better way to detect when do we need to use big integers
+        if (
+                (max(k_max, s + m - k_max, s - n - k_max, n - m + k_max, s + abs(m), s + abs(n)) >= 21) ||
+                ((factorial(s + m) * factorial(s - m) * factorial(s + n) * factorial(s - n)) < 0) ||
+                ((factorial(k_max) * factorial(s + m - k_max) * factorial(s - n - k_max) * factorial(n - m + k_max)) < 0)
+            )
+            s = big(s); m = big(m); n = big(n)            
+            k_max = min(s + m, s - n)
         end
+        k_min = max(0, m - n)
 
         if k_max >= k_min
             for k in k_min:k_max
@@ -117,13 +125,13 @@ function wignerdjmn_ELZOUKA(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Inte
                         (factorial(k) * factorial(s + m - k) * factorial(s - n - k) * factorial(n - m + k))
             end
             d *= sqrt(factorial(s + m) * factorial(s - m) * factorial(s + n) * factorial(s - n))
-            return d
+            return convert(typeof(θ), d)
         else # wigner-d is zero if there is any negative factorial
             return zero(θ)
         end
     end
 
-    return d
+    return convert(typeof(θ), d)
 end
 
 
@@ -131,38 +139,43 @@ end
 """
     Calculate Wigner-d function, using recurrence and memoize
 """
-function wignerdjmn_recurrence(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Integer}
+@memoize function wignerdjmn_recurrence_memoize(s::I, m::I, n::I, θ::R) where {R <: Real,I <: Integer}
 
     s_min = max(abs(m), abs(n))
 
-    if 2s_min >= 21
-        return wignerdjmn_recurrence(big(s), big(m), big(n), θ)
+    if typeof(s) == Int && 2s_min >= 21
+        s = big(s); m = big(m); n = big(n)
+        s, s_min = promote(s, s_min)                        
     end
 
     x = cos(θ)
 
     if m > n # I need to memoize only m < n, because it is relevant to calculating angular functions
-        return (-1)^(m-n) * wignerdjmn_recurrence(s, n, m, θ) # eq. B.5
+        return (-1)^(m - n) * wignerdjmn_recurrence_memoize(s, n, m, θ) # eq. B.5
 
     elseif θ < 0 # I need to memoize only θ > 0
-        return (-1)^(m-n) * wignerdjmn_recurrence(s, m, n, -θ)
+        return (-1)^(m - n) * wignerdjmn_recurrence_memoize(s, m, n, -θ)
 
     elseif n < 0 # I need to memoize only n > 0
-        return (-1)^(m-n) * wignerdjmn_recurrence(s, -m, -n, θ)
+        return (-1)^(m - n) * wignerdjmn_recurrence_memoize(s, -m, -n, θ)
 
     elseif s < s_min
         return zero(θ)
 
     elseif s == s_min
+        if typeof(s) == Int && (factorial((abs(m - n))) * factorial((abs(m + n)))) < 0 # check if the denominator may cause overflow
+            s = big(s); m = big(m); n = big(n)
+            s, s_min = promote(s, s_min)
+        end
         # calculate ξ from eq. B.16
         if n >= m
-            ξ_mn = 1
+            ξ_mn = one(s)
         else
             ξ_mn = (-1)^(m - n)
         end
 
         # calculate d^s_min__m_n(θ) from eq. B.24
-        return (
+        return convert(typeof(θ),
             ξ_mn * 2.0^(-s_min) * sqrt(
                 factorial((2s_min)) / (factorial((abs(m - n))) * factorial((abs(m + n))))
             ) *
@@ -174,24 +187,84 @@ function wignerdjmn_recurrence(s::I, m::I, n::I, θ::R) where {R <: Real, I <: I
         d_s_here_plus_1 = zero(θ)
         for s_here = s_min:s - 1
             d_s_here_plus_1 = 1 / (s_here * sqrt((s_here + 1)^2 - m^2) * sqrt((s_here + 1)^2 - n^2)) * (
-                (2s_here + 1) * (s_here * (s_here + 1) * x - m * n) * wignerdjmn_recurrence(s_here,m,n,θ)
-                - 1 * (s_here + 1) * sqrt(s_here^2 - m^2) * sqrt(s_here^2 - n^2) * wignerdjmn_recurrence(s_here-1,m,n,θ)
+                (2s_here + 1) * (s_here * (s_here + 1) * x - m * n) * wignerdjmn_recurrence_memoize(s_here, m, n, θ)
+                - 1 * (s_here + 1) * sqrt(s_here^2 - m^2) * sqrt(s_here^2 - n^2) * wignerdjmn_recurrence_memoize(s_here - 1, m, n, θ)
             ) # eq. B.22
         end
-        return d_s_here_plus_1
-
+        return convert(typeof(θ), d_s_here_plus_1)
     end
 end
 
-@memoize function wignerdjmn_recurrence_memoize(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Integer}
-    return wignerdjmn_recurrence(s,m,n,θ)
+
+"""
+    Calculate Wigner-d function, using recurrence
+"""
+function wignerdjmn_recurrence(s::I, m::I, n::I, θ::R) where {R <: Real,I <: Integer}
+
+    s_min = max(abs(m), abs(n))
+
+    if typeof(s) == Int && 2s_min >= 21
+        s = big(s); m = big(m); n = big(n)
+        s, s_min = promote(s, s_min)            
+    end
+
+    x = cos(θ)
+
+    if m > n # I need to memoize only m < n, because it is relevant to calculating angular functions
+        return (-1)^(m - n) * wignerdjmn_recurrence(s, n, m, θ) # eq. B.5
+
+    elseif θ < 0 # I need to memoize only θ > 0
+        return (-1)^(m - n) * wignerdjmn_recurrence(s, m, n, -θ)
+
+    elseif n < 0 # I need to memoize only n > 0
+        return (-1)^(m - n) * wignerdjmn_recurrence(s, -m, -n, θ)
+
+    elseif s < s_min
+        return zero(θ)
+
+    elseif s == s_min
+        if typeof(s) == Int && (factorial((abs(m - n))) * factorial((abs(m + n)))) < 0 # check if the denominator may cause overflow
+            s = big(s); m = big(m); n = big(n)
+            s, s_min = promote(s, s_min)
+        end
+        # calculate ξ from eq. B.16
+        if n >= m
+            ξ_mn = one(s)
+        else
+            ξ_mn = (-1)^(m - n)
+        end
+
+        # calculate d^s_min__m_n(θ) from eq. B.24
+        return convert(typeof(θ),
+            ξ_mn * 2.0^(-s_min) * sqrt(
+                factorial((2s_min)) / (factorial((abs(m - n))) * factorial((abs(m + n))))
+            ) *
+            (1 - x)^(abs(m - n) / 2) *
+            (1 + x)^(abs(m + n) / 2)
+        )
+
+    else
+        d_s_here_plus_1 = zero(θ)
+        s_here = s_min
+        d_s_here_minus_1 = wignerdjmn_recurrence(s_here - 1, m, n, θ)
+        d_s_here = wignerdjmn_recurrence(s_here, m, n, θ)
+        for s_here = s_min:s - 1
+            d_s_here_plus_1 = 1 / (s_here * sqrt((s_here + 1)^2 - m^2) * sqrt((s_here + 1)^2 - n^2)) * (
+                (2s_here + 1) * (s_here * (s_here + 1) * x - m * n) * d_s_here
+                - 1 * (s_here + 1) * sqrt(s_here^2 - m^2) * sqrt(s_here^2 - n^2) * d_s_here_minus_1
+            ) # eq. B.22
+            d_s_here_minus_1 = d_s_here
+            d_s_here = d_s_here_plus_1            
+        end
+        return convert(typeof(θ), d_s_here_plus_1)
+    end
 end
+
 
 
 
 # wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, although "wignerdjmn_ELZOUKA" is not efficient.
-wignerdjmn = wignerdjmn_recurrence
-# wignerdjmn = wignerdjmn_recurrence_memoize
+wignerdjmn = wignerdjmn_recurrence_memoize
 # I may need to define "ChainRulesCore.@scalar_rule" for "WignerD.wignerdjmn"
 # wignerdjmn = WignerD.wignerdjmn
 
