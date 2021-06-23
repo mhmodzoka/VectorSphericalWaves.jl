@@ -105,20 +105,19 @@ function wignerdjmn_ELZOUKA(s::I, m::I, n::I, θ::R) where {R <: Real,I <: Integ
     else
         d = zero(θ)
         
-        
-        k_max = min(s + m, s - n)
-        # TODO: find a better way to detect when do we need to use big integers
-        if (
-                (max(k_max, s + m - k_max, s - n - k_max, n - m + k_max, s + abs(m), s + abs(n)) >= 21) ||
-                ((factorial(s + m) * factorial(s - m) * factorial(s + n) * factorial(s - n)) < 0) ||
-                ((factorial(k_max) * factorial(s + m - k_max) * factorial(s - n - k_max) * factorial(n - m + k_max)) < 0)
-            )
-            s = big(s); m = big(m); n = big(n)            
-            k_max = min(s + m, s - n)
-        end
         k_min = max(0, m - n)
+        k_max = min(s + m, s - n)
 
         if k_max >= k_min
+            # TODO: find a better way to detect when do we need to use big integers
+                if (
+                    (max(k_max, s + m - k_max, s - n - k_max, n - m + k_max, s + abs(m), s + abs(n)) >= 21) ||
+                    ((factorial(s + m) * factorial(s - m) * factorial(s + n) * factorial(s - n)) < 0) ||
+                    ((factorial(k_max) * factorial(s + m - k_max) * factorial(s - n - k_max) * factorial(n - m + k_max)) < 0)
+                )
+                s = big(s); m = big(m); n = big(n)            
+                k_max = min(s + m, s - n)
+            end
             for k in k_min:k_max
                 d += (-1)^k *
                         (cos(θ / 2)^(2s - 2k + m - n) * sin(θ / 2)^(2k - m + n)) /
@@ -269,39 +268,55 @@ wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, altho
 # wignerdjmn = WignerD.wignerdjmn
 
 # derivative of wigner-D
-function ∂wignerdjmn_by_∂θ(s::Int, m::Int, n::Int, θ::R; numerical_derivative=false, verysmallnumber=1e-30) where R <: Real
+# TODO: add the special case of θ=0
+function ∂wignerdjmn_by_∂θ(s::I, m::I, n::I, θ::R; numerical_derivative=false, verysmallnumber=1e-30) where {R <: Real,I <: Integer}
     """
     derivative of wigner-d with resepect to θ. Adopted from eq. B.25 from Mishchenko, M.I., Travis, L.D., and Lacis, A.A. (2002). Scattering, absorption, and emission of light by small particles (Cambridge University Press).
     """
     if numerical_derivative
         return (wignerdjmn(s, m, n, θ + verysmallnumber) - wignerdjmn(s, m, n, θ - verysmallnumber)) / (verysmallnumber * 2)
     else
-        try
-            return    (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) + sqrt((s + n) * (s - n + 1)) * wignerdjmn(s, m, n - 1, θ)
-        catch
-            return -1 * (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) - sqrt((s - n) * (s + n + 1)) * wignerdjmn(s, m, n + 1, θ)
-        end
+        #try
+        # I don't know why this is not giving the same results as the second one.
+        #    return      (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) + sqrt((s + n) * (s - n + 1)) * wignerdjmn(s, m, n - 1, θ) # first line of equation B.25
+        #catch
+        return -1 * (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) - sqrt((s - n) * (s + n + 1)) * wignerdjmn(s, m, n + 1, θ) # second line of equation B.25
+        #end
     end
 end
 
 #############################################################################################
 # calculate π(θ) and τ(θ)
-function πₘₙ(m::Int, n::Int, θ::R) where R <: Real
+function πₘₙ(m::I, n::I, θ::R) where {R <: Real,I <: Integer}
     return m / sin(θ) * wignerdjmn(n, 0, m, θ)
 end
 
-function τₘₙ(m::Int, n::Int, θ::R) where R <: Real
+function τₘₙ(m::I, n::I, θ::R) where {R <: Real,I <: Integer}
     return ∂wignerdjmn_by_∂θ(n, 0, m, θ)
 end
 
 
-function γ_mn(m::Int, n::Int)
+# TODO: we may create a lookup table
+function γ_mn(m::I, n::I) where {I <: Integer}
+    if !((n + abs(m)) <= 19 || typeof(m) == BigInt )
+        # this is to solve overflow problems
+        # I hope this doesn't break Zygote autodiff
+        m = big(m); n = big(n)
+    end
+
     return sqrt(
         ((2n + 1) * factorial(n - m)) / (4π * n * (n + 1) * factorial(n + m))
     ) # equation C.22
 end
 
-function γ_mn_dash(m::Int, n::Int)
+# TODO: we may create a lookup table
+function γ_mn_dash(m::I, n::I) where {I <: Integer}
+    if !((n + abs(m)) <= 19 || typeof(m) == BigInt )
+        # this is to solve overflow problems
+        # I hope this doesn't break Zygote autodiff    
+        m = big(m); n = big(n)
+    end
+
     return sqrt(
         ((2n + 1) * factorial(n - m)) / (4π * factorial(n + m))
     ) # equation C.25
