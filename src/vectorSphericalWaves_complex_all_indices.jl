@@ -58,7 +58,7 @@ end
 
 #############################################################################################
 # Legendre and Associated Legendre
-function Legendre_polynomials_Pn_array(n_max::I, x::NN) where NN <: Number
+function Legendre_polynomials_Pn_array(n_max::I, x::NN) where {I <: Integer, NN <: Number}
     """
     Calculate all Legendre polynomials Pₙ(x) from n = 1 up to n=n_max using recurrence relation
     https://en.wikipedia.org/wiki/Legendre_polynomials
@@ -78,7 +78,7 @@ function Legendre_polynomials_Pn_array(n_max::I, x::NN) where NN <: Number
     return P
 end
 
-function Legendre_polynomials_Pn(n::I, x::NN) where NN <: Number
+function Legendre_polynomials_Pn(n::I, x::NN) where {I <: Integer, NN <: Number}
     """
     Calculate Legendre polynomials Pₙ(x) at a given n
     """
