@@ -96,7 +96,7 @@ Use this function only as a validation for the recurrence relation, or when auto
 TODO: for large s,m,n, this function is not stable due to large integers resulted from factorial calclulation and their multiplication. Here, I am using big() to avoid the overflow error. I need to implement when I should apply big(), while not affecting performance and autodifferentiation
 
 """
-function wignerdjmn_ELZOUKA(s::I, m::I, n::I, θ::R) where {R <: Real,I <: Integer}
+function wignerdjmn_ELZOUKA(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Integer}
     # println("s=$s, m=$m, n=$n, θ=$θ")
     if θ == zero(θ) # TODO: make the zero the same type of θ. e.g., zero(θ)
         d = δ(m, n);
@@ -138,7 +138,7 @@ end
 """
     Calculate Wigner-d function, using recurrence and memoize
 """
-@memoize function wignerdjmn_recurrence_memoize(s::I, m::I, n::I, θ::R) where {R <: Real,I <: Integer}
+@memoize function wignerdjmn_recurrence_memoize(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Integer}
 
     s_min = max(abs(m), abs(n))
 
@@ -198,7 +198,7 @@ end
 """
     Calculate Wigner-d function, using recurrence
 """
-function wignerdjmn_recurrence(s::I, m::I, n::I, θ::R) where {R <: Real,I <: Integer}
+function wignerdjmn_recurrence(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Integer}
 
     s_min = max(abs(m), abs(n))
 
@@ -269,7 +269,7 @@ wignerdjmn = wignerdjmn_ELZOUKA # I did it to make it work with auto-diff, altho
 
 # derivative of wigner-D
 # TODO: add the special case of θ=0
-function ∂wignerdjmn_by_∂θ(s::I, m::I, n::I, θ::R; numerical_derivative=false, verysmallnumber=1e-30) where {R <: Real,I <: Integer}
+function ∂wignerdjmn_by_∂θ(s::I, m::I, n::I, θ::R; numerical_derivative=false, verysmallnumber=1e-30) where {R <: Real, I <: Integer}
     """
     derivative of wigner-d with resepect to θ. Adopted from eq. B.25 from Mishchenko, M.I., Travis, L.D., and Lacis, A.A. (2002). Scattering, absorption, and emission of light by small particles (Cambridge University Press).
     """
@@ -287,11 +287,11 @@ end
 
 #############################################################################################
 # calculate π(θ) and τ(θ)
-function πₘₙ(m::I, n::I, θ::R) where {R <: Real,I <: Integer}
+function πₘₙ(m::I, n::I, θ::R) where {R <: Real, I <: Integer}
     return m / sin(θ) * wignerdjmn(n, 0, m, θ)
 end
 
-function τₘₙ(m::I, n::I, θ::R) where {R <: Real,I <: Integer}
+function τₘₙ(m::I, n::I, θ::R) where {R <: Real, I <: Integer}
     return ∂wignerdjmn_by_∂θ(n, 0, m, θ)
 end
 
@@ -338,4 +338,11 @@ function get_radial_function_and_special_derivative_given_kind(kind)
     end
 
     return radial_function, radial_function_special_derivative
+end
+
+function sqrt_factorial_n_plus_m_over_factorial_n_minus_m(m::I, n::I) where {I <: Integer}
+    if n + abs(m) > 20 # Is there a better way to do it? I did it because factorial fails for input of type Int that is larger than 20
+        m = big(m); n = big(n)
+    end 
+    return sqrt(factorial(n + m) / factorial(n - m))
 end

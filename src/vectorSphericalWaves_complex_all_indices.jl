@@ -12,7 +12,7 @@ export πₘₙ_τₘₙ_all_all_m_n
 
 #############################################################################################
 # calculate π(θ) and τ(θ) using recurrence relations
-function πₘₙ_τₘₙ_all_all_m_n(n_max::Int, θ::R; verbose=false) where R <: Real
+function πₘₙ_τₘₙ_all_all_m_n(n_max::I, θ::R; verbose=false) where {R <: Real, I <: Integer}
     # calculate A with recurrence relation
     A = SortedDict(0 => 1.0)
     for m = 0:n_max - 1
@@ -58,7 +58,7 @@ end
 
 #############################################################################################
 # Legendre and Associated Legendre
-function Legendre_polynomials_Pn_array(n_max::Int, x::NN) where NN <: Number
+function Legendre_polynomials_Pn_array(n_max::I, x::NN) where NN <: Number
     """
     Calculate all Legendre polynomials Pₙ(x) from n = 1 up to n=n_max using recurrence relation
     https://en.wikipedia.org/wiki/Legendre_polynomials
@@ -78,14 +78,14 @@ function Legendre_polynomials_Pn_array(n_max::Int, x::NN) where NN <: Number
     return P
 end
 
-function Legendre_polynomials_Pn(n::Int, x::NN) where NN <: Number
+function Legendre_polynomials_Pn(n::I, x::NN) where NN <: Number
     """
     Calculate Legendre polynomials Pₙ(x) at a given n
     """
     return Legendre_polynomials_Pn_array(n, x)[n]
 end
 
-function Associated_Legendre_polynomials_Pmn_array(m::Int, n_max::Int, x)
+function Associated_Legendre_polynomials_Pmn_array(m::I, n_max::I, x)
     """
     Associated Legendre polynomials Pᵐₙ(x) from n = m up to n=n_max using recurrence relation
     https://en.wikipedia.org/wiki/Associated_Legendre_polynomials#Recurrence_formula
@@ -106,7 +106,7 @@ function Associated_Legendre_polynomials_Pmn_array(m::Int, n_max::Int, x)
     return P
 end
 
-function Associated_Legendre_polynomials_Pmn(m::Int, n::Int, x)
+function Associated_Legendre_polynomials_Pmn(m::I, n::I, x)
     """
     Associated Legendre polynomials Pᵐₙ(x) at a given n
     """
@@ -115,7 +115,8 @@ end
 
 #############################################################################################
 # Wigner-d, using recurrence
-function wignerd_and_∂wignerd_for_all_s(s_max::Int, m::Int, n::Int, θ::R; get_derivatives=true, verbose=false) where R <: Real
+# TODO: I think this will not work for large s,m,n values, try to fix it as in `wignerdjmn_ELZOUKA`
+function wignerd_and_∂wignerd_for_all_s(s_max::I, m::I, n::I, θ::R; get_derivatives=true, verbose=false) where {R <: Real, I <: Integer}
     """
     Calculate dˢₘₙ(θ) and ∂(dˢₘₙ(θ))/∂θ for all values of s, where s starts from s_min up to s_max. s_min is the maximum of |m| and |n|
 
@@ -202,7 +203,7 @@ end
 
 #############################################################################################
 # calculate π(θ) and τ(θ) using Wigner-d that was calculated using recurrence relations
-function πₘₙ_τₘₙ_all_all_m_n_using_wigner(n_max::Int, θ::R; verbose=false) where R <: Real
+function πₘₙ_τₘₙ_all_all_m_n_using_wigner(n_max::I, θ::R; verbose=false) where {R <: Real, I <: Integer}
     πₘₙ_all = zeros(get_max_single_index_from_n_max(n_max))
     τₘₙ_all = zeros(get_max_single_index_from_n_max(n_max))
 
@@ -224,7 +225,7 @@ function πₘₙ_τₘₙ_all_all_m_n_using_wigner(n_max::Int, θ::R; verbose=f
     return πₘₙ_all, τₘₙ_all
 end
 
-function B_C_mn_of_θ_for_all_m_n(n_max::Int, θ::R) where R <: Real
+function B_C_mn_of_θ_for_all_m_n(n_max::I, θ::R) where {R <: Real, I <: Integer}
     """
     Calculate Bₙₘ(θ), Cₙₘ(θ), Pₙₘ(θ) equations C.19, C.20, C.21
     The order of m,n is according to the function "single_index_from_m_n"
@@ -240,7 +241,7 @@ function B_C_mn_of_θ_for_all_m_n(n_max::Int, θ::R) where R <: Real
     return B, C
 end
 
-function P_mn_of_θ_for_all_m_n(n_max::Int, θ::R) where R <: Real
+function P_mn_of_θ_for_all_m_n(n_max::I, θ::R) where {R <: Real, I <: Integer}
     """
     Calculate Pₙₘ(θ) using equations C.19, C.20
     The order of m,n is according to the function "single_index_from_m_n"
@@ -258,7 +259,7 @@ function P_mn_of_θ_for_all_m_n(n_max::Int, θ::R) where R <: Real
     return P
 end
 
-function B_C_P_mn_of_θ_ϕ_for_all_m_n(n_max::Int, θ::R, ϕ::R) where R <: Real
+function B_C_P_mn_of_θ_ϕ_for_all_m_n(n_max::I, θ::R, ϕ::R) where {R <: Real, I <: Integer}
     """
     Calculate Bₙₘ(θ,ϕ), Cₙₘ(θ,ϕ), Pₙₘ(θ,ϕ) for all m and n
     """
@@ -267,7 +268,7 @@ function B_C_P_mn_of_θ_ϕ_for_all_m_n(n_max::Int, θ::R, ϕ::R) where R <: Real
 
     for n = 1:n_max
         for m = -n:n
-            factor = (-1)^m * sqrt(factorial(n + m) / factorial(n - m)) * exp(im * m * ϕ)
+            factor = (-1)^m * convert(R, sqrt_factorial_n_plus_m_over_factorial_n_minus_m(m,n)) * exp(im * m * ϕ)
             B_of_θ[single_index_from_m_n(m, n)] *= factor
             C_of_θ[single_index_from_m_n(m, n)] *= factor
             P_of_θ[single_index_from_m_n(m, n)] *= factor
@@ -277,7 +278,7 @@ function B_C_P_mn_of_θ_ϕ_for_all_m_n(n_max::Int, θ::R, ϕ::R) where R <: Real
     return B_of_θ, C_of_θ, P_of_θ
 end
 
-function M_N_wave_all_m_n(n_max::Int, kr::NN, θ::R, ϕ::R; kind="regular") where {R <: Real,NN <: Number}
+function M_N_wave_all_m_n(n_max::I, kr::NN, θ::R, ϕ::R; kind="regular") where {R <: Real, I <: Integer, NN <: Number}
     """
     Parameters
     ==========
@@ -292,8 +293,8 @@ function M_N_wave_all_m_n(n_max::Int, kr::NN, θ::R, ϕ::R; kind="regular") wher
 
     for n = 1:n_max
         for m = -n:n
-            M[single_index_from_m_n(m, n)] = γ_mn(m, n) * radial_function(n, kr) * C_of_θ_ϕ[single_index_from_m_n(m, n)]
-            N[single_index_from_m_n(m, n)] = γ_mn(m, n) * (
+            M[single_index_from_m_n(m, n)] = convert(R, γ_mn(m, n)) * radial_function(n, kr) * C_of_θ_ϕ[single_index_from_m_n(m, n)]
+            N[single_index_from_m_n(m, n)] = convert(R, γ_mn(m, n)) * (
                 n * (n + 1) / kr * radial_function(n, kr)    * P_of_θ_ϕ[single_index_from_m_n(m, n)]
                 + (radial_function_special_derivative(n, kr) * B_of_θ_ϕ[single_index_from_m_n(m, n)])
             )
