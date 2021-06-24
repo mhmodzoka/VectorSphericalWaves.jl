@@ -85,7 +85,7 @@ function Legendre_polynomials_Pn(n::I, x::NN) where {I <: Integer, NN <: Number}
     return Legendre_polynomials_Pn_array(n, x)[n]
 end
 
-function Associated_Legendre_polynomials_Pmn_array(m::I, n_max::I, x)
+function Associated_Legendre_polynomials_Pmn_array(m::I, n_max::I, x) where {I <: Integer}
     """
     Associated Legendre polynomials Pᵐₙ(x) from n = m up to n=n_max using recurrence relation
     https://en.wikipedia.org/wiki/Associated_Legendre_polynomials#Recurrence_formula
@@ -106,7 +106,7 @@ function Associated_Legendre_polynomials_Pmn_array(m::I, n_max::I, x)
     return P
 end
 
-function Associated_Legendre_polynomials_Pmn(m::I, n::I, x)
+function Associated_Legendre_polynomials_Pmn(m::I, n::I, x) where {I <: Integer}
     """
     Associated Legendre polynomials Pᵐₙ(x) at a given n
     """

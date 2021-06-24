@@ -87,7 +87,7 @@ function P_mn_of_θ_SeparateRealImag_SMatrix(m::I, n::I, θ::R) where {R <: Real
     )
 end
 
-function convert_from_fun_of_θ_to_fun_of_θ_ϕ(fun_tobe_converted::Function, m::I, n::I, θ::R, ϕ::R) where R <: Real
+function convert_from_fun_of_θ_to_fun_of_θ_ϕ(fun_tobe_converted::Function, m::I, n::I, θ::R, ϕ::R) where {R <: Real, I <: Integer}
     # equation C.16, C.17, and C.18
     coeff = (-1)^m * sqrt_factorial_n_plus_m_over_factorial_n_minus_m(m, n)
     B_of_θ_coef = convert(R, coeff) .* fun_tobe_converted(m, n, θ)
