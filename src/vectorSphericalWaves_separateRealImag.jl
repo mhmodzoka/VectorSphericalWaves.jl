@@ -22,8 +22,8 @@ It returns a 3x2 Matrix, the first and second columns are the real and imaginary
 function B_mn_of_θ_SeparateRealImag(m::I, n::I, θ::R) where {R <: Real, I <: Integer}
     # equation C.19    
     return hcat(
-        vcat(0, τₘₙ(m, n, θ), 0),
-        vcat(0, 0, πₘₙ(m, n, θ))
+        vcat(zero(R), τₘₙ(m, n, θ), zero(R)),
+        vcat(zero(R), zero(R), πₘₙ(m, n, θ))
     )
 end
 
@@ -34,8 +34,8 @@ It returns a 3x2 SMatrix, the first and second columns are the real and imaginar
 function B_mn_of_θ_SeparateRealImag_SMatrix(m::I, n::I, θ::R) where {R <: Real, I <: Integer}
     # equation C.19    
     return hcat(
-        SVector(0, τₘₙ(m, n, θ), 0),
-        SVector(0, 0, πₘₙ(m, n, θ))
+        SVector(zero(R), τₘₙ(m, n, θ), zero(R)),
+        SVector(zero(R), zero(R), πₘₙ(m, n, θ))
     )
 end
 
@@ -46,8 +46,8 @@ It returns a 3x2 Matrix, the first and second columns are the real and imaginary
 function C_mn_of_θ_SeparateRealImag(m::I, n::I, θ::R) where {R <: Real, I <: Integer}
     # equation C.20    
     return hcat(
-        vcat(0, 0, -1 * τₘₙ(m, n, θ)),
-        vcat(0, πₘₙ(m, n, θ), 0)
+        vcat(zero(R), zero(R), -1 * τₘₙ(m, n, θ)),
+        vcat(zero(R), πₘₙ(m, n, θ), zero(R))
     )
 end
 
@@ -58,8 +58,8 @@ It returns a 3x2 SMatrix, the first and second columns are the real and imaginar
 function C_mn_of_θ_SeparateRealImag_SMatrix(m::I, n::I, θ::R) where {R <: Real, I <: Integer}
     # equation C.20    
     return hcat(
-        SVector(0, 0, -1 * τₘₙ(m, n, θ)),
-        SVector(0, πₘₙ(m, n, θ), 0)
+        SVector(zero(R), zero(R), -1 * τₘₙ(m, n, θ)),
+        SVector(zero(R), πₘₙ(m, n, θ), zero(R))
 )
 end
 
@@ -71,7 +71,7 @@ function P_mn_of_θ_SeparateRealImag(m::I, n::I, θ::R) where {R <: Real, I <: I
     # equation C.21
     return hcat(
         P_mn_of_θ(m, n, θ),
-        vcat(0, 0, 0)
+        vcat(zero(R), zero(R), zero(R))
 )
 end
 
@@ -89,12 +89,12 @@ end
 
 function convert_from_fun_of_θ_to_fun_of_θ_ϕ(fun_tobe_converted::Function, m::I, n::I, θ::R, ϕ::R) where {R <: Real, I <: Integer}
     # equation C.16, C.17, and C.18
-    coeff = (-1)^m * sqrt_factorial_n_plus_m_over_factorial_n_minus_m(m, n)
+    coeff = Zygote.dropgrad((-one(R))^m * sqrt_factorial_n_plus_m_over_factorial_n_minus_m(m, n))
     B_of_θ_coef = convert(R, coeff) .* fun_tobe_converted(m, n, θ)
     B_of_θ_coef_real = B_of_θ_coef[:,1]
     B_of_θ_coef_imag = B_of_θ_coef[:,2]
-    exp_imϕ_real = cos(m * ϕ)
-    exp_imϕ_imag = sin(m * ϕ)
+    exp_imϕ_real = cos(Zygote.dropgrad(m) * ϕ)
+    exp_imϕ_imag = sin(Zygote.dropgrad(m) * ϕ)
     
     return hcat(
         B_of_θ_coef_real .* exp_imϕ_real - B_of_θ_coef_imag .* exp_imϕ_imag,
@@ -169,7 +169,7 @@ end
 function one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag(n::I, x_r::R, x_i::R) where {R <: Real, I <: Integer}
     der_j = one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag(n, x_r, x_i)
     der_y = one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag(n, x_r, x_i)
-    return der_j + complex_multiply(0, 1, der_y[1], der_y[2])
+    return der_j + complex_multiply(zero(R), one(R), der_y[1], der_y[2])
     # return (one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag(n, x_r, x_i) + complex_multiply(0, 1, one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag(n, x_r, x_i)...))
 end
 
@@ -193,8 +193,8 @@ end
 
 function M_mn_wave_SeparateRealImag(m::I, n::I, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where {R <: Real, I <: Integer}
     radial_function, _ = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
-    gamma_by_radial = convert(R, γ_mn(m, n)) .* radial_function(n, kr_r, kr_i)
-    return complex_multiply(vcat(gamma_by_radial, gamma_by_radial, gamma_by_radial), C_mn_of_θ_ϕ_SeparateRealImag(m, n, θ, ϕ))
+    gamma_by_radial = convert(R, Zygote.dropgrad(γ_mn(m, n))) .* radial_function(Zygote.dropgrad(n), kr_r, kr_i)
+    return complex_multiply(vcat(Zygote.dropgrad(gamma_by_radial), Zygote.dropgrad(gamma_by_radial), Zygote.dropgrad(gamma_by_radial)), C_mn_of_θ_ϕ_SeparateRealImag(Zygote.dropgrad(m), Zygote.dropgrad(n), θ, ϕ))
     # TODO: write this in a more elegant way: vcat(gamma_by_radial, gamma_by_radial, gamma_by_radial)
 end
 

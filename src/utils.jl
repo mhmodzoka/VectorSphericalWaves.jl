@@ -7,7 +7,7 @@ using LoopVectorization
 
 import WignerD
 import ChainRulesCore
-
+import Zygote
 
 export γ_mn
 export γ_mn_dash
@@ -131,6 +131,13 @@ function wignerdjmn_ELZOUKA(s::I, m::I, n::I, θ::R) where {R <: Real, I <: Inte
     end
 
     return convert(typeof(θ), d)
+end
+
+"""
+putting non-differentiable arguments as kwargs
+"""
+function wignerdjmn_ELZOUKA(θ::R; s::I=0, m::I=0, n::I=0) where {R <: Real, I <: Integer}
+    return wignerdjmn_ELZOUKA(s,m,n,θ)
 end
 
 
@@ -280,15 +287,33 @@ function ∂wignerdjmn_by_∂θ(s::I, m::I, n::I, θ::R; numerical_derivative=fa
         # I don't know why this is not giving the same results as the second one.
         #    return      (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) + sqrt((s + n) * (s - n + 1)) * wignerdjmn(s, m, n - 1, θ) # first line of equation B.25
         #catch
-        return -1 * (m - n * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) - sqrt((s - n) * (s + n + 1)) * wignerdjmn(s, m, n + 1, θ) # second line of equation B.25
+        #println("I am ∂wignerdjmn_by_∂θ, s=$s; m=$m; n=$n")
+        if s >= n
+            return -1 * (Zygote.dropgrad(m - n) * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) - Zygote.dropgrad(sqrt((s - n) * (s + n + 1))) * wignerdjmn(s, m, n + 1, θ) # second line of equation B.25
+        else # the second part is zero. TODO: Is there a more elegent way to do it? using short circuit for example?
+            return -1 * (Zygote.dropgrad(m - n) * cos(θ)) / sin(θ) * wignerdjmn(s, m, n, θ) # second line of equation B.25
+        end
         #end
     end
 end
 
+ChainRulesCore.@scalar_rule(
+    wignerdjmn(s::Integer, m::Integer, n::Integer, θ::Real),
+    (
+        ChainRulesCore.ZeroTangent(),
+        ChainRulesCore.ZeroTangent(),
+        ChainRulesCore.ZeroTangent(),
+        ∂wignerdjmn_by_∂θ(s, m, n, θ)
+    )
+)
+#ChainRulesCore.@scalar_rule(wignerdjmn(θ::Real; s::Integer=0, m::Integer=0, n::Integer=0), (ZeroTangent(), ZeroTangent(), ZeroTangent(), ∂wignerdjmn_by_∂θ(s, m, n, θ)))
+
+
+
 #############################################################################################
 # calculate π(θ) and τ(θ)
 function πₘₙ(m::I, n::I, θ::R) where {R <: Real, I <: Integer}
-    return m / sin(θ) * wignerdjmn(n, 0, m, θ)
+    return Zygote.dropgrad(m) / sin(θ) * wignerdjmn(n, 0, m, θ)
 end
 
 function τₘₙ(m::I, n::I, θ::R) where {R <: Real, I <: Integer}
