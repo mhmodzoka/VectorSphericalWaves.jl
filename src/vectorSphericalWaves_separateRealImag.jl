@@ -156,13 +156,13 @@ end
 
 function one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag(n::I, x_r::R, x_i::R) where {R <: Real, I <: Integer}
     # n_over_x = complex_divide(n * ones(size(x_r)), zeros(size(x_r)), x_r, x_i) # TODO: find a way to make sure all inputs have the same size
-    n_over_x = complex_divide(n, zero(x_r), x_r, x_i)
+    n_over_x = complex_divide(Zygote.dropgrad(n), zero(x_r), x_r, x_i)
     return (spherical_Bessel_j_n_SeparateRealImag(n - 1, x_r, x_i) - complex_multiply(n_over_x, spherical_Bessel_j_n_SeparateRealImag(n, x_r, x_i)))
 end
 
 function one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag(n::I, x_r::R, x_i::R) where {R <: Real, I <: Integer}
     # n_over_x = complex_divide(n * ones(size(x_r)), zeros(size(x_r)), x_r, x_i) # TODO: find a way to make sure all inputs have the same size
-    n_over_x = complex_divide(n, zero(x_r), x_r, x_i)
+    n_over_x = complex_divide(Zygote.dropgrad(n), zero(x_r), x_r, x_i)
     return (spherical_Bessel_y_n_SeparateRealImag(n - 1, x_r, x_i) - complex_multiply(n_over_x, spherical_Bessel_y_n_SeparateRealImag(n, x_r, x_i)))
 end
 
@@ -192,10 +192,15 @@ function get_radial_function_and_special_derivative_given_kind_SeparateRealImag(
 end
 
 function M_mn_wave_SeparateRealImag(m::I, n::I, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where {R <: Real, I <: Integer}
-    radial_function, _ = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
+    radial_function, _ = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)    
     gamma_by_radial = convert(R, Zygote.dropgrad(γ_mn(m, n))) .* radial_function(Zygote.dropgrad(n), kr_r, kr_i)
-    return complex_multiply(vcat(Zygote.dropgrad(gamma_by_radial), Zygote.dropgrad(gamma_by_radial), Zygote.dropgrad(gamma_by_radial)), C_mn_of_θ_ϕ_SeparateRealImag(Zygote.dropgrad(m), Zygote.dropgrad(n), θ, ϕ))
+    return complex_multiply(vcat((gamma_by_radial), (gamma_by_radial), (gamma_by_radial)), C_mn_of_θ_ϕ_SeparateRealImag(Zygote.dropgrad(m), Zygote.dropgrad(n), θ, ϕ))
+    
     # TODO: write this in a more elegant way: vcat(gamma_by_radial, gamma_by_radial, gamma_by_radial)
+end
+
+function M_mn_wave_SeparateRealImag(m::I, n::I, k_r::R, k_i::R, r::R, θ::R, ϕ::R, kind="regular") where {R <: Real, I <: Integer}
+    return M_mn_wave_SeparateRealImag(m, n, k_r*r, k_i*r, θ, ϕ, kind)
 end
 
 """
@@ -203,20 +208,28 @@ end
 """
 function M_mn_wave_SeparateRealImag_SMatrix(m::I, n::I, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where {R <: Real, I <: Integer}
     radial_function, _ = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
-    gamma_by_radial = convert(R, γ_mn(m, n)) .* radial_function(n, kr_r, kr_i)
-    return complex_multiply_SMatrix(gamma_by_radial .* SMatrix{3,2}(ones(3, 2)), C_mn_of_θ_ϕ_SeparateRealImag_SMatrix(m, n, θ, ϕ))
+    gamma_by_radial = convert(R, Zygote.dropgrad(γ_mn(m, n))) .* radial_function(Zygote.dropgrad(n), kr_r, kr_i)
+    return complex_multiply_SMatrix(gamma_by_radial .* SMatrix{3,2}(ones(3, 2)), C_mn_of_θ_ϕ_SeparateRealImag_SMatrix(Zygote.dropgrad(m), Zygote.dropgrad(n), θ, ϕ))
     # TODO: write this in a more elegant way: vcat(gamma_by_radial, gamma_by_radial, gamma_by_radial)
+end
+
+function M_mn_wave_SeparateRealImag_SMatrix(m::I, n::I, k_r::R, k_i::R, r::R, θ::R, ϕ::R, kind="regular") where {R <: Real, I <: Integer}
+    return M_mn_wave_SeparateRealImag_SMatrix(m, n, k_r*r, k_i*r, θ, ϕ, kind)
 end
 
 function N_mn_wave_SeparateRealImag(m::I, n::I, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where {R <: Real, I <: Integer}
     radial_function, radial_function_special_derivative  = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)
-    ceoff = complex_multiply(complex_divide(n * (n + 1), zero(kr_r), kr_r, kr_i), radial_function(n, kr_r, kr_i))
-    rad_fun_der = radial_function_special_derivative(n, kr_r, kr_i)
-    return convert(R, γ_mn(m, n)) .* (
-        complex_multiply([ceoff; ceoff; ceoff], P_mn_of_θ_ϕ_SeparateRealImag(m, n, θ, ϕ))
-        + complex_multiply([rad_fun_der; rad_fun_der; rad_fun_der], B_mn_of_θ_ϕ_SeparateRealImag(m, n, θ, ϕ))
+    ceoff = complex_multiply(complex_divide(Zygote.dropgrad(n * (n + 1)), zero(kr_r), kr_r, kr_i), radial_function(Zygote.dropgrad(n), kr_r, kr_i))
+    rad_fun_der = radial_function_special_derivative(Zygote.dropgrad(n), kr_r, kr_i)
+    return convert(R, Zygote.dropgrad(γ_mn(m, n))) .* (
+        complex_multiply([ceoff; ceoff; ceoff], P_mn_of_θ_ϕ_SeparateRealImag(Zygote.dropgrad(m), n, θ, ϕ))
+        + complex_multiply([rad_fun_der; rad_fun_der; rad_fun_der], B_mn_of_θ_ϕ_SeparateRealImag(Zygote.dropgrad(m), n, θ, ϕ))
     )
     # TODO: write this in a more elegant way: [ceoff; ceoff; ceoff]
+end
+
+function N_mn_wave_SeparateRealImag(m::I, n::I, k_r::R, k_i::R, r::R, θ::R, ϕ::R, kind="regular") where {R <: Real, I <: Integer}
+    return N_mn_wave_SeparateRealImag(m, n, k_r*r, k_i*r, θ, ϕ, kind)
 end
 
 """
@@ -232,3 +245,9 @@ function N_mn_wave_SeparateRealImag_SMatrix(m::I, n::I, kr_r::R, kr_i::R, θ::R,
     )
     # TODO: write this in a more elegant way: [ceoff; ceoff; ceoff]
 end
+
+function N_mn_wave_SeparateRealImag_SMatrix(m::I, n::I, k_r::R, k_i::R, r::R, θ::R, ϕ::R, kind="regular") where {R <: Real, I <: Integer}
+    return N_mn_wave_SeparateRealImag_SMatrix(m, n, k_r*r, k_i*r, θ, ϕ, kind)
+end
+
+

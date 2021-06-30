@@ -13,22 +13,46 @@ using Traceur
 
 import FiniteDifferences
 import Zygote
+import Flux
 import VectorSphericalWaves
 
+function calculating_error(array_tobe_evaluated, array_groundtruth; max_permissible_error = 1e-6, max_permissible_relative_error = 1e-6)
+    if 0 in array_groundtruth                    
+        error = maximum(abs.(array_tobe_evaluated - array_groundtruth))       
+        if error > max_permissible_error
+            println("error between Zygote and manual_numerical_diff is high, error=$error at <<$f>> at n=$n")
+        end               
+        
+    
+    else
+        relative_error = maximum(abs.((array_groundtruth - array_tobe_evaluated)/array_groundtruth))       
+    
+        if relative_error > max_permissible_relative_error
+            println("relative error between Zygote and manual_numerical_diff is high, error=$relative_error at <<$f>> at n=$n")
+        end
+        
+    end
 
-#function fr
-#############################################################################################
-# testing automatic differenitation
+end
 
-m, n, kr_r, kr_i, θ, ϕ = 1, 1, 1e5, 1e2, 0.2, 0.3
+function ∂wignerdjmn(s,m,n,θ)
+    Flux.gradient(VectorSphericalWaves.wignerdjmn, s,m,n,θ)
+end
+function ∂M_mn_wave_SeparateRealImag(m,n, kr_r, kr_i, θ, ϕ, kind)
+    Flux.jacobian(VectorSphericalWaves.M_mn_wave_SeparateRealImag, m,n, kr_r, kr_i, θ, ϕ, kind)
+end
+function ∂N_mn_wave_SeparateRealImag(m,n, kr_r, kr_i, θ, ϕ, kind)
+    Flux.jacobian(VectorSphericalWaves.N_mn_wave_SeparateRealImag, m,n, kr_r, kr_i, θ, ϕ, kind)
+end
+
+
+m, n, kr_r, kr_i, θ, ϕ = 1, 1, 20., 1., 0.2, 0.3
 s = 2 * n
 
 # m, n, kr_r, kr_i, θ, ϕ = 1, 1, BigFloat(1e5), BigFloat(1e2), BigFloat(0.2), BigFloat(0.3)
 kr = complex(kr_r, kr_i)
 
 finite_difference_method = FiniteDifferences.central_fdm(5, 1; factor=1e-8);
-
-Zygote.jacobian(VectorSphericalWaves.C_mn_of_θ_SeparateRealImag, m, n, θ)
 
 # testing wignerdjmn
 wignerdjmn_lean(θ) = VectorSphericalWaves.wignerdjmn(s, m, n, θ)
@@ -50,7 +74,7 @@ m, n = -1, 1
 @time τₘₙ_lean_jacobian = Zygote.gradient(τₘₙ_lean, θ)
 @time τₘₙ_lean_jacobian_FD = FiniteDifferences.jacobian(finite_difference_method, τₘₙ_lean, θ)
 
-n_max = 3
+n_max = 8
 for n = 1:n_max
     for m = -n:n
         try
@@ -87,29 +111,75 @@ ChainRulesCore.@scalar_rule(
     )
 )
 
-######################################
-# Zygote example to illustrate my point of Zygote ignoring differentiation with respect to Integers
-import Zygote
-# naiively defining my function, and using Zygote to calculate the gradient
-f(n::Integer,x::Real) = sin(n*x)
-Zygote.gradient(f, 100, π)
-# Zygote performs automatic differentiation with respect to `n`, although `n` is an integer and `f` can't be differentiated with respect to `n`
 
-# I hope Zygote can apply `Zygote.dropgrad()` to all arguments that are Integers, like `n`
-f(n::Integer,x::Real) = sin(Zygote.dropgrad(n) * x)
-Zygote.gradient(f, 100, π)
-######################################
+##################################################################
 
+n_max = 20
+epss = big(1e-30); 
 max_permissible_error = 1e-6
-n_max = 7
-for n = 1:n_max
-    for m = -n:n     
+max_permissible_relative_error = 1e-6
 
+for n = 1:n_max
+    # TODO: try to use `isapprox`        
+    
+    # Bessel functions
+    for f in [
+        VectorSphericalWaves.spherical_Bessel_j_n_SeparateRealImag,
+        VectorSphericalWaves.spherical_Bessel_y_n_SeparateRealImag,
+        VectorSphericalWaves.spherical_Hankel_h1_n_SeparateRealImag,
+        VectorSphericalWaves.one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag,
+        VectorSphericalWaves.one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag,
+        VectorSphericalWaves.one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag
+    ]
+        try
+            println("Zygote($f)")
+            @time jacobian_Zygote = vcat(Zygote.jacobian(f, n, kr_r, kr_i)[2:3]...)
+            println("manual_numerical_diff($f)")
+            @time jacobian_manual_numerical_diff = hcat(
+                (f(n, big(kr_r+epss), big(kr_i)) - f(n, big(kr_r-epss), big(kr_i)))/ (2*epss),
+                (f(n, big(kr_r), big(kr_i+epss)) - f(n, big(kr_r), big(kr_i-epss)))/ (2*epss)
+            )'
+            jacobian_FD = vcat(FiniteDifferences.jacobian(finite_difference_method, (kr_r, kr_i) -> f(n, kr_r, kr_i), θ, ϕ)...)
+
+            if 0 in jacobian_manual_numerical_diff            
+                error_FD = maximum(abs.(jacobian_Zygote - jacobian_FD))
+                error_manual_numerical_diff = maximum(abs.(jacobian_Zygote - jacobian_manual_numerical_diff))
+                if min(error_FD, error_manual_numerical_diff) > max_permissible_error
+                    if error_FD > max_permissible_error
+                        println("error between Zygote and FiniteDifferences is high, error=$error_FD at <<$f>> at n=$n")
+                    end
+                    if error_manual_numerical_diff > max_permissible_error
+                        println("error between Zygote and manual_numerical_diff is high, error=$error_manual_numerical_diff at <<$f>> at n=$n")
+                    end                    
+                end   
+            
+            else
+                relative_error_Zygote = maximum(abs.((jacobian_manual_numerical_diff - jacobian_Zygote)/jacobian_manual_numerical_diff))
+                relative_error_FD = maximum(abs.((jacobian_manual_numerical_diff- jacobian_FD)/jacobian_manual_numerical_diff))
+                if min(relative_error_Zygote, relative_error_FD) > max_permissible_relative_error
+                    if relative_error_Zygote > max_permissible_relative_error
+                        println("relative error between Zygote and manual_numerical_diff is high, error=$relative_error_Zygote at <<$f>> at n=$n")
+                    end
+                    if relative_error_FD > max_permissible_relative_error
+                        println("relative error between FiniteDifference and manual_numerical_diff is high, error=$relative_error_FD at <<$f>> at n=$n")
+                    end                
+                end            
+            end
+        catch
+            println("runtime error with <<$f>> at n=$n")
+        end
+    end
+end
+
+
+for n = 1:n_max
+    for m = -n:n
         # TODO: try to use `isapprox`
         
         # πₘₙ, τₘₙ -------------------------
         for f in [
-                VectorSphericalWaves.πₘₙ, VectorSphericalWaves.τₘₙ
+                VectorSphericalWaves.πₘₙ,
+                VectorSphericalWaves.τₘₙ
             ]
             try
                 error = abs(Zygote.gradient(f, m, n, θ)[3] - FiniteDifferences.jacobian(finite_difference_method, θ -> f(m, n, θ), θ)[1][1])                
@@ -151,89 +221,64 @@ for n = 1:n_max
             catch
                 println("runtime error with <<$f>> at n=$n, m=$m")
             end
-        end
+        end        
 
-        # B_mn_of_θ_ϕ_SeparateRealImag, C_mn_of_θ_ϕ_SeparateRealImag, P_mn_of_θ_ϕ_SeparateRealImag ----------------------
+        # M and N
         for f in [
-            VectorSphericalWaves.spherical_Bessel_j_n_SeparateRealImag,
-            VectorSphericalWaves.spherical_Bessel_y_n_SeparateRealImag,
-            VectorSphericalWaves.spherical_Hankel_h1_n_SeparateRealImag,
-            VectorSphericalWaves.one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag,
-            VectorSphericalWaves.one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag,
-            VectorSphericalWaves.one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag
+            VectorSphericalWaves.M_mn_wave_SeparateRealImag,
+            VectorSphericalWaves.N_mn_wave_SeparateRealImag,            
         ]
-        try
-            error = maximum(abs.(vcat(Zygote.jacobian(f, n, kr_r, kr_i)[2:3]...) - vcat(FiniteDifferences.jacobian(finite_difference_method, (kr_r, kr_i) -> f(n, kr_r, kr_i), θ, ϕ)...)))
-            if error > max_permissible_error
-                println("error between Zygote and FiniteDifferences is high, error=$error at <<$f>> at n=$n, m=$m")
+            for kind in ["regular", "irregular"]
+                try
+                    println("Zygote($f, kind=$kind)")
+                    @time jacobian_Zygote = vcat(Zygote.jacobian(f, m,n, kr_r, kr_i, θ, ϕ, kind)[3:6]...)
+                    println("Flux($f, kind=$kind)")
+                    if f == VectorSphericalWaves.M_mn_wave_SeparateRealImag
+                        @time zz = ∂M_mn_wave_SeparateRealImag(m,n, kr_r, kr_i, θ, ϕ, kind)
+                    elseif f == VectorSphericalWaves.N_mn_wave_SeparateRealImag
+                        @time zz = ∂N_mn_wave_SeparateRealImag(m,n, kr_r, kr_i, θ, ϕ, kind)
+                    end
+                    println("manual_numerical_diff($f, kind=$kind)")
+                    @time jacobian_manual_numerical_diff = vcat(
+                        vcat((f(m,n, big(kr_r+epss), big(kr_i), big(θ), big(ϕ), kind) - f(m,n, big(kr_r-epss), big(kr_i), big(θ), big(ϕ), kind)) / (2*epss)...),
+                        vcat((f(m,n, big(kr_r), big(kr_i+epss), big(θ), big(ϕ), kind) - f(m,n, big(kr_r), big(kr_i-epss), big(θ), big(ϕ), kind)) / (2*epss)...),
+                        vcat((f(m,n, big(kr_r), big(kr_i), big(θ+epss), big(ϕ), kind) - f(m,n, big(kr_r), big(kr_i), big(θ-epss), big(ϕ), kind)) / (2*epss)...),
+                        vcat((f(m,n, big(kr_r), big(kr_i), big(θ), big(ϕ+epss), kind) - f(m,n, big(kr_r), big(kr_i), big(θ), big(ϕ-epss), kind)) / (2*epss)...),
+                    )
+                    println("FiniteDifference($f, kind=$kind)")
+                    @time jacobian_FD = vcat(FiniteDifferences.jacobian(finite_difference_method, (kr_r, kr_i, θ, ϕ) -> f(m,n, kr_r, kr_i, θ, ϕ, kind), kr_r, kr_i, θ, ϕ)...)
+
+                    if 0 in jacobian_manual_numerical_diff                    
+                        error = maximum(
+                            abs.(jacobian_Zygote - jacobian_manual_numerical_diff)
+                        )
+                        if error > max_permissible_error
+                            println("error between Zygote and manual_numerical_diff is high, error=$error at <<$f>>, kind=$kind at n=$n, m=$m")
+                            println("here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:")
+                            display(hcat(jacobian_Zygote, jacobian_manual_numerical_diff, abs.(jacobian_Zygote - jacobian_manual_numerical_diff)))
+                            println()
+                            println()
+                        end
+
+                    else
+                        relative_error = maximum(
+                            abs.(
+                                (jacobian_manual_numerical_diff - jacobian_Zygote)./jacobian_manual_numerical_diff
+                            )
+                        )
+                        if relative_error > max_permissible_relative_error
+                            println("relative error between Zygote and manual_numerical_diff is high, relative_error=$relative_error at <<$f>>, kind=$kind at n=$n, m=$m")
+                            println("here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:")
+                            display(hcat(jacobian_Zygote, jacobian_manual_numerical_diff, (jacobian_manual_numerical_diff - jacobian_Zygote)./jacobian_manual_numerical_diff))
+                            println()
+                            println()
+                        end
+
+                    end
+                catch
+                    println("runtime error with <<$f>>, kind=$kind at n=$n, m=$m")
+                end
             end
-        catch
-            println("runtime error with <<$f>> at n=$n, m=$m")
         end
     end
-    end
 end
-
-f = VectorSphericalWaves.spherical_Bessel_j_n_SeparateRealImag
-f(n, kr_r, kr_i)
-
-
-Zygote.gradient(VectorSphericalWaves.πₘₙ, m, n, θ)
-Zygote.gradient(VectorSphericalWaves.τₘₙ, m, n, θ)
-Zygote.jacobian(VectorSphericalWaves.B_mn_of_θ_SeparateRealImag, m, n, θ)
-Zygote.jacobian(VectorSphericalWaves.C_mn_of_θ_SeparateRealImag, m, n, θ)
-Zygote.jacobian(VectorSphericalWaves.P_mn_of_θ_SeparateRealImag, m, n, θ)
-Zygote.jacobian(VectorSphericalWaves.P_mn_of_θ, m, n, θ) # and this works too
-
-Zygote.jacobian(VectorSphericalWaves.B_mn_of_θ_ϕ_SeparateRealImag, m, n, θ, ϕ)
-Zygote.jacobian(VectorSphericalWaves.C_mn_of_θ_ϕ_SeparateRealImag, m, n, θ, ϕ)
-Zygote.jacobian(VectorSphericalWaves.P_mn_of_θ_ϕ_SeparateRealImag, m, n, θ, ϕ)
-
-Zygote.jacobian(VectorSphericalWaves.spherical_Bessel_j_n_SeparateRealImag, n, kr_r, kr_i)
-
-Zygote.jacobian(VectorSphericalWaves.spherical_Bessel_y_n_SeparateRealImag, n, kr_r, kr_i)
-
-Zygote.jacobian(VectorSphericalWaves.spherical_Hankel_h1_n_SeparateRealImag, n, kr_r, kr_i)
-
-Zygote.jacobian(VectorSphericalWaves.one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag, n, kr_r, kr_i)
-
-Zygote.jacobian(VectorSphericalWaves.one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag, n, kr_r, kr_i)
-
-Zygote.jacobian(VectorSphericalWaves.one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag, n, kr_r, kr_i)
-
-Zygote.jacobian(VectorSphericalWaves.M_mn_wave_SeparateRealImag,m, n, kr_r, kr_i, θ, ϕ, "regular") # I can't add kwarg "kind". How can I add it?
-
-M_wave_calc_using_complex_numbers = M_mn_wave(m, n, complex(kr_r, kr_i), θ, ϕ; kind="regular")
-VectorSphericalWaves.M_mn_wave_SeparateRealImag(m, n, kr_r, kr_i, θ, ϕ, "regular") == hcat(real(M_wave_calc_using_complex_numbers), imag(M_wave_calc_using_complex_numbers))
-Zygote.jacobian(VectorSphericalWaves.M_mn_wave_SeparateRealImag,m, n, kr_r, kr_i, θ, ϕ, "regular") # I can't add kwarg "kind". How can I add it?
-
-N_wave_calc_using_complex_numbers = N_mn_wave(m, n, complex(kr_r, kr_i), θ, ϕ; kind="regular")
-VectorSphericalWaves.N_mn_wave_SeparateRealImag(m, n, kr_r, kr_i, θ, ϕ, "regular") == hcat(real(N_wave_calc_using_complex_numbers), imag(N_wave_calc_using_complex_numbers))
-Zygote.jacobian(VectorSphericalWaves.N_mn_wave_SeparateRealImag,m, n, kr_r, kr_i, θ, ϕ, "regular") # I can't add kwarg "kind". How can I add it?
-
-
-
-function B_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
-    # equation C.19
-    B_real = vcat(0, VectorSphericalWaves.τₘₙ(m, n, θ), 0)
-    B_imag = vcat(0, 0, VectorSphericalWaves.πₘₙ(m, n, θ))
-    return hcat(B_real, B_imag)
-end
-
-m, n, t_ = 5, 7, LinRange(0, π, 10000);
-@time B_mn_of_θ_SeparateRealImag(m, n, t_[1]);
-@time B_mn_of_θ_SeparateRealImag.(m, n, t_);
-@time B_mn_of_θ_SeparateRealImag.(m, n, t_);
-
-
-function B_mn_of_θ_SeparateRealImag(m::Int, n::Int, θ::R) where R <: Real
-    # equation C.19    
-    return hcat(vcat(0, VectorSphericalWaves.τₘₙ(m, n, θ), 0), vcat(0, 0, VectorSphericalWaves.πₘₙ(m, n, θ)))
-end
-
-m, n, t_ = 5, 7, LinRange(0, π, 10000);
-@time B_mn_of_θ_SeparateRealImag(m, n, t_[1]);
-@time B_mn_of_θ_SeparateRealImag.(m, n, t_);
-@time B_mn_of_θ_SeparateRealImag.(m, n, t_);
-
-

@@ -47,44 +47,32 @@ end
     defining derivative for Bessel functions.
 Inside "SpecialFunctions.jl" package, the definition of derivative of Bessel functions exists. However, it returns an error when called by Zygote.
 The error because the derivative of Bessel function with respect to the integer rank is not defined, and the code return error "ChainRulesCore.@thunk(error("not implemented"))"
-Since adjoint calculation will never require calculation gradient with respect to the integer rank, I am defining this integer as zero or `ChainRulesCore.Zero()`
+Since adjoint calculation will never require calculation gradient with respect to the integer rank, I am defining this integer as zero or `ChainRulesCore.ZeroTangent()`
 """
 
 #
 ChainRulesCore.@scalar_rule(
     besselj(ν, x),
     (
-        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
+        ChainRulesCore.ZeroTangent(), # ChainRulesCore.@thunk(error("not implemented")),
         (besselj(ν - 1, x) - besselj(ν + 1, x)) / 2
     ),
 )
 ChainRulesCore.@scalar_rule(
     besseli(ν, x),
     (
-        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
+        ChainRulesCore.ZeroTangent(), # ChainRulesCore.@thunk(error("not implemented")),
         (besseli(ν - 1, x) + besseli(ν + 1, x)) / 2,
     ),
 )
 ChainRulesCore.@scalar_rule(
     bessely(ν, x),
     (
-        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
+        ChainRulesCore.ZeroTangent(), # ChainRulesCore.@thunk(error("not implemented")),
         (bessely(ν - 1, x) - bessely(ν + 1, x)) / 2,
     ),
 )
 
-# TODO: I need to define scalar_rule for `wignerdjmn`, like following. The problem is that `wignerdjmn` is not recogized by `ChainRulesCore`
-"""
-ChainRulesCore.@scalar_rule(
-    wignerdjmn(s, m, n, θ),
-    (
-        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
-        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
-        ChainRulesCore.Zero(), # ChainRulesCore.@thunk(error("not implemented")),
-        ∂wignerdjmn_by_∂θ(s, m, n, θ),
-    ),
-)
-"""
 
 # Wigner-d
 """
@@ -297,6 +285,8 @@ function ∂wignerdjmn_by_∂θ(s::I, m::I, n::I, θ::R; numerical_derivative=fa
     end
 end
 
+# adding this rule expedites Zygote
+
 ChainRulesCore.@scalar_rule(
     wignerdjmn(s::Integer, m::Integer, n::Integer, θ::Real),
     (
@@ -306,6 +296,8 @@ ChainRulesCore.@scalar_rule(
         ∂wignerdjmn_by_∂θ(s, m, n, θ)
     )
 )
+
+
 #ChainRulesCore.@scalar_rule(wignerdjmn(θ::Real; s::Integer=0, m::Integer=0, n::Integer=0), (ZeroTangent(), ZeroTangent(), ZeroTangent(), ∂wignerdjmn_by_∂θ(s, m, n, θ)))
 
 
@@ -329,8 +321,10 @@ function γ_mn(m::I, n::I) where {I <: Integer}
         m = big(m); n = big(n)
     end
 
-    return sqrt(
-        ((2n + 1) * factorial(n - m)) / (4π * n * (n + 1) * factorial(n + m))
+    return Zygote.dropgrad(
+            sqrt(
+            ((2n + 1) * factorial(n - m)) / (4π * n * (n + 1) * factorial(n + m))
+        )
     ) # equation C.22
 end
 
@@ -342,8 +336,9 @@ function γ_mn_dash(m::I, n::I) where {I <: Integer}
         m = big(m); n = big(n)
     end
 
-    return sqrt(
-        ((2n + 1) * factorial(n - m)) / (4π * factorial(n + m))
+    return Zygote.dropgrad(sqrt(
+            ((2n + 1) * factorial(n - m)) / (4π * factorial(n + m))
+        )
     ) # equation C.25
 end
 
@@ -369,5 +364,7 @@ function sqrt_factorial_n_plus_m_over_factorial_n_minus_m(m::I, n::I) where {I <
     if n + abs(m) > 20 # Is there a better way to do it? I did it because factorial fails for input of type Int that is larger than 20
         m = big(m); n = big(n)
     end 
-    return sqrt(factorial(n + m) / factorial(n - m))
+    return Zygote.dropgrad(
+        sqrt(factorial(n + m) / factorial(n - m))
+    )
 end

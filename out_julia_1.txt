@@ -1,0 +1,905 @@
+  8.687130 seconds (17.21 M allocations: 1008.059 MiB, 11.26% gc time, 99.99% compilation time)
+ 11.917834 seconds (12.18 M allocations: 719.382 MiB, 3.18% gc time, 100.00% compilation time)
+  1.466877 seconds (2.92 M allocations: 176.871 MiB, 6.77% gc time, 99.71% compilation time)
+  0.524643 seconds (502.11 k allocations: 29.826 MiB, 3.90% gc time, 99.94% compilation time)
+  0.064156 seconds (50.52 k allocations: 2.927 MiB, 99.61% compilation time)
+  0.231301 seconds (398.65 k allocations: 24.202 MiB, 99.81% compilation time)
+  7.916482 seconds (10.34 M allocations: 602.559 MiB, 3.45% gc time, 99.99% compilation time)
+  0.060355 seconds (50.17 k allocations: 2.880 MiB, 99.44% compilation time)
+  0.228707 seconds (268.83 k allocations: 15.900 MiB, 10.17% gc time, 99.71% compilation time)
+n=1, m=-1, πₘₙ_lean_jacobian=(-1.3322676295501878e-15,), πₘₙ_jacobian=-1.3322676295501878e-15, πₘₙ_jacobian_pullback=(-3.3306690738754696e-16,)
+n=1, m=0, πₘₙ_lean_jacobian=(-0.0,), πₘₙ_jacobian=-0.0, πₘₙ_jacobian_pullback=(-0.0,)
+n=1, m=1, πₘₙ_lean_jacobian=(0.0,), πₘₙ_jacobian=0.0, πₘₙ_jacobian_pullback=(-1.1102230246251565e-16,)
+n=2, m=-2, πₘₙ_lean_jacobian=(-1.2003315148333662,), πₘₙ_jacobian=-1.2003315148333662, πₘₙ_jacobian_pullback=(-0.24006630296667325,)
+n=2, m=-1, πₘₙ_lean_jacobian=(-0.2433192439940477,), πₘₙ_jacobian=-0.2433192439940477, πₘₙ_jacobian_pullback=(-0.048663848798809584,)
+n=2, m=0, πₘₙ_lean_jacobian=(-0.0,), πₘₙ_jacobian=-0.0, πₘₙ_jacobian_pullback=(-0.0,)
+n=2, m=1, πₘₙ_lean_jacobian=(-0.24331924399405125,), πₘₙ_jacobian=-0.24331924399405125, πₘₙ_jacobian_pullback=(-0.04866384879881025,)
+n=2, m=2, πₘₙ_lean_jacobian=(1.2003315148333662,), πₘₙ_jacobian=1.2003315148333662, πₘₙ_jacobian_pullback=(0.24006630296667325,)
+n=3, m=-3, πₘₙ_lean_jacobian=(0.6530744138155684,), πₘₙ_jacobian=0.6530744138155684, πₘₙ_jacobian_pullback=(0.13061488276311367,)
+n=3, m=-2, πₘₙ_lean_jacobian=(-2.5224294162675576,), πₘₙ_jacobian=-2.5224294162675576, πₘₙ_jacobian_pullback=(-0.5044858832535115,)
+n=3, m=-1, πₘₙ_lean_jacobian=(-0.8431154428472922,), πₘₙ_jacobian=-0.8431154428472922, πₘₙ_jacobian_pullback=(-0.16862308856945862,)
+n=3, m=0, πₘₙ_lean_jacobian=(-0.0,), πₘₙ_jacobian=-0.0, πₘₙ_jacobian_pullback=(-0.0,)
+n=3, m=1, πₘₙ_lean_jacobian=(-0.8431154428472905,), πₘₙ_jacobian=-0.8431154428472905, πₘₙ_jacobian_pullback=(-0.16862308856945818,)
+n=3, m=2, πₘₙ_lean_jacobian=(2.522429416267554,), πₘₙ_jacobian=2.522429416267554, πₘₙ_jacobian_pullback=(0.5044858832535108,)
+n=3, m=3, πₘₙ_lean_jacobian=(0.6530744138155689,), πₘₙ_jacobian=0.6530744138155689, πₘₙ_jacobian_pullback=(0.13061488276311378,)
+n=4, m=-4, πₘₙ_lean_jacobian=(-0.24273227165993433,), πₘₙ_jacobian=-0.24273227165993433, πₘₙ_jacobian_pullback=(-0.04854645433198686,)
+n=4, m=-3, πₘₙ_lean_jacobian=(1.6586374037168632,), πₘₙ_jacobian=1.6586374037168632, πₘₙ_jacobian_pullback=(0.33172748074337266,)
+n=4, m=-2, πₘₙ_lean_jacobian=(-4.006654740895594,), πₘₙ_jacobian=-4.006654740895594, πₘₙ_jacobian_pullback=(-0.8013309481791189,)
+n=4, m=-1, πₘₙ_lean_jacobian=(-1.907018823857035,), πₘₙ_jacobian=-1.907018823857035, πₘₙ_jacobian_pullback=(-0.38140376477140725,)
+n=4, m=0, πₘₙ_lean_jacobian=(-0.0,), πₘₙ_jacobian=-0.0, πₘₙ_jacobian_pullback=(-0.0,)
+n=4, m=1, πₘₙ_lean_jacobian=(-1.907018823857035,), πₘₙ_jacobian=-1.907018823857035, πₘₙ_jacobian_pullback=(-0.38140376477140725,)
+n=4, m=2, πₘₙ_lean_jacobian=(4.006654740895592,), πₘₙ_jacobian=4.006654740895592, πₘₙ_jacobian_pullback=(0.8013309481791187,)
+n=4, m=3, πₘₙ_lean_jacobian=(1.6586374037168636,), πₘₙ_jacobian=1.6586374037168636, πₘₙ_jacobian_pullback=(0.33172748074337277,)
+n=4, m=4, πₘₙ_lean_jacobian=(0.24273227165993416,), πₘₙ_jacobian=0.24273227165993416, πₘₙ_jacobian_pullback=(0.04854645433198683,)
+n=5, m=-5, πₘₙ_lean_jacobian=(0.07624798192211306,), πₘₙ_jacobian=0.07624798192211306, πₘₙ_jacobian_pullback=(0.015249596384422614,)
+n=5, m=-4, πₘₙ_lean_jacobian=(-0.7039059815740805,), πₘₙ_jacobian=-0.7039059815740805, πₘₙ_jacobian_pullback=(-0.14078119631481611,)
+n=5, m=-3, πₘₙ_lean_jacobian=(3.1488527658455254,), πₘₙ_jacobian=3.1488527658455254, πₘₙ_jacobian_pullback=(0.6297705531691051,)
+n=5, m=-2, πₘₙ_lean_jacobian=(-5.454520011319818,), πₘₙ_jacobian=-5.454520011319818, πₘₙ_jacobian_pullback=(-1.0909040022639636,)
+n=5, m=-1, πₘₙ_lean_jacobian=(-3.5116435353685382,), πₘₙ_jacobian=-3.5116435353685382, πₘₙ_jacobian_pullback=(-0.7023287070737079,)
+n=5, m=0, πₘₙ_lean_jacobian=(-0.0,), πₘₙ_jacobian=-0.0, πₘₙ_jacobian_pullback=(-0.0,)
+n=5, m=1, πₘₙ_lean_jacobian=(-3.511643535368542,), πₘₙ_jacobian=-3.511643535368542, πₘₙ_jacobian_pullback=(-0.7023287070737085,)
+n=5, m=2, πₘₙ_lean_jacobian=(5.4545200113198264,), πₘₙ_jacobian=5.4545200113198264, πₘₙ_jacobian_pullback=(1.0909040022639653,)
+n=5, m=3, πₘₙ_lean_jacobian=(3.1488527658455263,), πₘₙ_jacobian=3.1488527658455263, πₘₙ_jacobian_pullback=(0.6297705531691054,)
+n=5, m=4, πₘₙ_lean_jacobian=(0.7039059815740799,), πₘₙ_jacobian=0.7039059815740799, πₘₙ_jacobian_pullback=(0.140781196314816,)
+n=5, m=5, πₘₙ_lean_jacobian=(0.07624798192211306,), πₘₙ_jacobian=0.07624798192211306, πₘₙ_jacobian_pullback=(0.015249596384422614,)
+n=6, m=-6, πₘₙ_lean_jacobian=(-0.021754853401167236,), πₘₙ_jacobian=-0.021754853401167236, πₘₙ_jacobian_pullback=(-0.004350970680233448,)
+n=6, m=-5, πₘₙ_lean_jacobian=(0.24529899211530656,), πₘₙ_jacobian=0.24529899211530656, πₘₙ_jacobian_pullback=(0.04905979842306132,)
+n=6, m=-4, πₘₙ_lean_jacobian=(-1.5104727362814714,), πₘₙ_jacobian=-1.5104727362814714, πₘₙ_jacobian_pullback=(-0.30209454725629425,)
+n=6, m=-3, πₘₙ_lean_jacobian=(5.115503988136833,), πₘₙ_jacobian=5.115503988136833, πₘₙ_jacobian_pullback=(1.0231007976273667,)
+n=6, m=-2, πₘₙ_lean_jacobian=(-6.636611023341624,), πₘₙ_jacobian=-6.636611023341624, πₘₙ_jacobian_pullback=(-1.3273222046683246,)
+n=6, m=-1, πₘₙ_lean_jacobian=(-5.69603724671703,), πₘₙ_jacobian=-5.69603724671703, πₘₙ_jacobian_pullback=(-1.1392074493434066,)
+n=6, m=0, πₘₙ_lean_jacobian=(-0.0,), πₘₙ_jacobian=-0.0, πₘₙ_jacobian_pullback=(-0.0,)
+n=6, m=1, πₘₙ_lean_jacobian=(-5.696037246717034,), πₘₙ_jacobian=-5.696037246717034, πₘₙ_jacobian_pullback=(-1.1392074493434072,)
+n=6, m=2, πₘₙ_lean_jacobian=(6.636611023341633,), πₘₙ_jacobian=6.636611023341633, πₘₙ_jacobian_pullback=(1.3273222046683264,)
+n=6, m=3, πₘₙ_lean_jacobian=(5.11550398813683,), πₘₙ_jacobian=5.11550398813683, πₘₙ_jacobian_pullback=(1.0231007976273658,)
+n=6, m=4, πₘₙ_lean_jacobian=(1.5104727362814705,), πₘₙ_jacobian=1.5104727362814705, πₘₙ_jacobian_pullback=(0.30209454725629403,)
+n=6, m=5, πₘₙ_lean_jacobian=(0.24529899211530662,), πₘₙ_jacobian=0.24529899211530662, πₘₙ_jacobian_pullback=(0.04905979842306133,)
+n=6, m=6, πₘₙ_lean_jacobian=(0.021754853401167236,), πₘₙ_jacobian=0.021754853401167236, πₘₙ_jacobian_pullback=(0.004350970680233448,)
+n=7, m=-7, πₘₙ_lean_jacobian=(0.005830726679415726,), πₘₙ_jacobian=0.005830726679415726, πₘₙ_jacobian_pullback=(0.0011661453358831455,)
+n=7, m=-6, πₘₙ_lean_jacobian=(-0.0762429197423806,), πₘₙ_jacobian=-0.0762429197423806, πₘₙ_jacobian_pullback=(-0.015248583948476118,)
+n=7, m=-5, πₘₙ_lean_jacobian=(0.5797118280380755,), πₘₙ_jacobian=0.5797118280380755, πₘₙ_jacobian_pullback=(0.11594236560761512,)
+n=7, m=-4, πₘₙ_lean_jacobian=(-2.7547692585844223,), πₘₙ_jacobian=-2.7547692585844223, πₘₙ_jacobian_pullback=(-0.5509538517168844,)
+n=7, m=-3, πₘₙ_lean_jacobian=(7.488553343463259,), πₘₙ_jacobian=7.488553343463259, πₘₙ_jacobian_pullback=(1.497710668692652,)
+n=7, m=-2, πₘₙ_lean_jacobian=(-7.311743373192925,), πₘₙ_jacobian=-7.311743373192925, πₘₙ_jacobian_pullback=(-1.4623486746385845,)
+n=7, m=-1, πₘₙ_lean_jacobian=(-8.457500293519429,), πₘₙ_jacobian=-8.457500293519429, πₘₙ_jacobian_pullback=(-1.6915000587038858,)
+n=7, m=0, πₘₙ_lean_jacobian=(-0.0,), πₘₙ_jacobian=-0.0, πₘₙ_jacobian_pullback=(-0.0,)
+n=7, m=1, πₘₙ_lean_jacobian=(-8.457500293519434,), πₘₙ_jacobian=-8.457500293519434, πₘₙ_jacobian_pullback=(-1.691500058703887,)
+n=7, m=2, πₘₙ_lean_jacobian=(7.3117433731929395,), πₘₙ_jacobian=7.3117433731929395, πₘₙ_jacobian_pullback=(1.4623486746385876,)
+n=7, m=3, πₘₙ_lean_jacobian=(7.488553343463256,), πₘₙ_jacobian=7.488553343463256, πₘₙ_jacobian_pullback=(1.4977106686926511,)
+n=7, m=4, πₘₙ_lean_jacobian=(2.754769258584419,), πₘₙ_jacobian=2.754769258584419, πₘₙ_jacobian_pullback=(0.5509538517168837,)
+n=7, m=5, πₘₙ_lean_jacobian=(0.579711828038076,), πₘₙ_jacobian=0.579711828038076, πₘₙ_jacobian_pullback=(0.1159423656076152,)
+n=7, m=6, πₘₙ_lean_jacobian=(0.07624291974238061,), πₘₙ_jacobian=0.07624291974238061, πₘₙ_jacobian_pullback=(0.015248583948476122,)
+n=7, m=7, πₘₙ_lean_jacobian=(0.005830726679415723,), πₘₙ_jacobian=0.005830726679415723, πₘₙ_jacobian_pullback=(0.0011661453358831448,)
+n=8, m=-8, πₘₙ_lean_jacobian=(0.0017652408355411386,), πₘₙ_jacobian=0.0017652408355411386, πₘₙ_jacobian_pullback=(0.0003530481671082277,)
+------- this causes large error: n=8, m=-8
+n=8, m=-7, πₘₙ_lean_jacobian=(0.006586456769356921,), πₘₙ_jacobian=0.006586456769356921, πₘₙ_jacobian_pullback=(0.0013172913538713842,)
+------- this causes large error: n=8, m=-7
+n=8, m=-6, πₘₙ_lean_jacobian=(-0.09823231494586623,), πₘₙ_jacobian=-0.09823231494586623, πₘₙ_jacobian_pullback=(-0.01964646298917325,)
+------- this causes large error: n=8, m=-6
+n=8, m=-5, πₘₙ_lean_jacobian=(-0.20020710186811316,), πₘₙ_jacobian=-0.20020710186811316, πₘₙ_jacobian_pullback=(-0.040041420373622634,)
+------- this causes large error: n=8, m=-5
+n=8, m=-4, πₘₙ_lean_jacobian=(-11.686110883732823,), πₘₙ_jacobian=-11.686110883732823, πₘₙ_jacobian_pullback=(-2.3372221767465646,)
+------- this causes large error: n=8, m=-4
+n=8, m=-3, πₘₙ_lean_jacobian=(10.137231523084353,), πₘₙ_jacobian=10.137231523084353, πₘₙ_jacobian_pullback=(2.0274463046168707,)
+n=8, m=-2, πₘₙ_lean_jacobian=(-7.243849140049475,), πₘₙ_jacobian=-7.243849140049475, πₘₙ_jacobian_pullback=(-1.4487698280098953,)
+n=8, m=-1, πₘₙ_lean_jacobian=(-11.74970571836257,), πₘₙ_jacobian=-11.74970571836257, πₘₙ_jacobian_pullback=(-2.3499411436725137,)
+n=8, m=0, πₘₙ_lean_jacobian=(-0.0,), πₘₙ_jacobian=-0.0, πₘₙ_jacobian_pullback=(-0.0,)
+n=8, m=1, πₘₙ_lean_jacobian=(-11.749705718362572,), πₘₙ_jacobian=-11.749705718362572, πₘₙ_jacobian_pullback=(-2.349941143672514,)
+n=8, m=2, πₘₙ_lean_jacobian=(7.243849140049468,), πₘₙ_jacobian=7.243849140049468, πₘₙ_jacobian_pullback=(1.4487698280098935,)
+n=8, m=3, πₘₙ_lean_jacobian=(11.827714006928662,), πₘₙ_jacobian=11.827714006928662, πₘₙ_jacobian_pullback=(2.3655428013857334,)
+------- this causes large error: n=8, m=3
+n=8, m=4, πₘₙ_lean_jacobian=(0.4487489286838289,), πₘₙ_jacobian=0.4487489286838289, πₘₙ_jacobian_pullback=(0.08974978573676577,)
+------- this causes large error: n=8, m=4
+n=8, m=5, πₘₙ_lean_jacobian=(0.35149001096778737,), πₘₙ_jacobian=0.35149001096778737, πₘₙ_jacobian_pullback=(0.07029800219355749,)
+------- this causes large error: n=8, m=5
+n=8, m=6, πₘₙ_lean_jacobian=(0.030510651059882585,), πₘₙ_jacobian=0.030510651059882585, πₘₙ_jacobian_pullback=(0.006102130211976517,)
+------- this causes large error: n=8, m=6
+n=8, m=7, πₘₙ_lean_jacobian=(0.0008682482242335206,), πₘₙ_jacobian=0.0008682482242335206, πₘₙ_jacobian_pullback=(0.00017364964484670414,)
+------- this causes large error: n=8, m=7
+n=8, m=8, πₘₙ_lean_jacobian=(0.0014954706280660497,), πₘₙ_jacobian=0.0014954706280660497, πₘₙ_jacobian_pullback=(0.00029909412561320996,)
+Zygote(spherical_Bessel_j_n_SeparateRealImag)
+  5.422287 seconds (7.72 M allocations: 452.907 MiB, 4.64% gc time, 99.99% compilation time)
+manual_numerical_diff(spherical_Bessel_j_n_SeparateRealImag)
+  0.641665 seconds (1.19 M allocations: 68.856 MiB, 3.73% gc time, 98.15% compilation time)
+Zygote(spherical_Bessel_y_n_SeparateRealImag)
+  0.342333 seconds (458.45 k allocations: 25.007 MiB, 99.46% compilation time)
+manual_numerical_diff(spherical_Bessel_y_n_SeparateRealImag)
+  0.041649 seconds (11.85 k allocations: 664.233 KiB, 99.34% compilation time)
+Zygote(spherical_Hankel_h1_n_SeparateRealImag)
+  1.260579 seconds (2.11 M allocations: 143.171 MiB, 5.00% gc time, 99.81% compilation time)
+manual_numerical_diff(spherical_Hankel_h1_n_SeparateRealImag)
+  0.142624 seconds (293.01 k allocations: 17.148 MiB, 99.35% compilation time)
+Zygote(one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag)
+  5.154365 seconds (7.94 M allocations: 465.126 MiB, 5.60% gc time, 0.00% compilation time)
+manual_numerical_diff(one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag)
+  0.444930 seconds (903.33 k allocations: 55.025 MiB, 6.32% gc time, 97.37% compilation time)
+Zygote(one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag)
+  0.409277 seconds (242.34 k allocations: 13.541 MiB, 99.36% compilation time)
+manual_numerical_diff(one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag)
+  0.007334 seconds (4.46 k allocations: 235.697 KiB, 95.20% compilation time)
+Zygote(one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag)
+  0.957183 seconds (626.13 k allocations: 35.123 MiB, 99.63% compilation time)
+manual_numerical_diff(one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag)
+  0.387888 seconds (954.16 k allocations: 51.236 MiB, 7.67% gc time, 99.77% compilation time)
+Zygote(spherical_Bessel_j_n_SeparateRealImag)
+  0.123337 seconds (176.63 k allocations: 9.438 MiB, 99.69% compilation time)
+manual_numerical_diff(spherical_Bessel_j_n_SeparateRealImag)
+  0.000296 seconds (880 allocations: 41.094 KiB)
+Zygote(spherical_Bessel_y_n_SeparateRealImag)
+  0.000173 seconds (327 allocations: 12.547 KiB)
+manual_numerical_diff(spherical_Bessel_y_n_SeparateRealImag)
+  0.000227 seconds (920 allocations: 43.281 KiB)
+Zygote(spherical_Hankel_h1_n_SeparateRealImag)
+  0.000191 seconds (479 allocations: 22.062 KiB)
+manual_numerical_diff(spherical_Hankel_h1_n_SeparateRealImag)
+  0.000399 seconds (1.86 k allocations: 87.094 KiB)
+Zygote(one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag)
+  0.000565 seconds (1.33 k allocations: 70.359 KiB)
+manual_numerical_diff(one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag)
+  0.000352 seconds (1.61 k allocations: 77.844 KiB)
+relative error between Zygote and manual_numerical_diff is high, error=0.003058133517394978676027461246176432122508927417207477576636828998605623092533832 at <<one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag>> at n=2
+relative error between FiniteDifference and manual_numerical_diff is high, error=0.8553989364953406975433940910730322106527048939495293963153164921534349980174929 at <<one_over_x_by_∂_x_j_n_by_∂x_SeparateRealImag>> at n=2
+Zygote(one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag)
+  0.000882 seconds (1.33 k allocations: 70.359 KiB)
+manual_numerical_diff(one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag)
+  0.000513 seconds (1.67 k allocations: 80.906 KiB)
+relative error between Zygote and manual_numerical_diff is high, error=0.002820146041801717877429028689538178843140907865785552786733416534605160558578901 at <<one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag>> at n=2
+relative error between FiniteDifference and manual_numerical_diff is high, error=32128.55527110294285255928537224041185326882403855829652219773163058344171162667 at <<one_over_x_by_∂_x_y_n_by_∂x_SeparateRealImag>> at n=2
+Zygote(one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag)
+  0.000917 seconds (2.73 k allocations: 157.312 KiB)
+manual_numerical_diff(one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag)
+  0.000789 seconds (3.32 k allocations: 161.219 KiB)
+relative error between Zygote and manual_numerical_diff is high, error=0.003223372337052172245925818077900228581412864420505660400372451458167844940618194 at <<one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag>> at n=2
+relative error between FiniteDifference and manual_numerical_diff is high, error=101241.4893015376183331777247167507515743718456558280570204813187138257550730497 at <<one_over_x_by_∂_x_h_n_by_∂x_SeparateRealImag>> at n=2
+Zygote(M_mn_wave_SeparateRealImag, kind=regular)
+  6.264555 seconds (9.86 M allocations: 564.274 MiB, 4.61% gc time, 99.81% compilation time)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=regular)
+  1.692266 seconds (3.16 M allocations: 188.953 MiB, 5.22% gc time, 98.95% compilation time)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=regular)
+  2.353551 seconds (2.03 M allocations: 129.880 MiB, 2.43% gc time, 99.03% compilation time)
+Zygote(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.260902 seconds (172.81 k allocations: 9.875 MiB, 98.35% compilation time)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.001288 seconds (5.13 k allocations: 251.625 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.000802 seconds (4.33 k allocations: 263.531 KiB)
+Zygote(N_mn_wave_SeparateRealImag, kind=regular)
+  1.098826 seconds (437.02 k allocations: 23.523 MiB, 99.34% compilation time)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=regular)
+  0.528196 seconds (1.12 M allocations: 66.537 MiB, 5.54% gc time, 99.65% compilation time)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=regular)
+  2.319352 seconds (1.74 M allocations: 112.838 MiB, 2.58% gc time, 99.92% compilation time)
+Zygote(N_mn_wave_SeparateRealImag, kind=irregular)
+  1.923683 seconds (169.44 k allocations: 8.798 MiB, 99.65% compilation time)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.002617 seconds (11.28 k allocations: 571.781 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.001540 seconds (8.75 k allocations: 577.781 KiB)
+Zygote(M_mn_wave_SeparateRealImag, kind=regular)
+  0.002096 seconds (5.02 k allocations: 205.375 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=regular)
+  0.000898 seconds (4.03 k allocations: 201.633 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=regular)
+  0.000665 seconds (4.00 k allocations: 249.281 KiB)
+Zygote(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.002315 seconds (5.16 k allocations: 214.000 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.001270 seconds (5.29 k allocations: 260.391 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.000734 seconds (4.43 k allocations: 266.531 KiB)
+Zygote(N_mn_wave_SeparateRealImag, kind=regular)
+  0.003403 seconds (10.60 k allocations: 487.547 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=regular)
+  0.001616 seconds (8.19 k allocations: 423.453 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=regular)
+  0.001146 seconds (7.41 k allocations: 497.531 KiB)
+Zygote(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.004091 seconds (12.91 k allocations: 623.094 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.002359 seconds (11.60 k allocations: 589.328 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.001317 seconds (8.75 k allocations: 577.781 KiB)
+Zygote(M_mn_wave_SeparateRealImag, kind=regular)
+  0.001961 seconds (4.99 k allocations: 204.750 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=regular)
+  0.000783 seconds (3.42 k allocations: 173.195 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=regular)
+  0.000601 seconds (4.00 k allocations: 249.281 KiB)
+Zygote(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.002056 seconds (5.12 k allocations: 213.375 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.001044 seconds (4.68 k allocations: 231.938 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.000688 seconds (4.43 k allocations: 266.531 KiB)
+Zygote(N_mn_wave_SeparateRealImag, kind=regular)
+  0.003268 seconds (10.56 k allocations: 486.844 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=regular)
+  0.001495 seconds (7.41 k allocations: 386.219 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=regular)
+  0.001243 seconds (7.41 k allocations: 497.531 KiB)
+Zygote(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.003872 seconds (12.87 k allocations: 622.391 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.002298 seconds (10.83 k allocations: 552.094 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.001308 seconds (8.75 k allocations: 577.781 KiB)
+Zygote(M_mn_wave_SeparateRealImag, kind=regular)
+  0.002007 seconds (5.24 k allocations: 214.891 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=regular)
+  0.001059 seconds (4.56 k allocations: 225.750 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=regular)
+  0.000686 seconds (4.00 k allocations: 249.281 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.02591576746796750849927743104280481422207602238012814677752144812204025651103572 at <<M_mn_wave_SeparateRealImag>>, kind=regular at n=2, m=-2
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.0          0.0         0.0
+  0.00344419   0.00344419  1.72782e-20
+ -0.00127985  -0.00127985  2.84484e-19
+  0.0          0.0         0.0
+ -0.00130588  -0.00130588  1.55163e-19
+ -0.00337553  -0.00337553  5.93275e-19
+  0.0          0.0         0.0
+  0.00130588   0.00130588  1.55163e-19
+  0.00337553   0.00337553  5.93275e-19
+  0.0          0.0         0.0
+  0.00344419   0.00344419  1.72782e-20
+ -0.00127985  -0.00127985  2.84484e-19
+  0.0          0.0         0.0
+ -0.0158845    0.0100313   0.0259158
+  0.00254814   0.019877    0.0173288
+  0.0          0.0         0.0
+  0.00271138   0.0211503   0.018439
+  0.0149281   -0.00942737  0.0243555
+ -0.0          0.0         0.0
+  0.00109925   0.00857477  0.00747552
+  0.00631151  -0.00398583  0.0102973
+ -0.0          0.0         0.0
+  0.00643988  -0.00406689  0.0105068
+ -0.00107734  -0.00840385  0.00732651
+
+Zygote(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.002711 seconds (5.59 k allocations: 233.188 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.001499 seconds (6.54 k allocations: 319.125 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.000806 seconds (4.43 k allocations: 266.531 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.007583483072118832536581556527695288383417676140531418218869225369805999348090027 at <<M_mn_wave_SeparateRealImag>>, kind=irregular at n=2, m=-2
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.0           0.0          0.0
+ -0.000748063  -0.000748063  5.30555e-19
+  0.000868781   0.000868781  6.74408e-20
+  0.0           0.0          0.0
+  0.000886451   0.000886451  4.68573e-19
+  0.000733152   0.000733152  9.09806e-20
+  0.0           0.0          0.0
+ -0.000886451  -0.000886451  4.68573e-19
+ -0.000733152  -0.000733152  9.09806e-20
+  0.0           0.0          0.0
+ -0.000748063  -0.000748063  5.30555e-19
+  0.000868781   0.000868781  6.74408e-20
+  0.0           0.0          0.0
+  0.00257059    0.00457253   0.00200194
+ -0.00386194    0.00326498   0.00712691
+  0.0           0.0          0.0
+ -0.00410934    0.00347414   0.00758348
+ -0.00241583   -0.00429724   0.00188141
+ -0.0           0.0          0.0
+ -0.00166601    0.00140849   0.0030745
+ -0.0010214    -0.00181684   0.000795449
+ -0.0           0.0          0.0
+ -0.00104217   -0.0018538    0.000811627
+  0.0016328    -0.00138041   0.00301321
+
+Zygote(N_mn_wave_SeparateRealImag, kind=regular)
+  0.003564 seconds (11.03 k allocations: 506.781 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=regular)
+  0.001916 seconds (9.79 k allocations: 496.656 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=regular)
+  0.001316 seconds (7.41 k allocations: 497.531 KiB)
+relative error between Zygote and manual_numerical_diff is high, relative_error=2.420248363035748590434298880984227170831757551490908467061484083360079116872769 at <<N_mn_wave_SeparateRealImag>>, kind=regular at n=2, m=-2
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  4.52281e-05   4.9977e-05    0.0950212
+  0.00409564    0.00408002   -0.00382791
+ -0.00219934   -0.00217141   -0.0128628
+  0.000105122   9.67983e-05  -0.0859864
+ -0.0021555    -0.00212813   -0.0128628
+ -0.00417894   -0.004163     -0.00382791
+ -0.000105122  -9.67983e-05  -0.0859864
+  0.0021555     0.00212813   -0.0128628
+  0.00417894    0.004163     -0.00382791
+  4.52281e-05   4.9977e-05    0.0950212
+  0.00409564    0.00408002   -0.00382791
+ -0.00219934   -0.00217141   -0.0128628
+ -0.000208416  -0.00122761    0.830227
+  0.00347932    0.00508641    0.315957
+  0.0202208     0.0175438    -0.152594
+ -0.000936306   0.000659255   2.42025
+  0.0190034     0.0164875    -0.152594
+ -0.00370222   -0.00541226    0.315957
+ -0.000189799   0.000133638   2.42025
+  0.00803452    0.00697082   -0.152594
+ -0.00150095   -0.00219424    0.315957
+  4.2248e-05    0.00024885    0.830227
+ -0.00147103   -0.0021505     0.315957
+ -0.00819794   -0.00711259   -0.152594
+
+Zygote(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.005436 seconds (13.78 k allocations: 661.797 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.003754 seconds (15.19 k allocations: 756.781 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.002076 seconds (8.75 k allocations: 577.781 KiB)
+relative error between Zygote and manual_numerical_diff is high, relative_error=2.305762546521192985057566319332002532548154750074660299419240903007808441254623 at <<N_mn_wave_SeparateRealImag>>, kind=irregular at n=2, m=-2
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+ -2.87717e-05  -2.65585e-05  -0.0833352
+  0.00073521    0.000727931  -0.00999943
+ -0.000882202  -0.000879423  -0.00315969
+ -2.15666e-05  -2.23946e-05   0.0369761
+ -0.000864617  -0.000861893  -0.00315969
+ -0.000750163  -0.000742736  -0.00999943
+  2.15666e-05   2.23946e-05   0.0369761
+  0.000864617   0.000861893  -0.00315969
+  0.000750163   0.000742736  -0.00999943
+ -2.87717e-05  -2.65585e-05  -0.0833352
+  0.00073521    0.000727931  -0.00999943
+ -0.000882202  -0.000879423  -0.00315969
+  0.000251951  -0.000192953   2.30576
+ -0.00496338   -0.00426184   -0.164607
+ -0.00321607   -0.00345359    0.0687741
+  0.000140612   0.000282174   0.501685
+ -0.00302245   -0.00324566    0.0687741
+  0.00528134    0.00453487   -0.164607
+  2.85034e-05   5.71995e-05   0.501685
+ -0.00127787   -0.00137224    0.0687741
+  0.00214116    0.00183853   -0.164607
+ -5.10729e-05   3.91135e-05   2.30576
+  0.00209848    0.00180188   -0.164607
+  0.00130386    0.00140015    0.0687741
+
+Zygote(M_mn_wave_SeparateRealImag, kind=regular)
+  0.002351 seconds (5.24 k allocations: 215.047 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=regular)
+  0.001450 seconds (5.27 k allocations: 257.031 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=regular)
+  0.000889 seconds (4.00 k allocations: 249.281 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.02527403736811371959562273171358009881146339297300068814389184477611526425736891 at <<M_mn_wave_SeparateRealImag>>, kind=regular at n=2, m=-1
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.0           0.0          0.0
+  0.0181356     0.0181356    9.36597e-19
+ -0.00106507   -0.00106507   5.78443e-19
+  0.0           0.0          0.0
+ -0.0011333    -0.0011333    2.06903e-18
+ -0.0170438    -0.0170438    8.25032e-18
+  0.0           0.0          0.0
+  0.0011333     0.0011333    2.06903e-18
+  0.0170438     0.0170438    8.25032e-18
+  0.0           0.0          0.0
+  0.0181356     0.0181356    9.36597e-19
+ -0.00106507   -0.00106507   5.78443e-19
+  0.0           0.0          0.0
+  0.00323855   -0.000675617  0.00391417
+  0.00167192   -0.0184128    0.0200847
+  0.0           0.0          0.0
+  0.000426481  -0.00469682   0.0051233
+ -0.012696      0.0026486    0.0153446
+ -0.0           0.0          0.0
+ -0.0021039     0.0231701    0.025274
+  0.0150144    -0.00313226   0.0181467
+ -0.0           0.0          0.0
+  0.0159763    -0.00333293   0.0193092
+  0.00197723   -0.0217752    0.0237524
+
+Zygote(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.002573 seconds (5.59 k allocations: 233.344 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.001741 seconds (7.25 k allocations: 350.406 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.000889 seconds (4.43 k allocations: 266.531 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.007836392147620295513182109760202164088557495918911412217361684562681210670564598 at <<M_mn_wave_SeparateRealImag>>, kind=irregular at n=2, m=-1
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.0           0.0          0.0
+ -0.0048178    -0.0048178    2.14129e-18
+  0.00290126    0.00290126   1.04787e-18
+  0.0           0.0          0.0
+  0.00308712    0.00308712   1.39277e-18
+  0.00452774    0.00452774   4.79682e-18
+  0.0           0.0          0.0
+ -0.00308712   -0.00308712   1.39277e-18
+ -0.00452774   -0.00452774   4.79682e-18
+  0.0           0.0          0.0
+ -0.0048178    -0.0048178    2.14129e-18
+  0.00290126    0.00290126   1.04787e-18
+  0.0           0.0          0.0
+ -0.000743981  -0.000677382  6.65994e-05
+  0.00251606   -0.00371134   0.0062274
+  0.0           0.0          0.0
+  0.000641809  -0.000946706  0.00158852
+  0.0029166     0.00265552   0.000261087
+ -0.0           0.0          0.0
+ -0.00316614    0.00467025   0.00783639
+ -0.00344921   -0.00314044   0.000308765
+ -0.0           0.0          0.0
+ -0.00367017   -0.00334163   0.000328545
+  0.00297552   -0.00438907   0.0073646
+
+Zygote(N_mn_wave_SeparateRealImag, kind=regular)
+  0.003987 seconds (11.03 k allocations: 507.016 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=regular)
+  0.002625 seconds (10.74 k allocations: 538.656 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=regular)
+  0.001733 seconds (7.41 k allocations: 497.531 KiB)
+relative error between Zygote and manual_numerical_diff is high, relative_error=173.1004314639310366156894993235317852493265194239071272881325877382817121512806 at <<N_mn_wave_SeparateRealImag>>, kind=regular at n=2, m=-1
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.000119802   0.000188831     0.365562
+  0.0215221     0.0214133      -0.00508315
+ -0.00427285   -0.00416445     -0.0260296
+  0.00112271    0.0010581      -0.0610588
+ -0.0040156    -0.00391373     -0.0260296
+ -0.0229009    -0.0227851      -0.00508315
+ -0.00112271   -0.0010581      -0.0610588
+  0.0040156     0.00391373     -0.0260296
+  0.0229009     0.0227851      -0.00508315
+  0.000119802   0.000188831     0.365562
+  0.0215221     0.0214133      -0.00508315
+ -0.00427285   -0.00416445     -0.0260296
+  0.000367035  -0.00646939      1.05673
+  0.00193806    1.11319e-05  -173.1
+ -0.00413767   -0.00372168     -0.111776
+ -0.00452267    0.00126315      4.58048
+ -0.0162208    -0.01459        -0.111776
+ -0.00049437   -2.83957e-06  -173.1
+ -0.000956078   0.000267025     4.58048
+  0.0191829     0.0172543      -0.111776
+  0.0024388     1.4008e-05   -173.1
+ -7.759e-05     0.00136761      1.05673
+  0.00229197    1.31647e-05  -173.1
+ -0.0204118    -0.0183596      -0.111776
+
+Zygote(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.004920 seconds (13.78 k allocations: 662.031 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.003777 seconds (16.14 k allocations: 798.781 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.001996 seconds (8.75 k allocations: 577.781 KiB)
+relative error between Zygote and manual_numerical_diff is high, relative_error=1.743843264617304137323052704294615236671140669351658423843332637858710724507335 at <<N_mn_wave_SeparateRealImag>>, kind=irregular at n=2, m=-1
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+ -0.000208311  -0.000185035  -0.125791
+  0.00453122    0.00449452   -0.00816585
+ -0.00306404   -0.00306177   -0.000740821
+ -0.000287168  -0.00028852    0.00468556
+ -0.00287957   -0.00287743   -0.000740821
+ -0.0048215    -0.00478245   -0.00816585
+  0.000287168   0.00028852    0.00468556
+  0.00287957    0.00287743   -0.000740821
+  0.0048215     0.00478245   -0.00816585
+ -0.000208311  -0.000185035  -0.125791
+  0.00453122    0.00449452   -0.00816585
+ -0.00306404   -0.00306177   -0.000740821
+  0.00094204   -0.00126645    1.74384
+  0.00325424    0.00263175   -0.236531
+  0.000939191   0.00094047    0.00136043
+  0.00098766    0.00100546    0.0176985
+  0.00368188    0.00368689    0.00136043
+ -0.000830107  -0.000671319  -0.236531
+  0.000208788   0.00021255    0.0176985
+ -0.00435423   -0.00436016    0.00136043
+  0.00409504    0.00331172   -0.236531
+ -0.000199144   0.000267723   1.74384
+  0.0038485     0.00311234   -0.236531
+  0.00463317    0.00463949    0.00136043
+
+Zygote(M_mn_wave_SeparateRealImag, kind=regular)
+  0.002483 seconds (5.24 k allocations: 215.047 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=regular)
+  0.001362 seconds (5.43 k allocations: 265.789 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=regular)
+  0.000863 seconds (4.00 k allocations: 249.281 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.06871857140177314339329882240922948509764588231518094988475491919382800049355531 at <<M_mn_wave_SeparateRealImag>>, kind=regular at n=2, m=0
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+ -0.00208124  -0.00208124  6.90739e-19
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+  0.00859429   0.00859429  1.04875e-18
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+ -0.00859429  -0.00859429  1.04875e-18
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+ -0.00208124  -0.00208124  6.90739e-19
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+  0.0154954   -0.0532231   0.0687186
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+ -0.0337038   -0.0084327   0.0252711
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+
+Zygote(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.002663 seconds (5.59 k allocations: 233.344 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.001879 seconds (7.41 k allocations: 359.172 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.000880 seconds (4.43 k allocations: 266.531 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.01701028990172129608093151990125327221334029129751798500508758352637450190895847 at <<M_mn_wave_SeparateRealImag>>, kind=irregular at n=2, m=0
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+ -0.00074236  -0.00074236  5.75933e-20
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+ -0.00268377  -0.00268377  9.08088e-19
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+  0.00268377   0.00268377  9.08088e-19
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+ -0.00074236  -0.00074236  5.75933e-20
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+  0.00446619  -0.0125441   0.0170103
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+  0.0102253    0.00417177  0.00605357
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+ -0.0          0.0         0.0
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+  0.0          0.0         0.0
+
+Zygote(N_mn_wave_SeparateRealImag, kind=regular)
+  0.004223 seconds (11.03 k allocations: 507.016 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=regular)
+  0.002517 seconds (11.06 k allocations: 556.203 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=regular)
+  0.001655 seconds (7.41 k allocations: 497.531 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.00672868017012129947167568120227101085657997046284949266415486786690459006234935 at <<N_mn_wave_SeparateRealImag>>, kind=regular at n=2, m=0
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+ -0.000857411  -0.00052192   0.000335492
+ -0.0112612    -0.0111918    6.94341e-05
+  0.0           0.0          0.0
+  0.00437111    0.00420809   0.000163019
+ -0.00130695   -0.00134069   3.37388e-05
+  0.0           0.0          0.0
+ -0.00437111   -0.00420809   0.000163019
+  0.00130695    0.00134069   3.37388e-05
+  0.0           0.0          0.0
+ -0.000857411  -0.00052192   0.000335492
+ -0.0112612    -0.0111918    6.94341e-05
+  0.0           0.0          0.0
+ -0.000873647   0.00339361   0.00426726
+  0.0192494     0.0125207    0.00672868
+  0.0           0.0          0.0
+  0.00218114    0.000365113  0.00181603
+ -0.0432305    -0.040367     0.00286354
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+
+Zygote(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.004786 seconds (13.78 k allocations: 662.031 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.003911 seconds (16.46 k allocations: 816.328 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.001883 seconds (8.75 k allocations: 577.781 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.001726979414055461434370348736231373687119102315449710924117195172883987200592526 at <<N_mn_wave_SeparateRealImag>>, kind=irregular at n=2, m=0
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+ -0.00045031   -0.000361009  8.93012e-05
+ -0.00268218   -0.0026637    1.8482e-05
+  0.0           0.0          0.0
+ -0.00132519   -0.00130314   2.20414e-05
+  0.000731095   0.000735656  4.56173e-06
+  0.0           0.0          0.0
+  0.00132519    0.00130314   2.20414e-05
+ -0.000731095  -0.000735656  4.56173e-06
+  0.0           0.0          0.0
+ -0.00045031   -0.000361009  8.93012e-05
+ -0.00268218   -0.0026637    1.8482e-05
+  0.0           0.0          0.0
+ -0.000314878   0.000780355  0.00109523
+  0.00585391    0.00412693   0.00172698
+  0.0           0.0          0.0
+ -0.000632737  -0.000303587  0.00032915
+  0.0129751     0.0124561    0.000519008
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+  0.0           0.0          0.0
+
+Zygote(M_mn_wave_SeparateRealImag, kind=regular)
+  0.002407 seconds (5.24 k allocations: 215.047 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=regular)
+  0.001271 seconds (4.80 k allocations: 236.477 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=regular)
+  0.000809 seconds (4.00 k allocations: 249.281 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.03176235489265287874320109660295916668944564808353536598583387459975155599642537 at <<M_mn_wave_SeparateRealImag>>, kind=regular at n=2, m=1
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.0          0.0         0.0
+  0.0156079    0.0156079   5.5364e-18
+ -0.00874459  -0.00874459  3.36926e-19
+  0.0          0.0         0.0
+  0.00930479   0.00930479  2.85826e-18
+  0.0146682    0.0146682   1.75622e-20
+  0.0          0.0         0.0
+ -0.00930479  -0.00930479  2.85826e-18
+ -0.0146682   -0.0146682   1.75622e-20
+  0.0          0.0         0.0
+  0.0156079    0.0156079   5.5364e-18
+ -0.00874459  -0.00874459  3.36926e-19
+  0.0          0.0         0.0
+  0.00243208   0.00209441  0.000337669
+ -0.00854858   0.0166922   0.0252408
+  0.0          0.0         0.0
+  0.00218061  -0.00425794  0.00643855
+  0.00953441   0.00821066  0.00132375
+  0.0          0.0         0.0
+  0.0107573   -0.0210051   0.0317624
+  0.0112755    0.00971001  0.00156548
+  0.0          0.0         0.0
+ -0.0119978   -0.0103321   0.00166577
+  0.0101097   -0.0197404   0.0298501
+
+Zygote(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.002501 seconds (5.59 k allocations: 233.344 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.001757 seconds (6.78 k allocations: 329.844 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.000942 seconds (4.43 k allocations: 266.531 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.006282143024356498105802874939526942083639471064264695041142508667350964272028025 at <<M_mn_wave_SeparateRealImag>>, kind=irregular at n=2, m=1
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.0           0.0          0.0
+ -0.00571942   -0.00571942   2.83059e-18
+  0.000162039   0.000162039  4.18873e-19
+  0.0           0.0          0.0
+ -0.00017242   -0.00017242   4.07687e-19
+ -0.00537508   -0.00537508   4.7435e-18
+  0.0           0.0          0.0
+  0.00017242    0.00017242   4.07687e-19
+  0.00537508    0.00537508   4.7435e-18
+  0.0           0.0          0.0
+ -0.00571942   -0.00571942   2.83059e-18
+  0.000162039   0.000162039  4.18873e-19
+  0.0           0.0          0.0
+ -0.000976426  -2.45164e-05  0.00095191
+ -0.000429757   0.00456252   0.00499228
+  0.0           0.0          0.0
+  0.000109625  -0.00116383   0.00127345
+ -0.00382785   -9.61109e-05  0.00373174
+  0.0           0.0          0.0
+  0.000540795  -0.00574135   0.00628214
+ -0.00452686   -0.000113662  0.0044132
+  0.0           0.0          0.0
+  0.00481686    0.000120943  0.00469592
+  0.000508236  -0.00539569   0.00590392
+
+Zygote(N_mn_wave_SeparateRealImag, kind=regular)
+  0.003911 seconds (11.03 k allocations: 507.016 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=regular)
+  0.002480 seconds (10.27 k allocations: 518.094 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=regular)
+  0.001644 seconds (7.41 k allocations: 497.531 KiB)
+relative error between Zygote and manual_numerical_diff is high, relative_error=1.47196226004739391203151429520661269051968168440733366515803699121843901264964 at <<N_mn_wave_SeparateRealImag>>, kind=regular at n=2, m=1
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.000535054   0.000441602  -0.211621
+ -0.0200304    -0.019883     -0.0074112
+  0.00940428    0.00942835    0.0025528
+ -0.000994259  -0.000979913  -0.0146392
+ -0.00883809   -0.00886071    0.0025528
+ -0.0213136    -0.0211568    -0.0074112
+  0.000994259   0.000979913  -0.0146392
+  0.00883809    0.00886071    0.0025528
+  0.0213136     0.0211568    -0.0074112
+  0.000535054   0.000441602  -0.211621
+ -0.0200304    -0.019883     -0.0074112
+  0.00940428    0.00942835    0.0025528
+ -0.00285662    0.00605265    1.47196
+ -0.0107585    -0.00824731   -0.304485
+ -0.00313583   -0.00307003   -0.0214314
+  0.00352548    0.00261037   -0.350566
+  0.0122933     0.0120353    -0.0214314
+ -0.00274433   -0.00210376   -0.304485
+ -0.000745275  -0.000551824  -0.350566
+  0.0145382     0.0142331    -0.0214314
+ -0.0135382    -0.0103782    -0.304485
+ -0.00060388    0.00127951    1.47196
+  0.0127231     0.00975336   -0.304485
+  0.0154695     0.0151449    -0.0214314
+
+Zygote(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.004818 seconds (13.78 k allocations: 662.031 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.003468 seconds (15.67 k allocations: 778.219 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.001739 seconds (8.75 k allocations: 577.781 KiB)
+relative error between Zygote and manual_numerical_diff is high, relative_error=10.73945547503834579798186683469107302326304638119017119521146839788079130793077 at <<N_mn_wave_SeparateRealImag>>, kind=irregular at n=2, m=1
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  9.77869e-06  -1.0195e-05     1.95917
+ -0.0053657    -0.00533421    -0.0059043
+  0.000193565   0.000173386   -0.116381
+  0.000354631   0.000342605   -0.0351038
+ -0.000181911  -0.000162947   -0.116381
+ -0.00570944   -0.00567593    -0.0059043
+ -0.000354631  -0.000342605   -0.0351038
+  0.000181911   0.000162947   -0.116381
+  0.00570944    0.00567593    -0.0059043
+  9.77869e-06  -1.0195e-05     1.95917
+ -0.0053657    -0.00533421    -0.0059043
+  0.000193565   0.000173386   -0.116381
+ -0.000219824   0.00161297     1.13629
+ -0.000606894  -9.0299e-05    -5.72094
+  0.00124386    0.00115526    -0.0766947
+ -0.00134707   -0.000114747  -10.7395
+ -0.00487627   -0.00452892    -0.0766947
+ -0.000154809  -2.30339e-05   -5.72094
+  0.000284765   2.42571e-05  -10.7395
+ -0.00576673   -0.00535595    -0.0766947
+ -0.000763698  -0.00011363    -5.72094
+ -4.64701e-05   0.000340976    1.13629
+  0.000717719   0.000106789   -5.72094
+ -0.00613616   -0.00569907    -0.0766947
+
+Zygote(M_mn_wave_SeparateRealImag, kind=regular)
+  0.002222 seconds (5.21 k allocations: 214.422 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=regular)
+  0.000992 seconds (4.09 k allocations: 205.188 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=regular)
+  0.000712 seconds (4.00 k allocations: 249.281 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.03083600574656108594020893290475483408628705041594022013109599971324928453135596 at <<M_mn_wave_SeparateRealImag>>, kind=regular at n=2, m=2
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.0          0.0         0.0
+ -0.00246516  -0.00246516  1.07024e-18
+  0.00268236   0.00268236  4.48055e-19
+  0.0          0.0         0.0
+ -0.00273692  -0.00273692  3.35955e-20
+ -0.00241602  -0.00241602  2.65255e-19
+  0.0          0.0         0.0
+  0.00273692   0.00273692  3.35955e-20
+  0.00241602   0.00241602  2.65255e-19
+  0.0          0.0         0.0
+ -0.00246516  -0.00246516  1.07024e-18
+  0.00268236   0.00268236  4.48055e-19
+  0.0          0.0         0.0
+  0.00828297   0.016078    0.00779505
+ -0.0129903    0.0159892   0.0289795
+  0.0          0.0         0.0
+  0.0138224   -0.0170136   0.030836
+  0.00778429   0.01511     0.00732574
+  0.0          0.0         0.0
+ -0.0056039    0.00689764  0.0125015
+ -0.00329114  -0.00638842  0.00309727
+  0.0          0.0         0.0
+  0.00335808   0.00651835  0.00316027
+ -0.00549219   0.00676015  0.0122523
+
+Zygote(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.002438 seconds (5.56 k allocations: 232.719 KiB)
+manual_numerical_diff(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.001441 seconds (6.07 k allocations: 298.562 KiB)
+FiniteDifference(M_mn_wave_SeparateRealImag, kind=irregular)
+  0.000818 seconds (4.43 k allocations: 266.531 KiB)
+error between Zygote and manual_numerical_diff is high, error=0.006342683741347661592135657490609343249052081504269770921505061147613196288259525 at <<M_mn_wave_SeparateRealImag>>, kind=irregular at n=2, m=2
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  0.0           0.0          0.0
+  0.00109727    0.00109727   2.2488e-19
+ -0.000368516  -0.000368516  8.68199e-19
+  0.0           0.0          0.0
+  0.000376012   0.000376012  2.01387e-19
+  0.0010754     0.0010754    1.82541e-19
+  0.0           0.0          0.0
+ -0.000376012  -0.000376012  2.01387e-19
+ -0.0010754    -0.0010754    1.82541e-19
+  0.0           0.0          0.0
+  0.00109727    0.00109727   2.2488e-19
+ -0.000368516  -0.000368516  8.68199e-19
+  0.0           0.0          0.0
+ -0.00476154    0.00158114   0.00634268
+  0.000852243   0.00518829   0.00433604
+  0.0           0.0          0.0
+ -0.000906839  -0.00552066   0.00461382
+ -0.00447487    0.00148595   0.00596082
+  0.0           0.0          0.0
+  0.000367651   0.00223819   0.00187054
+  0.00189194   -0.000628249  0.00252019
+  0.0           0.0          0.0
+ -0.00193042    0.000641027  0.00257145
+  0.000360322   0.00219357   0.00183325
+
+Zygote(N_mn_wave_SeparateRealImag, kind=regular)
+  0.003673 seconds (11.00 k allocations: 506.312 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=regular)
+  0.002017 seconds (9.32 k allocations: 476.094 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=regular)
+  0.001309 seconds (7.41 k allocations: 497.531 KiB)
+relative error between Zygote and manual_numerical_diff is high, relative_error=1.752536875149032018395621980058573440730827462337827050852242127400924201285444 at <<N_mn_wave_SeparateRealImag>>, kind=regular at n=2, m=2
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+ -8.15888e-05  -7.21103e-05  -0.131444
+  0.0034931     0.00346192   -0.0090044
+ -0.00309798   -0.00309325   -0.00152973
+  8.0246e-05    8.16561e-05   0.0172689
+  0.00303623    0.00303159   -0.00152973
+  0.00356414    0.00353233   -0.0090044
+ -8.0246e-05   -8.16561e-05   0.0172689
+ -0.00303623   -0.00303159   -0.00152973
+ -0.00356414   -0.00353233   -0.0090044
+ -8.15888e-05  -7.21103e-05  -0.131444
+  0.0034931     0.00346192   -0.0090044
+ -0.00309798   -0.00309325   -0.00152973
+  0.000797152  -0.00105929    1.75254
+ -0.0164512    -0.0135239    -0.216451
+ -0.0107778    -0.0114016     0.0547088
+ -0.000533529  -0.000905298   0.410659
+  0.0101289     0.0107151     0.0547088
+ -0.0175051    -0.0143903    -0.216451
+  0.000108152   0.000183513   0.410659
+ -0.00428243   -0.00453028    0.0547088
+  0.00709691    0.00583412   -0.216451
+  0.000161591  -0.000214728   1.75254
+ -0.00695545   -0.00571782   -0.216451
+ -0.00436953   -0.00462242    0.0547088
+
+Zygote(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.004570 seconds (13.75 k allocations: 661.328 KiB)
+manual_numerical_diff(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.003310 seconds (14.72 k allocations: 736.219 KiB)
+FiniteDifference(N_mn_wave_SeparateRealImag, kind=irregular)
+  0.001643 seconds (8.75 k allocations: 577.781 KiB)
+relative error between Zygote and manual_numerical_diff is high, relative_error=4.68312499337154281755009027403960258591531632667677294979055914899665048118629 at <<N_mn_wave_SeparateRealImag>>, kind=irregular at n=2, m=2
+here is [Zygote, manual_numerical_diff, abs(Zygote-manual_numerical_diff)]:
+24×3 Matrix{BigFloat}:
+  9.67523e-06   1.1249e-05    0.139904
+  0.00107227    0.00106709   -0.00485039
+ -0.000379509  -0.000373593  -0.0158335
+ -3.46312e-05  -3.28684e-05  -0.0536316
+  0.000371944   0.000366146  -0.0158335
+  0.00109407    0.00108879   -0.00485039
+  3.46312e-05   3.28684e-05  -0.0536316
+ -0.000371944  -0.000366146  -0.0158335
+ -0.00109407   -0.00108879   -0.00485039
+  9.67523e-06   1.1249e-05    0.139904
+  0.00107227    0.00106709   -0.00485039
+ -0.000379509  -0.000373593  -0.0158335
+ -3.97594e-05  -0.000332915   0.880572
+  0.00101852    0.00148077    0.31217
+  0.00608779    0.00547811   -0.111293
+  0.00028578   -7.75916e-05   4.68312
+ -0.00572127   -0.0051483    -0.111293
+  0.00108377    0.00157564    0.31217
+ -5.79304e-05   1.57286e-05   4.68312
+  0.00241891    0.00217667   -0.111293
+ -0.000439382  -0.000638795   0.31217
+ -8.05962e-06  -6.74853e-05   0.880572
+  0.000430624   0.000626061   0.31217
+  0.00246811    0.00222094   -0.111293
+

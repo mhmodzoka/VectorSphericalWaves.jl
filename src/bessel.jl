@@ -89,6 +89,15 @@ function spherical_Bessel_j_n_ELZOUKA(n::Int, x::NN) where NN <: Number
 end
 
 
+ChainRulesCore.@scalar_rule(
+    spherical_Bessel_j_n_ELZOUKA(n::Integer, x::Real),
+    (
+        ChainRulesCore.ZeroTangent(),        
+        (spherical_Bessel_j_n_ELZOUKA(n - 1, x) - spherical_Bessel_j_n_ELZOUKA(n + 1, x)) / 2,
+    )
+)
+
+
 # yₙ, spherical Bessel of the second kind =======================================
 """
     Spherical Bessel function of the second kind, at n=0
@@ -120,3 +129,12 @@ function spherical_Bessel_y_n_ELZOUKA(n::Int, x::NN) where NN <: Number
         return spherical_Bessel_n_ELZOUKA(n, x, bessel_0, bessel_1)
     end
 end
+
+
+ChainRulesCore.@scalar_rule(
+    spherical_Bessel_y_n_ELZOUKA(n::Integer, x::Real),
+    (
+        ChainRulesCore.ZeroTangent(),        
+        (spherical_Bessel_y_n_ELZOUKA(n - 1, x) - spherical_Bessel_y_n_ELZOUKA(n + 1, x)) / 2,
+    )
+)
