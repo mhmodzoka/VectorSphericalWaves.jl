@@ -1,3 +1,5 @@
+# If you follow the equations in the PDF in the /doc directory, you will see all functions here straightforward.
+
 # TODO: I cound that "utils.jl" has been `include`ed in the main `VectorSphericalWaves` module. Is there a more neat way? when I `include("utils.jl")` here, I get lots of warnings.
 
 using StaticArrays
@@ -191,6 +193,9 @@ function get_radial_function_and_special_derivative_given_kind_SeparateRealImag(
     return radial_function, radial_function_special_derivative
 end
 
+"""Calculate vector spherical wave M
+This version takes kr_r and kr_i as inputs (i.e., wavevector multiplied by r)
+"""
 function M_mn_wave_SeparateRealImag(m::I, n::I, kr_r::R, kr_i::R, θ::R, ϕ::R, kind="regular") where {R <: Real, I <: Integer}
     radial_function, _ = get_radial_function_and_special_derivative_given_kind_SeparateRealImag(kind)    
     gamma_by_radial = convert(R, Zygote.dropgrad(γ_mn(m, n))) .* radial_function(Zygote.dropgrad(n), kr_r, kr_i)
@@ -199,6 +204,9 @@ function M_mn_wave_SeparateRealImag(m::I, n::I, kr_r::R, kr_i::R, θ::R, ϕ::R, 
     # TODO: write this in a more elegant way: vcat(gamma_by_radial, gamma_by_radial, gamma_by_radial)
 end
 
+"""Calculate vector spherical wave M
+This version takes k_r, k_i and r as inputs.
+"""
 function M_mn_wave_SeparateRealImag(m::I, n::I, k_r::R, k_i::R, r::R, θ::R, ϕ::R, kind="regular") where {R <: Real, I <: Integer}
     return M_mn_wave_SeparateRealImag(m, n, k_r*r, k_i*r, θ, ϕ, kind)
 end

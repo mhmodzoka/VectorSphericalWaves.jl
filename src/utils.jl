@@ -342,11 +342,9 @@ function γ_mn_dash(m::I, n::I) where {I <: Integer}
     ) # equation C.25
 end
 
+"""return the radial function that is appropriate with the type of VSWF
+"""
 function get_radial_function_and_special_derivative_given_kind(kind)
-    """
-    return the radial function that is appropriate with the type of VSWF
-    """
-
     if kind in ["regular", "incoming", 1]
         radial_function = spherical_Bessel_j_n
         radial_function_special_derivative = one_over_x_by_∂_x_j_n_by_∂x
